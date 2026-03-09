@@ -1,8 +1,8 @@
-export async function login({ identifier, password }) {
+export async function login({ identifier, password, loginType = 'user' }) {
   const response = await fetch('/api/auth/login', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ identifier, password }),
+    body: JSON.stringify({ identifier, password, loginType }),
   });
 
   const payload = await response.json();

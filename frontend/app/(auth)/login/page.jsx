@@ -8,6 +8,7 @@ import { login } from '../../../services/authApi';
 
 export default function LoginPage() {
   const router = useRouter();
+  const [loginType, setLoginType] = useState('user');
   const [identifier, setIdentifier] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -24,7 +25,7 @@ export default function LoginPage() {
 
     setIsLoading(true);
     try {
-      await login({ identifier, password });
+      await login({ identifier, password, loginType });
       router.push('/jobs');
     } catch (err) {
       setError(err?.message || 'Dang nhap that bai. Vui long thu lai.');
@@ -56,6 +57,23 @@ export default function LoginPage() {
         <h2 className={styles.cardTitle}>Chao mung tro quay lai</h2>
         <p className={styles.cardSubtitle}>Dang nhap vao tai khoan Smart Guard cua ban</p>
 
+        <div className={styles.tabSwitch}>
+          <button
+            type="button"
+            className={loginType === 'user' ? styles.tabButtonActive : styles.tabButton}
+            onClick={() => setLoginType('user')}
+          >
+            Nguoi dung
+          </button>
+          <button
+            type="button"
+            className={loginType === 'admin' ? styles.tabButtonActive : styles.tabButton}
+            onClick={() => setLoginType('admin')}
+          >
+            Admin
+          </button>
+        </div>
+
         <form onSubmit={handleSubmit}>
           <div className={styles.formFields}>
             <div className={styles.formGroup}>
@@ -64,7 +82,7 @@ export default function LoginPage() {
                 type="text"
                 id="identifier"
                 className={styles.input}
-                placeholder="tenban@congty.com"
+                placeholder={loginType === 'admin' ? 'admin@gmail.com' : 'tenban@congty.com'}
                 value={identifier}
                 onChange={(event) => setIdentifier(event.target.value)}
                 autoComplete="username"
@@ -92,9 +110,11 @@ export default function LoginPage() {
           </button>
         </form>
 
-        <Link href="/register" className={styles.footerLink}>
-          Chua co tai khoan? <span>Dang ky</span>
-        </Link>
+        {loginType === 'user' ? (
+          <Link href="/register" className={styles.footerLink}>
+            Chua co tai khoan? <span>Dang ky</span>
+          </Link>
+        ) : null}
       </div>
 
       <div className={styles.pageFooter}>© 2026 Long Hai Security Company</div>

@@ -23,6 +23,31 @@
       "phone": "0973035573",
       "passwordHash": "$2a$10$MyLTtrykRxvzQ4TDv9tRMOm79Hlgykj7/OtLAUjAf/6iLs63FojnC",
       "createdAt": "2026-03-09T04:15:52.880Z"
+    },
+    {
+      "id": "c8966fcc-20b3-45a9-aacb-09fe57fb1dc3",
+      "fullName": "hainam",
+      "email": "",
+      "phone": "0982139043",
+      "passwordHash": "$2a$10$e8YqS.BcL7t7TuCsXmC4lutxf6Mi/BzPfsaWyyiE5nc5Tu5BEaezK",
+      "createdAt": "2026-03-09T07:56:37.609Z"
+    },
+    {
+      "id": "9cf8e9d8-cf40-498d-a741-24b20cb86e2b",
+      "fullName": "minh",
+      "email": "",
+      "phone": "0886118623",
+      "passwordHash": "$2a$10$HnUavwo8q5NmyC.t3BKMbuZPHSiV5V0C6maUZtPRNJBgkwwzCGCMC",
+      "createdAt": "2026-03-09T08:04:51.011Z"
+    },
+    {
+      "id": "0a49d31f-10c0-4c85-9abe-8d853d2b4f39",
+      "fullName": "Admin",
+      "email": "admin@gmail.com",
+      "phone": "0900000000",
+      "role": "ADMIN",
+      "passwordHash": "$2a$10$TyFuPXfbdangLDnKgBRFqOMR11irVK5fbTNdRSWgOamTn2mo3bWm.",
+      "createdAt": "2026-03-09T08:11:03.476Z"
     }
   ],
   "jobs": [
@@ -136,6 +161,246 @@
         {
           "label": "THOI GIAN",
           "value": "8h hoac 12h"
+        },
+        {
+          "label": "NGAY NGHI",
+          "value": "4 Ngay / Thang"
+        },
+        {
+          "label": "HINH THUC",
+          "value": "Toan thoi gian"
+        }
+      ]
+    },
+    {
+      "id": "bao-ve-toa-nha-van-phong",
+      "title": "Bao ve toa nha van phong",
+      "location": "Nam Dinh",
+      "salary": "9.200.000 VND / thang",
+      "badge": "",
+      "company": "LONG HAI SECURITY",
+      "address": "Khu trung tam hanh chinh, Nam Dinh, Viet Nam",
+      "description": "Kiem soat ra vao, huong dan khach va tuan tra cac tang de dam bao an ninh toa nha.",
+      "requirements": [
+        "Tot nghiep THPT tro len.",
+        "Ky nang giao tiep lich su voi khach va cu dan.",
+        "Co the lam viec theo ca linh hoat."
+      ],
+      "experience": "1 Nam",
+      "candidates": "17 Ung vien",
+      "summary": {
+        "place": "Nam Dinh",
+        "mode": "Toan thoi gian",
+        "postedAt": "1 ngay truoc"
+      },
+      "schedule": [
+        {
+          "label": "LUONG PHIEN",
+          "value": "Lam theo ca"
+        },
+        {
+          "label": "THOI GIAN",
+          "value": "8h hoac 12h"
+        },
+        {
+          "label": "NGAY NGHI",
+          "value": "4 Ngay / Thang"
+        },
+        {
+          "label": "HINH THUC",
+          "value": "Toan thoi gian"
+        }
+      ]
+    },
+    {
+      "id": "bao-ve-ngan-hang",
+      "title": "Bao ve ngan hang",
+      "location": "Quan Binh Tan, TP. Ho Chi Minh",
+      "salary": "11.000.000 VND / thang",
+      "badge": "HOT",
+      "company": "LONG HAI SECURITY",
+      "address": "Chi nhanh Binh Tan, TP. Ho Chi Minh, Viet Nam",
+      "description": "Dam bao an ninh tai chi nhanh ngan hang, giam sat khu vuc ATM va bao ve tai san.",
+      "requirements": [
+        "Tac phong nghiem tuc, ky luat cao.",
+        "Khong co tien an tien su.",
+        "Uu tien ung vien co kinh nghiem bao ve muc tieu co gia tri cao."
+      ],
+      "experience": "2 Nam",
+      "candidates": "31 Ung vien",
+      "summary": {
+        "place": "TP. Ho Chi Minh",
+        "mode": "Toan thoi gian",
+        "postedAt": "Hom nay"
+      },
+      "schedule": [
+        {
+          "label": "LUONG PHIEN",
+          "value": "Lam theo ca"
+        },
+        {
+          "label": "THOI GIAN",
+          "value": "8h"
+        },
+        {
+          "label": "NGAY NGHI",
+          "value": "4 Ngay / Thang"
+        },
+        {
+          "label": "HINH THUC",
+          "value": "Toan thoi gian"
+        }
+      ]
+    },
+    {
+      "id": "bao-ve-khu-dan-cu",
+      "title": "Bao ve khu dan cu",
+      "location": "Hai Phong",
+      "salary": "9.800.000 VND / thang",
+      "badge": "",
+      "company": "LONG HAI SECURITY",
+      "address": "Khu do thi moi, Hai Phong, Viet Nam",
+      "description": "Tuan tra khu dan cu, kiem soat cong ra vao va ho tro cu dan giu gin an ninh.",
+      "requirements": [
+        "Suc khoe tot, co the di tuan tra lien tuc.",
+        "Ky nang xu ly tinh huong nhanh va binh tinh.",
+        "Than thien, lich su khi tiep xuc cu dan."
+      ],
+      "experience": "1 Nam",
+      "candidates": "12 Ung vien",
+      "summary": {
+        "place": "Hai Phong",
+        "mode": "Toan thoi gian",
+        "postedAt": "3 ngay truoc"
+      },
+      "schedule": [
+        {
+          "label": "LUONG PHIEN",
+          "value": "Lam theo ca"
+        },
+        {
+          "label": "THOI GIAN",
+          "value": "12h"
+        },
+        {
+          "label": "NGAY NGHI",
+          "value": "4 Ngay / Thang"
+        },
+        {
+          "label": "HINH THUC",
+          "value": "Toan thoi gian"
+        }
+      ]
+    },
+    {
+      "id": "bao-ve-trung-tam-thuong-mai",
+      "title": "Nhan vien bao ve trung tam thuong mai",
+      "location": "Quan 7, TP. Ho Chi Minh",
+      "salary": "10.200.000 VND / thang",
+      "badge": "",
+      "company": "LONG HAI SECURITY",
+      "address": "Trung tam thuong mai Quan 7, TP. Ho Chi Minh, Viet Nam",
+      "description": "Giam sat khu vuc mua sam, ho tro khach hang va dam bao an ninh trat tu trong trung tam thuong mai.",
+      "requirements": [
+        "Ky nang giao tiep lich su va ro rang.",
+        "Co the di tuan tra theo ca.",
+        "Tinh than trach nhiem cao va phoi hop tot voi doi nhom."
+      ],
+      "experience": "1 Nam",
+      "candidates": "14 Ung vien",
+      "summary": {
+        "place": "TP. Ho Chi Minh",
+        "mode": "Toan thoi gian",
+        "postedAt": "Hom nay"
+      },
+      "schedule": [
+        {
+          "label": "LUONG PHIEN",
+          "value": "Lam theo ca"
+        },
+        {
+          "label": "THOI GIAN",
+          "value": "8h hoac 12h"
+        },
+        {
+          "label": "NGAY NGHI",
+          "value": "4 Ngay / Thang"
+        },
+        {
+          "label": "HINH THUC",
+          "value": "Toan thoi gian"
+        }
+      ]
+    },
+    {
+      "id": "bao-ve-nha-may-san-xuat",
+      "title": "Bao ve nha may san xuat",
+      "location": "Binh Duong",
+      "salary": "9.500.000 VND / thang",
+      "badge": "",
+      "company": "LONG HAI SECURITY",
+      "address": "KCN VSIP, Binh Duong, Viet Nam",
+      "description": "Kiem soat nguoi va phuong tien ra vao nha may, tuan tra khu vuc san xuat va kho hang.",
+      "requirements": [
+        "Suc khoe tot, dam bao truc ca lien tuc.",
+        "Ky nang ghi nhan su kien va lap bien ban co ban.",
+        "Uu tien ung vien tung lam viec tai nha may/kho."
+      ],
+      "experience": "1-2 Nam",
+      "candidates": "19 Ung vien",
+      "summary": {
+        "place": "Binh Duong",
+        "mode": "Toan thoi gian",
+        "postedAt": "1 ngay truoc"
+      },
+      "schedule": [
+        {
+          "label": "LUONG PHIEN",
+          "value": "Lam theo ca"
+        },
+        {
+          "label": "THOI GIAN",
+          "value": "12h"
+        },
+        {
+          "label": "NGAY NGHI",
+          "value": "4 Ngay / Thang"
+        },
+        {
+          "label": "HINH THUC",
+          "value": "Toan thoi gian"
+        }
+      ]
+    },
+    {
+      "id": "bao-ve-bai-giu-xe",
+      "title": "Nhan vien bao ve bai giu xe",
+      "location": "Da Nang",
+      "salary": "8.700.000 VND / thang",
+      "badge": "",
+      "company": "LONG HAI SECURITY",
+      "address": "Trung tam dich vu, Da Nang, Viet Nam",
+      "description": "Quan ly bai giu xe, huong dan khach gui xe va dam bao an toan phuong tien.",
+      "requirements": [
+        "Than thien, huong dan khach ro rang.",
+        "Can than trong viec sap xep va quan ly the xe.",
+        "San sang lam ca toi/cuoi tuan."
+      ],
+      "experience": "Khong yeu cau",
+      "candidates": "11 Ung vien",
+      "summary": {
+        "place": "Da Nang",
+        "mode": "Toan thoi gian",
+        "postedAt": "2 ngay truoc"
+      },
+      "schedule": [
+        {
+          "label": "LUONG PHIEN",
+          "value": "Lam theo ca"
+        },
+        {
+          "label": "THOI GIAN",
+          "value": "8h"
         },
         {
           "label": "NGAY NGHI",

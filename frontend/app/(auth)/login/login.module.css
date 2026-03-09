@@ -59,6 +59,35 @@
   margin: 0;
 }
 
+.tabSwitch {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.tabButton {
+  height: 36px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background: #fff;
+  color: #374151;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.tabButtonActive {
+  height: 36px;
+  border: 1px solid #111827;
+  border-radius: 8px;
+  background: #111827;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
 .formFields {
   display: flex;
   flex-direction: column;

@@ -29,9 +29,12 @@ export async function POST(request) {
     }
 
     const db = await getDb();
-    const exists = db.data.users.find(
-      (user) => user.email === email || (phone && user.phone === phone)
-    );
+    const exists = db.data.users.find((user) => {
+      if (registerType === 'email') {
+        return user.email === email;
+      }
+      return user.phone === phone;
+    });
 
     if (exists) {
       return NextResponse.json({ message: 'Email hoac so dien thoai da ton tai.' }, { status: 409 });

@@ -5,6 +5,7 @@ import { getDb } from '../../../../lib/db/database';
 export async function POST(request) {
   try {
     const body = await request.json();
+    const loginType = body.loginType === 'admin' ? 'admin' : 'user';
     const identifier = (body.identifier || '').trim().toLowerCase();
     const password = (body.password || '').trim();
 
@@ -13,6 +14,23 @@ export async function POST(request) {
         { message: 'Thong tin dang nhap khong hop le.' },
         { status: 400 }
       );
+    }
+
+    if (loginType === 'admin') {
+      if (identifier !== 'admin@gmail.com' || password !== 'admin') {
+        return NextResponse.json({ message: 'Sai thong tin dang nhap admin.' }, { status: 401 });
+      }
+
+      return NextResponse.json({
+        token: 'admin-internal-token',
+        user: {
+          id: 'admin-internal',
+          name: 'Admin',
+          email: 'admin@gmail.com',
+          phone: '',
+          role: 'ADMIN',
+        },
+      });
     }
 
     const db = await getDb();
@@ -34,6 +52,7 @@ export async function POST(request) {
         name: user.fullName,
         email: user.email,
         phone: user.phone,
+        role: user.role || 'USER',
       },
     });
   } catch (error) {
