@@ -12,6 +12,8 @@ const __dirname = dirname(__filename);
 const dbFile = join(__dirname, '../../data/db.json');
 const adapter = new JSONFile(dbFile);
 const db = new Low(adapter, { users: [], jobs: [], applications: [] });
+const ADMIN_EMAIL = 'admin@gmail.com';
+const ADMIN_PASSWORD = 'admin12345';
 
 let initialized = false;
 
@@ -47,17 +49,20 @@ export async function getDb() {
 
   db.data.jobs = mergeSeedJobs(db.data.jobs);
 
-  const adminExists = db.data.users.some((user) => user.email === 'admin@gmail.com');
-  if (!adminExists) {
+  const adminUser = db.data.users.find((user) => user.email === ADMIN_EMAIL);
+  if (!adminUser) {
     db.data.users.push({
       id: randomUUID(),
       fullName: 'Admin',
-      email: 'admin@gmail.com',
+      email: ADMIN_EMAIL,
       phone: '0900000000',
       role: 'ADMIN',
-      passwordHash: bcrypt.hashSync('admin', 10),
+      passwordHash: bcrypt.hashSync(ADMIN_PASSWORD, 10),
       createdAt: new Date().toISOString(),
     });
+  } else if (!bcrypt.compareSync(ADMIN_PASSWORD, adminUser.passwordHash)) {
+    adminUser.passwordHash = bcrypt.hashSync(ADMIN_PASSWORD, 10);
+    adminUser.role = 'ADMIN';
   }
 
   await db.write();

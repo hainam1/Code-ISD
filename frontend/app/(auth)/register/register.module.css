@@ -68,22 +68,22 @@
   gap: 8px;
 }
 
-.typeButton,
-.typeButtonActive {
-  height: 34px;
+.typeButton {
+  height: 36px;
   border-radius: 8px;
   border: 1px solid #e5e7eb;
   background: #ffffff;
-  color: #4b5563;
-  font-size: 12px;
+  color: #374151;
+  font-size: 13px;
   font-weight: 500;
   cursor: pointer;
 }
 
-.typeButtonActive {
-  border-color: #111111;
-  color: #111111;
-  background: #f9fafb;
+.typeButtonSelected {
+  border-color: #111827;
+  color: #ffffff;
+  background: #111827;
+  font-weight: 600;
 }
 
 .input {

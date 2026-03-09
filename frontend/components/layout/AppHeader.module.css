@@ -6,8 +6,8 @@
 .inner {
   margin: 0 auto;
   max-width: 1200px;
-  min-height: 56px;
-  padding: 0 16px;
+  min-height: 64px;
+  padding: 0 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -17,29 +17,38 @@
   color: #111827;
   text-decoration: none;
   font-weight: 700;
-  font-size: 14px;
+  font-size: 16px;
+  letter-spacing: -0.01em;
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
 }
 
-.brandDot {
-  font-size: 11px;
+.brandIcon {
+  width: 18px;
+  height: 18px;
+  color: #111827;
+}
+
+.brandIcon svg {
+  width: 100%;
+  height: 100%;
 }
 
 .actions {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
 }
 
-.ghostButton,
-.tabButton {
+.iconButton,
+.menuButton,
+.logoutButton {
   border: 1px solid #e5e7eb;
-  border-radius: 6px;
-  height: 28px;
-  padding: 0 10px;
-  font-size: 11px;
+  border-radius: 8px;
+  height: 34px;
+  padding: 0 12px;
+  font-size: 14px;
   font-weight: 600;
   background: #ffffff;
   color: #111827;
@@ -49,7 +58,44 @@
   justify-content: center;
 }
 
-.ghostButton {
-  min-width: 28px;
-  padding: 0 6px;
+.iconButton {
+  width: 34px;
+  padding: 0;
+}
+
+.iconButton svg {
+  width: 16px;
+  height: 16px;
+}
+
+.menuButton {
+  border-color: transparent;
+}
+
+.menuButton:hover {
+  border-color: #e5e7eb;
+}
+
+.logoutButton {
+  gap: 6px;
+}
+
+.logoutIcon {
+  width: 14px;
+  height: 14px;
+}
+
+.logoutIcon svg {
+  width: 100%;
+  height: 100%;
+}
+
+@media (max-width: 860px) {
+  .inner {
+    padding: 0 14px;
+  }
+
+  .menuButton {
+    display: none;
+  }
 }

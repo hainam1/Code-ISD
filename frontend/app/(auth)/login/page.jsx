@@ -1,10 +1,13 @@
-﻿'use client';
+'use client';
 
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import styles from './login.module.css';
 import { login } from '../../../services/authApi';
+
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const PHONE_REGEX = /^\d{10}$/;
 
 export default function LoginPage() {
   const router = useRouter();
@@ -19,16 +22,33 @@ export default function LoginPage() {
     setError('');
 
     if (!identifier.trim() || !password.trim()) {
-      setError('Vui long nhap day du email/so dien thoai va mat khau.');
+      setError('Vui long nhap day du Email hoac Password.');
+      return;
+    }
+
+    if (password.length <= 6) {
+      setError('email, so dien thoai, password, loai tai khoan chua chinh xac');
+      return;
+    }
+
+    const normalizedIdentifier = identifier.trim().toLowerCase();
+    const isEmailLogin = normalizedIdentifier.includes('@');
+    if (isEmailLogin && !EMAIL_REGEX.test(normalizedIdentifier)) {
+      setError('Email khong hop le (vi du: abc@gmail.com).');
+      return;
+    }
+    if (!isEmailLogin && !PHONE_REGEX.test(normalizedIdentifier)) {
+      setError('email, so dien thoai, password, loai tai khoan chua chinh xac');
       return;
     }
 
     setIsLoading(true);
     try {
-      await login({ identifier, password, loginType });
-      router.push('/jobs');
+      const response = await login({ identifier: normalizedIdentifier, password, loginType });
+      alert(response?.message || 'Login successful');
+      router.push('/dashboard');
     } catch (err) {
-      setError(err?.message || 'Dang nhap that bai. Vui long thu lai.');
+      setError(err?.message || 'email, so dien thoai, password, loai tai khoan chua chinh xac');
     } finally {
       setIsLoading(false);
     }
@@ -82,7 +102,7 @@ export default function LoginPage() {
                 type="text"
                 id="identifier"
                 className={styles.input}
-                placeholder={loginType === 'admin' ? 'admin@gmail.com' : 'tenban@congty.com'}
+                placeholder={loginType === 'admin' ? 'admin@gmail.com' : 'abc@gmail.com hoac 0123456789'}
                 value={identifier}
                 onChange={(event) => setIdentifier(event.target.value)}
                 autoComplete="username"
@@ -110,11 +130,9 @@ export default function LoginPage() {
           </button>
         </form>
 
-        {loginType === 'user' ? (
-          <Link href="/register" className={styles.footerLink}>
-            Chua co tai khoan? <span>Dang ky</span>
-          </Link>
-        ) : null}
+        <Link href="/register" className={styles.footerLink}>
+          Chua co tai khoan? <span>Dang ky</span>
+        </Link>
       </div>
 
       <div className={styles.pageFooter}>© 2026 Long Hai Security Company</div>

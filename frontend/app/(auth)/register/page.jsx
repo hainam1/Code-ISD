@@ -6,6 +6,9 @@ import { useRouter } from 'next/navigation';
 import { register } from '../../../services/authApi';
 import styles from './register.module.css';
 
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const PHONE_REGEX = /^\d{10}$/;
+
 export default function RegisterPage() {
   const router = useRouter();
   const [fullName, setFullName] = useState('');
@@ -21,7 +24,23 @@ export default function RegisterPage() {
     setError('');
 
     if (!fullName.trim() || !identifier.trim() || !password.trim()) {
-      setError('Vui long nhap day du thong tin bat buoc.');
+      setError('Vui long nhap day du thong tin.');
+      return;
+    }
+
+    const normalizedIdentifier = identifier.trim();
+    if (registerType === 'email' && !EMAIL_REGEX.test(normalizedIdentifier.toLowerCase())) {
+      setError('Email khong hop le (vi du: abc@gmail.com).');
+      return;
+    }
+
+    if (registerType === 'phone' && !PHONE_REGEX.test(normalizedIdentifier)) {
+      setError('So dien thoai khong hop le (10 chu so).');
+      return;
+    }
+
+    if (password.length <= 6) {
+      setError('Mat khau phai lon hon 6 ky tu.');
       return;
     }
 
@@ -32,10 +51,16 @@ export default function RegisterPage() {
 
     setIsLoading(true);
     try {
-      await register({ fullName, identifier, registerType, password });
+      const response = await register({
+        fullName,
+        identifier: registerType === 'email' ? normalizedIdentifier.toLowerCase() : normalizedIdentifier,
+        registerType,
+        password,
+      });
+      alert(response?.message || 'Registration successful');
       router.push('/login');
     } catch (err) {
-      setError(err?.message || 'Dang ky that bai.');
+      setError(err?.message || 'Dang ky that bai. Vui long nhap lai thong tin.');
     } finally {
       setIsLoading(false);
     }
@@ -63,20 +88,23 @@ export default function RegisterPage() {
                 placeholder="Nguyen Van A"
               />
             </label>
+
             <label className={styles.label}>
               Email hoac so dien thoai *
               <div className={styles.typeSwitch}>
                 <button
                   type="button"
-                  className={registerType === 'email' ? styles.typeButtonActive : styles.typeButton}
+                  className={`${styles.typeButton} ${registerType === 'email' ? styles.typeButtonSelected : ''}`}
                   onClick={() => setRegisterType('email')}
+                  aria-pressed={registerType === 'email'}
                 >
                   Gmail
                 </button>
                 <button
                   type="button"
-                  className={registerType === 'phone' ? styles.typeButtonActive : styles.typeButton}
+                  className={`${styles.typeButton} ${registerType === 'phone' ? styles.typeButtonSelected : ''}`}
                   onClick={() => setRegisterType('phone')}
+                  aria-pressed={registerType === 'phone'}
                 >
                   So dien thoai
                 </button>
@@ -85,9 +113,10 @@ export default function RegisterPage() {
                 className={styles.input}
                 value={identifier}
                 onChange={(event) => setIdentifier(event.target.value)}
-                placeholder={registerType === 'email' ? 'tenban@email.com' : '0123456789'}
+                placeholder={registerType === 'email' ? 'abc@gmail.com' : '0123456789'}
               />
             </label>
+
             <label className={styles.label}>
               Mat khau *
               <input
@@ -98,6 +127,7 @@ export default function RegisterPage() {
                 placeholder="********"
               />
             </label>
+
             <label className={styles.label}>
               Xac nhan mat khau *
               <input

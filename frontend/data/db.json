@@ -46,8 +46,26 @@
       "email": "admin@gmail.com",
       "phone": "0900000000",
       "role": "ADMIN",
-      "passwordHash": "$2a$10$TyFuPXfbdangLDnKgBRFqOMR11irVK5fbTNdRSWgOamTn2mo3bWm.",
+      "passwordHash": "$2a$10$A9ER0GXoNYGH5YBMW3dnHuGD8oQhalMVOXrFS1PtqjdfxUy60tlqe",
       "createdAt": "2026-03-09T08:11:03.476Z"
+    },
+    {
+      "id": "a5caedb5-2454-4860-af04-2c242107d8f0",
+      "fullName": "nguyen thanh minh",
+      "email": "minh@gmail.com",
+      "phone": "2121515454",
+      "role": "USER",
+      "passwordHash": "$2a$10$8.ZWKc0znIgQtlTF82rMnOE6u/HRQjYfBckZ7tjCSbj6D.iGS.lMy",
+      "createdAt": "2026-03-09T08:47:32.532Z"
+    },
+    {
+      "id": "f8c2e2e0-db51-4b0a-aeed-dd7c2e38d7d0",
+      "fullName": "minhhhhhhhh",
+      "email": "",
+      "phone": "9876543210",
+      "role": "USER",
+      "passwordHash": "$2a$10$a1cviEEBpsNikNI3m7889uq3WSm298AYzMTp9NHHz96f7V8OSwMka",
+      "createdAt": "2026-03-09T08:51:33.685Z"
     }
   ],
   "jobs": [

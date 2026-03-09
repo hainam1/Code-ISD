@@ -8,6 +8,9 @@
 }
 
 .modal {
+  --fs-content: 14px;
+  --fs-header-sm: 16px;
+  --fs-header-lg: 26px;
   width: 100%;
   max-width: 540px;
   background: #ffffff;
@@ -25,7 +28,9 @@
 
 .header h1 {
   margin: 0;
-  font-size: 22px;
+  font-size: var(--fs-header-lg);
+  font-weight: 800;
+  letter-spacing: -0.01em;
   color: #111827;
 }
 
@@ -39,7 +44,8 @@
 .sub {
   margin: 4px 0 14px;
   color: #6b7280;
-  font-size: 12px;
+  font-size: var(--fs-content);
+  font-weight: 500;
 }
 
 .form {
@@ -48,20 +54,51 @@
 }
 
 .form label {
-  font-size: 12px;
-  color: #374151;
+  font-size: var(--fs-header-sm);
+  font-weight: 700;
+  color: #111827;
   display: grid;
   gap: 6px;
 }
 
+.typeSwitch {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.typeButton {
+  height: 36px;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  background: #ffffff;
+  color: #374151;
+  font-size: var(--fs-content);
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.typeButtonSelected {
+  border-color: #111827;
+  color: #ffffff;
+  background: #111827;
+  font-weight: 600;
+}
+
 .form input,
+.form select,
 .form textarea {
   width: 100%;
   border: 1px solid #e5e7eb;
   border-radius: 8px;
   height: 38px;
   padding: 0 10px;
-  font-size: 13px;
+  font-size: var(--fs-content);
+}
+
+.form small {
+  color: #6b7280;
+  font-size: var(--fs-content);
 }
 
 .form textarea {
@@ -70,15 +107,56 @@
   resize: vertical;
 }
 
+.uploadGroup {
+  display: grid;
+  gap: 6px;
+}
+
+.uploadLabelRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #111827;
+  font-size: var(--fs-header-sm);
+  font-weight: 700;
+}
+
 .uploadBox {
+  position: relative;
   border: 1px dashed #cbd5e1;
   border-radius: 8px;
-  height: 72px;
-  display: grid;
-  place-items: center;
-  font-size: 12px;
-  color: #6b7280;
+  min-height: 92px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  font-size: var(--fs-content);
+  color: #4b5563;
   background: #f9fafb;
+  padding: 10px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.uploadBox input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.uploadBox strong {
+  font-size: var(--fs-header-sm);
+  font-weight: 700;
+  color: #374151;
+}
+
+.uploadBox em {
+  font-style: normal;
+  color: #111827;
+  font-size: var(--fs-content);
+  margin-top: 2px;
 }
 
 .submitButton {
@@ -86,7 +164,7 @@
   height: 38px;
   margin-top: 10px;
   border-radius: 8px;
-  font-size: 13px;
+  font-size: var(--fs-content);
   font-weight: 600;
   border: none;
   background: #111111;
@@ -101,7 +179,7 @@
 .error,
 .success {
   margin: 0;
-  font-size: 12px;
+  font-size: var(--fs-content);
 }
 
 .error {
