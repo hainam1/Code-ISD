@@ -22,23 +22,27 @@
 ## 3) Folder organization
 
 - `app/(auth)/*`: unauthenticated pages
-- `app/(jobs)/*`: recruitment browsing flow
-- `components/auth/*`: reusable auth UI parts
-- `components/jobs/*`: reusable job listing/detail UI parts
-- `components/application/*`: application UI pieces
-- `components/layout/*`: global app chrome (header/footer)
-- `features/jobs/*`: page-level composition for jobs screens
-- `features/application/*`: page-level composition for apply flow
-- `services/api/*`: API access layer
+- `app/(jobs)/*`: candidate-facing routes
+- `app/(admin)/*`: admin routes
+- `app/api/*`: temporary compatibility/server routes still present in the Next app
+- `features/*`: domain-level UI and client-side orchestration
+- `shared/components/*`: reusable UI shared across domains
+- `shared/utils/*`: formatting and cross-domain helpers
+- `lib/api/*`: shared HTTP client helpers for Express backend access
 - `lib/constants/*`: route/constants shared across features
-- `lib/utils/*`: formatting and helper functions
+- `lib/db/*`: legacy LowDB storage still used by some admin/notification flows
+- `lib/files/*`: file persistence helpers used by legacy Next routes
 
-## 4) Why this structure fits the design
+## 4) Current architecture direction
 
-- Separates `Auth` vs `Recruitment` domains to match the visual flows.
-- Keeps pages thin and pushes business/display composition into `features/*`.
-- Keeps reusable UI widgets in `components/*` so list/detail/modal can share style and behavior.
-- Gives a clean path for growth:
-  - add pagination/filter state in `features/jobs`
-  - add validation/upload handling in `features/application`
-  - replace mock APIs in `services/api`
+- Candidate auth, profile update, and application submission are being moved toward the Express backend as the primary business-logic layer.
+- `features/*` remains the main place for frontend orchestration and page composition.
+- `app/api/*` should shrink over time and become either thin proxies or disappear once all flows are served by Express.
+- The main cleanup still pending is removal of the remaining LowDB-backed admin/notification flows from the Next app.
+
+## 5) Database topology
+
+- MySQL in `backend/database/schema.sql` is the canonical transactional database for users, jobs, applications, interviews, and notifications.
+- Backend startup now runs tracked SQL migrations through `schema_migrations`; schema changes should go through backend migrations instead of relying on ad hoc `CREATE TABLE IF NOT EXISTS` behavior.
+- `frontend/lib/db/database.js` remains a legacy LowDB store used by some Next.js admin and notification routes. Treat it as transitional compatibility storage, not the source of truth for new data modeling decisions.
+- New domain fields, constraints, or indexes should be added to the backend MySQL schema first, then mirrored in any remaining legacy frontend storage only when strictly necessary.

@@ -1,0 +1,55 @@
+{
+  "version": 1,
+  "skills": {
+    "backend-dev-guidelines": {
+      "source": "sickn33/antigravity-awesome-skills",
+      "sourceType": "github",
+      "computedHash": "e117f164195c4a2b8252f2d60c6819b7de56be12b8dfa52db2dcce56cc260d5e"
+    },
+    "backend-patterns": {
+      "source": "affaan-m/everything-claude-code",
+      "sourceType": "github",
+      "computedHash": "4872c9e2d4b474620f350c5bc625f7d34fc4a4fa5cfa2ff90637ee8b3f4ca143"
+    },
+    "executing-plans": {
+      "source": "obra/superpowers",
+      "sourceType": "github",
+      "computedHash": "2f709d1a2c7564f8ce6a9bb707e7f5451117ba80f8e8e2302662c29bc61246a6"
+    },
+    "folder-structure-blueprint-generator": {
+      "source": "github/awesome-copilot",
+      "sourceType": "github",
+      "computedHash": "418d532c42d0714986e90466e087f6fd8c975e7dc8afddafd1f37558968b639b"
+    },
+    "frontend-code-review": {
+      "source": "langgenius/dify",
+      "sourceType": "github",
+      "computedHash": "affbe67082bd8329d044657752f998bdd4d388dd05ca6250f4f9af7d2b642586"
+    },
+    "frontend-design": {
+      "source": "pbakaus/impeccable",
+      "sourceType": "github",
+      "computedHash": "5773994279165697bfce414bc803d5c3f98d71b494f303adb1cec43711bf1547"
+    },
+    "nodejs-backend-patterns": {
+      "source": "wshobson/agents",
+      "sourceType": "github",
+      "computedHash": "3d6cbc12f720d8f02e1936c3e7fab78245eaa69500edbceea93d493d4ece6094"
+    },
+    "structured-autonomy-generate": {
+      "source": "github/awesome-copilot",
+      "sourceType": "github",
+      "computedHash": "bd623b72048f59aaad45cd8d7d71c6ece1aa650a186f948f0836c35d2331f025"
+    },
+    "structured-autonomy-implement": {
+      "source": "github/awesome-copilot",
+      "sourceType": "github",
+      "computedHash": "f985115da51ff25a5b1cd6f46ff713a43c11f1bb7955cda8f53e6171b2f9f97e"
+    },
+    "structured-autonomy-plan": {
+      "source": "github/awesome-copilot",
+      "sourceType": "github",
+      "computedHash": "a23272e52745d64fdc2469ccbe8f0d3ec7edb52e8f056ee5504a5982829e8463"
+    }
+  }
+}

@@ -1,0 +1,367 @@
+.pageContainer {
+  min-height: calc(100vh - 64px);
+  padding: clamp(24px, 4vw, 44px) 16px 56px;
+  color: var(--ink-strong);
+}
+
+.loadingText {
+  margin: 0;
+  padding-top: 44px;
+  text-align: center;
+  color: var(--ink-soft);
+}
+
+.mainContent {
+  width: min(1180px, 100%);
+  margin: 0 auto;
+}
+
+.pageHeader {
+  margin-bottom: 24px;
+}
+
+.eyebrow {
+  margin: 0 0 10px;
+  font-size: 0.76rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--brand-deep) 72%, white);
+}
+
+.headerRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 24px;
+}
+
+.pageTitle {
+  margin: 0;
+  max-width: 12ch;
+  font-family: var(--font-display), 'Segoe UI', sans-serif;
+  font-size: clamp(2rem, 4.9vw, 3.7rem);
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+}
+
+.pageSubtitle {
+  margin: 16px 0 0;
+  max-width: 60ch;
+  color: var(--ink-soft);
+  line-height: 1.7;
+}
+
+.secondaryAction,
+.ghostButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0 18px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.secondaryAction {
+  border: 1px solid color-mix(in srgb, var(--line-strong) 84%, white);
+  background: color-mix(in srgb, var(--surface-elevated) 88%, white);
+  color: var(--ink-strong);
+}
+
+.workspace {
+  display: grid;
+  grid-template-columns: minmax(270px, 0.85fr) minmax(0, 1.45fr);
+  gap: 22px;
+  align-items: start;
+}
+
+.profileRail,
+.mainCard {
+  border: 1px solid color-mix(in srgb, var(--line-soft) 88%, white);
+  border-radius: 32px;
+  background: color-mix(in srgb, var(--surface-elevated) 94%, white);
+  box-shadow: var(--shadow-soft);
+}
+
+.profileRail {
+  position: sticky;
+  top: 24px;
+  padding: 24px;
+  display: grid;
+  gap: 22px;
+  background:
+    radial-gradient(circle at top left, color-mix(in srgb, var(--brand-accent) 14%, white) 0, transparent 14rem),
+    linear-gradient(180deg, color-mix(in srgb, var(--surface-elevated) 90%, white), white);
+}
+
+.avatarUpload {
+  display: grid;
+  justify-items: center;
+  gap: 12px;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+
+.avatarPlaceholder {
+  width: 132px;
+  height: 132px;
+  border-radius: 34px;
+  border: 1.5px dashed color-mix(in srgb, var(--brand-accent) 45%, var(--line-strong));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: color-mix(in srgb, var(--brand-deep) 55%, white);
+  background: color-mix(in srgb, var(--surface-base) 70%, white);
+  transition: transform 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  overflow: hidden;
+}
+
+.avatarUpload:hover .avatarPlaceholder {
+  transform: translateY(-2px);
+  border-color: var(--brand-accent);
+  background-color: color-mix(in srgb, var(--brand-accent) 9%, white);
+}
+
+.avatarFilled {
+  border-style: solid;
+  border-color: color-mix(in srgb, var(--brand-deep) 56%, white);
+}
+
+.avatarFallback {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.avatarText {
+  font-weight: 700;
+  color: var(--ink-strong);
+}
+
+.profileSummary {
+  display: grid;
+  gap: 6px;
+  padding: 18px;
+  border-radius: 24px;
+  background: color-mix(in srgb, var(--surface-base) 78%, white);
+  border: 1px solid color-mix(in srgb, var(--line-soft) 88%, white);
+}
+
+.summaryLabel {
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.summaryValue {
+  font-family: var(--font-display), 'Segoe UI', sans-serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 0.95;
+  letter-spacing: -0.05em;
+}
+
+.summaryCopy {
+  margin: 0;
+  color: var(--ink-soft);
+  line-height: 1.65;
+}
+
+.checklist {
+  display: grid;
+  gap: 12px;
+}
+
+.checkItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: 18px;
+  background: color-mix(in srgb, var(--surface-base) 74%, white);
+  border: 1px solid color-mix(in srgb, var(--line-soft) 86%, white);
+  color: var(--ink-strong);
+}
+
+.checkDot,
+.checkDotDone {
+  width: 11px;
+  height: 11px;
+  border-radius: 999px;
+  flex-shrink: 0;
+}
+
+.checkDot {
+  background: color-mix(in srgb, var(--line-strong) 75%, white);
+}
+
+.checkDotDone {
+  background: #111111;
+  box-shadow: 0 0 0 4px rgba(17, 17, 17, 0.12);
+}
+
+.mainCard {
+  padding: clamp(22px, 4vw, 34px);
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px 18px;
+}
+
+.inputGroup {
+  display: grid;
+  gap: 8px;
+}
+
+.fullWidth {
+  grid-column: 1 / -1;
+}
+
+.inputGroup label {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--ink-strong);
+}
+
+.fieldHint {
+  margin: 0;
+  color: var(--ink-soft);
+  line-height: 1.55;
+  font-size: 0.92rem;
+}
+
+.inputWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.inputIcon {
+  position: absolute;
+  left: 14px;
+  color: color-mix(in srgb, var(--brand-deep) 34%, white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.inputField {
+  width: 100%;
+  min-height: 54px;
+  padding: 0 16px;
+  border-radius: 18px;
+  border: 1px solid color-mix(in srgb, var(--line-soft) 82%, white);
+  background: color-mix(in srgb, var(--surface-base) 68%, white);
+  color: var(--ink-strong);
+  transition: border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.inputField:focus {
+  outline: none;
+  border-color: color-mix(in srgb, var(--brand-accent) 75%, white);
+  background: white;
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--brand-accent) 16%, white);
+}
+
+.inputField::placeholder {
+  color: color-mix(in srgb, var(--ink-soft) 82%, white);
+}
+
+.withIcon {
+  padding-left: 46px;
+}
+
+.submitSection {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.formMessage {
+  margin: 20px 0 0;
+  font-weight: 700;
+}
+
+.formMessageError {
+  color: #b42318;
+}
+
+.formMessageSuccess {
+  color: #166534;
+}
+
+.ghostButton {
+  border: 1px solid color-mix(in srgb, var(--line-strong) 84%, white);
+  background: white;
+  color: var(--ink-strong);
+}
+
+.hiddenInput {
+  display: none;
+}
+
+.submitBtn {
+  min-width: 180px;
+  min-height: 48px;
+  padding: 0 22px;
+  border: 0;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--brand-deep), color-mix(in srgb, var(--brand-accent) 55%, var(--brand-deep)));
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: var(--shadow-soft);
+}
+
+.submitBtn:disabled {
+  cursor: wait;
+  opacity: 0.8;
+}
+
+@media (max-width: 980px) {
+  .workspace {
+    grid-template-columns: 1fr;
+  }
+
+  .profileRail {
+    position: static;
+  }
+
+  .headerRow {
+    flex-direction: column;
+    align-items: start;
+  }
+}
+
+@media (max-width: 720px) {
+  .pageContainer {
+    padding-inline: 12px;
+  }
+
+  .profileRail,
+  .mainCard {
+    border-radius: 24px;
+  }
+
+  .formGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .submitSection {
+    flex-direction: column-reverse;
+  }
+
+  .secondaryAction,
+  .ghostButton,
+  .submitBtn {
+    width: 100%;
+  }
+}

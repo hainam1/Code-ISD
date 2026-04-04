@@ -4,7 +4,8 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import styles from './login.module.css';
-import { login } from '../../../services/authApi';
+import { ADMIN_ROUTES } from '@/lib/constants/routes';
+import { login } from '@/features/auth/api/authApi';
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const PHONE_REGEX = /^\d{10}$/;
@@ -22,33 +23,35 @@ export default function LoginPage() {
     setError('');
 
     if (!identifier.trim() || !password.trim()) {
-      setError('Vui long nhap day du Email hoac Password.');
+      setError('Vui lòng nhập đầy đủ Email hoặc Password.');
       return;
     }
 
-    if (password.length <= 6) {
-      setError('email, so dien thoai, password, loai tai khoan chua chinh xac');
+    if (password.length < 6) {
+      setError('Mật khẩu phải có ít nhất 6 ký tự.');
       return;
     }
 
     const normalizedIdentifier = identifier.trim().toLowerCase();
     const isEmailLogin = normalizedIdentifier.includes('@');
+
     if (isEmailLogin && !EMAIL_REGEX.test(normalizedIdentifier)) {
-      setError('Email khong hop le (vi du: abc@gmail.com).');
+      setError('Email không hợp lệ (ví dụ: abc@gmail.com).');
       return;
     }
+
     if (!isEmailLogin && !PHONE_REGEX.test(normalizedIdentifier)) {
-      setError('email, so dien thoai, password, loai tai khoan chua chinh xac');
+      setError('Email, số điện thoại, password hoặc loại tài khoản chưa chính xác');
       return;
     }
 
     setIsLoading(true);
+
     try {
       const response = await login({ identifier: normalizedIdentifier, password, loginType });
-      alert(response?.message || 'Login successful');
-      router.push('/dashboard');
+      router.push(response?.user?.role === 'ADMIN' ? ADMIN_ROUTES.candidates : '/dashboard');
     } catch (err) {
-      setError(err?.message || 'email, so dien thoai, password, loai tai khoan chua chinh xac');
+      setError(err?.message || 'Email, số điện thoại, password hoặc loại tài khoản chưa chính xác');
     } finally {
       setIsLoading(false);
     }
@@ -70,12 +73,12 @@ export default function LoginPage() {
           </svg>
         </div>
         <h1 className={styles.logoText}>Smart Guard</h1>
-        <p className={styles.subtitle}>Long Hai Security Recruitment</p>
+        <p className={styles.subtitle}>Tuyển dụng bảo vệ Long Hải</p>
       </div>
 
       <div className={styles.card}>
-        <h2 className={styles.cardTitle}>Chao mung tro quay lai</h2>
-        <p className={styles.cardSubtitle}>Dang nhap vao tai khoan Smart Guard cua ban</p>
+        <h2 className={styles.cardTitle}>Đăng nhập</h2>
+        <p className={styles.cardSubtitle}>Đăng nhập vào tài khoản Smart Guard của bạn</p>
 
         <div className={styles.tabSwitch}>
           <button
@@ -83,8 +86,9 @@ export default function LoginPage() {
             className={loginType === 'user' ? styles.tabButtonActive : styles.tabButton}
             onClick={() => setLoginType('user')}
           >
-            Nguoi dung
+            Người dùng
           </button>
+
           <button
             type="button"
             className={loginType === 'admin' ? styles.tabButtonActive : styles.tabButton}
@@ -97,12 +101,15 @@ export default function LoginPage() {
         <form onSubmit={handleSubmit}>
           <div className={styles.formFields}>
             <div className={styles.formGroup}>
-              <label className={styles.label} htmlFor="identifier">Dia chi email hoac so dien thoai</label>
+              <label className={styles.label} htmlFor="identifier">
+                Địa chỉ email hoặc số điện thoại
+              </label>
+
               <input
                 type="text"
                 id="identifier"
                 className={styles.input}
-                placeholder={loginType === 'admin' ? 'admin@gmail.com' : 'abc@gmail.com hoac 0123456789'}
+                placeholder={loginType === 'admin' ? 'admin@gmail.com' : 'abc@gmail.com hoặc 0123456789'}
                 value={identifier}
                 onChange={(event) => setIdentifier(event.target.value)}
                 autoComplete="username"
@@ -110,7 +117,10 @@ export default function LoginPage() {
             </div>
 
             <div className={styles.formGroup}>
-              <label className={styles.label} htmlFor="password">Mat khau</label>
+              <label className={styles.label} htmlFor="password">
+                Mật khẩu
+              </label>
+
               <input
                 type="password"
                 id="password"
@@ -126,16 +136,16 @@ export default function LoginPage() {
           {error ? <p className={styles.errorText}>{error}</p> : null}
 
           <button type="submit" className={styles.button} disabled={isLoading}>
-            {isLoading ? 'Dang xu ly...' : 'Dang nhap'}
+            {isLoading ? 'Đang xử lý...' : 'Đăng nhập'}
           </button>
         </form>
 
         <Link href="/register" className={styles.footerLink}>
-          Chua co tai khoan? <span>Dang ky</span>
+          Chưa có tài khoản? <span>Đăng ký</span>
         </Link>
       </div>
 
-      <div className={styles.pageFooter}>© 2026 Long Hai Security Company</div>
+      <div className={styles.pageFooter}>© 2026 Công ty Bảo vệ Long Hải</div>
     </div>
   );
 }

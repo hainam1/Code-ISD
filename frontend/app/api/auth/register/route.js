@@ -1,10 +1,10 @@
 import bcrypt from 'bcryptjs';
 import { randomUUID } from 'node:crypto';
 import { NextResponse } from 'next/server';
-import { getDb } from '../../../../lib/db/database';
+import { getDb } from '@/lib/db/database';
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const PHONE_REGEX = /^\d{10}$/;
+const PHONE_REGEX = /^0[3-9][0-9]{8}$/;
 
 export async function POST(request) {
   try {
@@ -17,19 +17,19 @@ export async function POST(request) {
     const password = (body.password || '').trim();
 
     if (!fullName || !identifier || !password) {
-      return NextResponse.json({ message: 'Vui long nhap day du thong tin.' }, { status: 400 });
+      return NextResponse.json({ message: 'Vui lòng nhập đầy đủ thông tin.' }, { status: 400 });
     }
 
     if (registerType === 'email' && !EMAIL_REGEX.test(email)) {
-      return NextResponse.json({ message: 'Email khong hop le (vi du: abc@gmail.com).' }, { status: 400 });
+      return NextResponse.json({ message: 'Email không hợp lệ (ví dụ: abc@gmail.com).' }, { status: 400 });
     }
 
     if (registerType === 'phone' && !PHONE_REGEX.test(phone)) {
-      return NextResponse.json({ message: 'So dien thoai khong hop le (10 chu so).' }, { status: 400 });
+      return NextResponse.json({ message: 'Số điện thoại phải gồm 10 chữ số và bắt đầu từ 03 đến 09.' }, { status: 400 });
     }
 
     if (password.length <= 6) {
-      return NextResponse.json({ message: 'Mat khau phai lon hon 6 ky tu.' }, { status: 400 });
+      return NextResponse.json({ message: 'Mật khẩu phải lớn hơn 6 ký tự.' }, { status: 400 });
     }
 
     const db = await getDb();
@@ -38,7 +38,7 @@ export async function POST(request) {
       return user.phone === phone;
     });
     if (existed) {
-      return NextResponse.json({ message: 'Email hoac so dien thoai da ton tai.' }, { status: 409 });
+      return NextResponse.json({ message: 'Email hoặc số điện thoại đã tồn tại.' }, { status: 409 });
     }
 
     const user = {
@@ -56,14 +56,14 @@ export async function POST(request) {
 
     return NextResponse.json(
       {
-        message: 'Registration successful',
+        message: 'Đăng ký thành công',
         user: { id: user.id, fullName: user.fullName, email: user.email, phone: user.phone },
       },
       { status: 201 }
     );
   } catch (error) {
     return NextResponse.json(
-      { message: 'Dang ky that bai. Vui long nhap lai thong tin.', error: String(error) },
+      { message: 'Đăng ký thất bại. Vui lòng nhập lại thông tin.', error: String(error) },
       { status: 500 }
     );
   }

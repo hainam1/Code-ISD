@@ -8,3 +8,13 @@ export const JOB_ROUTES = {
   detail: (jobId) => `/jobs/${jobId}`,
   apply: '/apply',
 };
+
+export const ADMIN_ROUTES = {
+  candidates: '/admin/candidates',
+  candidateDetail: (candidateId) => `/admin/candidates/${candidateId}`,
+  interviews: '/admin/interviews',
+  interviewEdit: '/admin/interviews/edit',
+  jobs: '/admin/jobs',
+  jobCreate: '/admin/jobs/create',
+  jobEdit: (jobId) => `/admin/jobs/${jobId}/edit`,
+};

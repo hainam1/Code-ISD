@@ -1,13 +1,13 @@
 'use client';
 
-import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { register } from '../../../services/authApi';
+import { useState } from 'react';
+import { register } from '@/features/auth/api/authApi';
 import styles from './register.module.css';
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const PHONE_REGEX = /^\d{10}$/;
+const PHONE_REGEX = /^0[3-9][0-9]{8}$/;
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -24,32 +24,34 @@ export default function RegisterPage() {
     setError('');
 
     if (!fullName.trim() || !identifier.trim() || !password.trim()) {
-      setError('Vui long nhap day du thong tin.');
+      setError('Vui lòng nhập đầy đủ thông tin.');
       return;
     }
 
     const normalizedIdentifier = identifier.trim();
+
     if (registerType === 'email' && !EMAIL_REGEX.test(normalizedIdentifier.toLowerCase())) {
-      setError('Email khong hop le (vi du: abc@gmail.com).');
+      setError('Email không hợp lệ (ví dụ: abc@gmail.com).');
       return;
     }
 
     if (registerType === 'phone' && !PHONE_REGEX.test(normalizedIdentifier)) {
-      setError('So dien thoai khong hop le (10 chu so).');
+      setError('Số điện thoại phải gồm 10 chữ số và bắt đầu từ 03 đến 09.');
       return;
     }
 
-    if (password.length <= 6) {
-      setError('Mat khau phai lon hon 6 ky tu.');
+    if (password.length < 6) {
+      setError('Mật khẩu phải có ít nhất 6 ký tự.');
       return;
     }
 
     if (password !== confirmPassword) {
-      setError('Xac nhan mat khau khong khop.');
+      setError('Xác nhận mật khẩu không khớp.');
       return;
     }
 
     setIsLoading(true);
+
     try {
       const response = await register({
         fullName,
@@ -57,10 +59,10 @@ export default function RegisterPage() {
         registerType,
         password,
       });
-      alert(response?.message || 'Registration successful');
+
       router.push('/login');
     } catch (err) {
-      setError(err?.message || 'Dang ky that bai. Vui long nhap lai thong tin.');
+      setError(err?.message || 'Đăng ký thất bại. Vui lòng nhập lại thông tin.');
     } finally {
       setIsLoading(false);
     }
@@ -70,27 +72,27 @@ export default function RegisterPage() {
     <div className={styles.container}>
       <div className={styles.header}>
         <h1 className={styles.logoText}>Smart Guard</h1>
-        <p className={styles.subtitle}>Long Hai Security Recruitment</p>
+        <p className={styles.subtitle}>Tuyển dụng bảo vệ Long Hải</p>
       </div>
 
       <div className={styles.card}>
-        <h2 className={styles.cardTitle}>Tao tai khoan</h2>
-        <p className={styles.cardSubtitle}>Tao tai khoan Smart Guard cua ban</p>
+        <h2 className={styles.cardTitle}>Tạo tài khoản</h2>
+        <p className={styles.cardSubtitle}>Tạo tài khoản Smart Guard của bạn</p>
 
         <form onSubmit={handleSubmit}>
           <div className={styles.formFields}>
             <label className={styles.label}>
-              Ho va ten *
+              Họ và tên *
               <input
                 className={styles.input}
                 value={fullName}
                 onChange={(event) => setFullName(event.target.value)}
-                placeholder="Nguyen Van A"
+                placeholder="Nguyễn Văn A"
               />
             </label>
 
             <label className={styles.label}>
-              Email hoac so dien thoai *
+              Email hoặc số điện thoại *
               <div className={styles.typeSwitch}>
                 <button
                   type="button"
@@ -100,25 +102,27 @@ export default function RegisterPage() {
                 >
                   Gmail
                 </button>
+
                 <button
                   type="button"
                   className={`${styles.typeButton} ${registerType === 'phone' ? styles.typeButtonSelected : ''}`}
                   onClick={() => setRegisterType('phone')}
                   aria-pressed={registerType === 'phone'}
                 >
-                  So dien thoai
+                  Số điện thoại
                 </button>
               </div>
+
               <input
                 className={styles.input}
                 value={identifier}
                 onChange={(event) => setIdentifier(event.target.value)}
-                placeholder={registerType === 'email' ? 'abc@gmail.com' : '0123456789'}
+                placeholder={registerType === 'email' ? 'abc@gmail.com' : '03xxxxxxxx'}
               />
             </label>
 
             <label className={styles.label}>
-              Mat khau *
+              Mật khẩu *
               <input
                 type="password"
                 className={styles.input}
@@ -129,7 +133,7 @@ export default function RegisterPage() {
             </label>
 
             <label className={styles.label}>
-              Xac nhan mat khau *
+              Xác nhận mật khẩu *
               <input
                 type="password"
                 className={styles.input}
@@ -143,12 +147,12 @@ export default function RegisterPage() {
           {error ? <p className={styles.errorText}>{error}</p> : null}
 
           <button type="submit" className={styles.button} disabled={isLoading}>
-            {isLoading ? 'Dang xu ly...' : 'Dang ky'}
+            {isLoading ? 'Đang xử lý...' : 'Đăng ký'}
           </button>
         </form>
 
         <Link href="/login" className={styles.footerLink}>
-          Da co tai khoan? <span>Dang nhap</span>
+          Đã có tài khoản? <span>Đăng nhập</span>
         </Link>
       </div>
     </div>

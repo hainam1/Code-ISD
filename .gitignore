@@ -1,0 +1,14 @@
+backend/node_modules/
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+
+*.log
+*.env
+
+backend/uploads/*
+!backend/uploads/cv/
+backend/uploads/cv/*
+!backend/uploads/cv/.gitkeep
+
+frontend/uploads/applications/

@@ -1,0 +1,494 @@
+{
+  "applications": [
+    {
+      "id": "e0814233-0f88-438a-9432-399528c397d4",
+      "candidateId": "c431c778-beae-41e4-8fa0-58bb2d5d1620",
+      "jobId": "bao-ve-that-thoat-ban-le",
+      "fullName": "dào hải nam",
+      "email": "",
+      "phone": "0977587496",
+      "note": "",
+      "cvFile": {
+        "fileName": "US-001_Register candidate account.docx",
+        "mimeType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "size": 87985
+      },
+      "healthFile": {
+        "fileName": "US-002_Login to the system(User).docx",
+        "mimeType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "size": 78407
+      },
+      "status": "Under Review",
+      "createdAt": "2026-03-12T07:11:11.390Z",
+      "updatedAt": "2026-03-12T07:11:11.390Z"
+    },
+    {
+      "id": "f8a07292-d40c-484b-b744-50f487c8a1d4",
+      "candidateId": "c431c778-beae-41e4-8fa0-58bb2d5d1620",
+      "jobId": "bao-ve-ca-dem",
+      "fullName": "dao hai nam",
+      "email": "tennam1642005@gmail.com",
+      "phone": "",
+      "note": "",
+      "cvFile": {
+        "fileName": "US-001_Register candidate account.docx",
+        "mimeType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "size": 87985,
+        "storedFileName": "cv-US-001_Register-candidate-account.docx",
+        "relativePath": "f8a07292-d40c-484b-b744-50f487c8a1d4\\cv-US-001_Register-candidate-account.docx"
+      },
+      "healthFile": {
+        "fileName": "US-002_Login to the system(User).docx",
+        "mimeType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "size": 78407,
+        "storedFileName": "health-US-002_Login-to-the-system-User.docx",
+        "relativePath": "f8a07292-d40c-484b-b744-50f487c8a1d4\\health-US-002_Login-to-the-system-User.docx"
+      },
+      "status": "Shortlisted",
+      "createdAt": "2026-03-12T07:29:38.707Z",
+      "updatedAt": "2026-03-12T07:53:32.961Z"
+    },
+    {
+      "id": "f82d8f61-35b5-4501-ab1a-246cbcbef8fe",
+      "candidateId": "c431c778-beae-41e4-8fa0-58bb2d5d1620",
+      "jobId": "bao-ve-ngan-hang",
+      "fullName": "đào hải nam",
+      "email": "namlqmb111@gmail.com",
+      "phone": "",
+      "note": "",
+      "cvFile": {
+        "fileName": "ss2 des.docx",
+        "mimeType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "size": 12871,
+        "storedFileName": "cv-ss2-des.docx",
+        "relativePath": "f82d8f61-35b5-4501-ab1a-246cbcbef8fe\\cv-ss2-des.docx"
+      },
+      "healthFile": {
+        "fileName": "2301140064_Đào Hải Nam_3CC23.docx",
+        "mimeType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "size": 27461,
+        "storedFileName": "health-2301140064_-o-H-i-Nam_3CC23.docx",
+        "relativePath": "f82d8f61-35b5-4501-ab1a-246cbcbef8fe\\health-2301140064_-o-H-i-Nam_3CC23.docx"
+      },
+      "status": "Shortlisted",
+      "createdAt": "2026-03-16T07:23:45.702Z",
+      "updatedAt": "2026-03-17T06:21:24.090Z"
+    },
+    {
+      "id": "c280cd1d-cf9a-4384-8259-d7a34f5be03b",
+      "candidateId": "e1f528a6-1f51-47fb-a9f4-1dd48785393d",
+      "jobId": "bao-ve-that-thoat-ban-le",
+      "fullName": "đỗ quốc hưng",
+      "email": "tennam1642005@gmail.com",
+      "phone": "",
+      "note": "",
+      "cvFile": {
+        "fileName": "US-006_Candidate Profile (User).docx",
+        "mimeType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "size": 123849,
+        "storedFileName": "cv-US-006_Candidate-Profile-User.docx",
+        "relativePath": "c280cd1d-cf9a-4384-8259-d7a34f5be03b\\cv-US-006_Candidate-Profile-User.docx"
+      },
+      "healthFile": {
+        "fileName": "US-003_View available job positions and job details - Dashboard  (User).docx",
+        "mimeType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "size": 236242,
+        "storedFileName": "health-US-003_View-available-job-positions-and-job-details---Dashboard-User.docx",
+        "relativePath": "c280cd1d-cf9a-4384-8259-d7a34f5be03b\\health-US-003_View-available-job-positions-and-job-details---Dashboard-User.docx"
+      },
+      "status": "Rejected",
+      "createdAt": "2026-03-17T06:26:09.093Z",
+      "updatedAt": "2026-03-17T06:26:26.011Z"
+    },
+    {
+      "id": "c0ab9d98-da51-4214-949e-a6bc777ef455",
+      "candidateId": "ede51089-ab33-4567-a6bd-28084ce4211d",
+      "jobId": "bao-ve-su-kien",
+      "fullName": "Thế quang",
+      "email": "camday121@gmail.com",
+      "phone": "",
+      "note": "",
+      "cvFile": {
+        "fileName": "US-003_View available job positions and job details - Dashboard  (User).docx",
+        "mimeType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "size": 236242,
+        "storedFileName": "cv-US-003_View-available-job-positions-and-job-details---Dashboard-User.docx",
+        "relativePath": "c0ab9d98-da51-4214-949e-a6bc777ef455\\cv-US-003_View-available-job-positions-and-job-details---Dashboard-User.docx"
+      },
+      "healthFile": {
+        "fileName": "US-002_Login to the system(User).docx",
+        "mimeType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "size": 40611,
+        "storedFileName": "health-US-002_Login-to-the-system-User.docx",
+        "relativePath": "c0ab9d98-da51-4214-949e-a6bc777ef455\\health-US-002_Login-to-the-system-User.docx"
+      },
+      "status": "Under Review",
+      "createdAt": "2026-03-17T06:29:18.523Z",
+      "updatedAt": "2026-03-17T06:29:18.523Z"
+    },
+    {
+      "id": "5f94b80a-ab78-4bdf-8668-a07ac69ddf17",
+      "candidateId": "578ba58d-2b70-4047-ac7a-8f87ca34e46c",
+      "jobId": "bao-ve-that-thoat-ban-le",
+      "fullName": "Đoàn Anh Sơn",
+      "email": "sunoo@gmail.com",
+      "phone": "",
+      "note": "",
+      "cvFile": {
+        "fileName": "US-006_Candidate Profile (User).docx",
+        "mimeType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "size": 123849,
+        "storedFileName": "cv-US-006_Candidate-Profile-User.docx",
+        "relativePath": "5f94b80a-ab78-4bdf-8668-a07ac69ddf17\\cv-US-006_Candidate-Profile-User.docx"
+      },
+      "healthFile": {
+        "fileName": "US-002_Login to the system(User).docx",
+        "mimeType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "size": 40611,
+        "storedFileName": "health-US-002_Login-to-the-system-User.docx",
+        "relativePath": "5f94b80a-ab78-4bdf-8668-a07ac69ddf17\\health-US-002_Login-to-the-system-User.docx"
+      },
+      "status": "Shortlisted",
+      "createdAt": "2026-03-17T06:34:24.004Z",
+      "updatedAt": "2026-03-17T06:34:39.203Z"
+    },
+    {
+      "id": "19f352d9-3045-4a77-83d6-03b97e3343bc",
+      "candidateId": "647527b6-59c6-460b-86e7-9ff1492b0175",
+      "jobId": "bao-ve-trung-tam-thuong-mai",
+      "fullName": "Đào Hải Nam",
+      "email": "hainam16042005@gmail.com",
+      "phone": "",
+      "note": "",
+      "cvFile": {
+        "fileName": "Word_Research.docx",
+        "mimeType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "size": 19027,
+        "storedFileName": "cv-Word_Research.docx",
+        "relativePath": "19f352d9-3045-4a77-83d6-03b97e3343bc\\cv-Word_Research.docx"
+      },
+      "healthFile": {
+        "fileName": "An Explanatory Study of Video Engagement on YouTube_ A Regression-Based Approach Using MixiGaming Data.docx",
+        "mimeType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "size": 11918,
+        "storedFileName": "health-An-Explanatory-Study-of-Video-Engagement-on-YouTube_-A-Regression-Based-Approach-Using-MixiGaming-Data.docx",
+        "relativePath": "19f352d9-3045-4a77-83d6-03b97e3343bc\\health-An-Explanatory-Study-of-Video-Engagement-on-YouTube_-A-Regression-Based-Approach-Using-MixiGaming-Data.docx"
+      },
+      "status": "Shortlisted",
+      "createdAt": "2026-04-02T11:22:07.254Z",
+      "updatedAt": "2026-04-02T11:22:39.489Z"
+    },
+    {
+      "id": "d8920eb3-f9a5-4c58-b29a-7d6132b8c6a4",
+      "candidateId": "647527b6-59c6-460b-86e7-9ff1492b0175",
+      "jobId": "bao-ve-ca-dem",
+      "fullName": "Đào Hải Nam",
+      "email": "hainam16042005@gmail.com",
+      "phone": "",
+      "note": "",
+      "cvFile": {
+        "fileName": "Version2_Group06_ResearchPaperDraft_Class01.docx",
+        "mimeType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "size": 21005,
+        "storedFileName": "cv-Version2_Group06_ResearchPaperDraft_Class01.docx",
+        "relativePath": "d8920eb3-f9a5-4c58-b29a-7d6132b8c6a4\\cv-Version2_Group06_ResearchPaperDraft_Class01.docx"
+      },
+      "healthFile": {
+        "fileName": "Version2_Group06_ResearchPaperDraft_Class01.docx",
+        "mimeType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "size": 21005,
+        "storedFileName": "health-Version2_Group06_ResearchPaperDraft_Class01.docx",
+        "relativePath": "d8920eb3-f9a5-4c58-b29a-7d6132b8c6a4\\health-Version2_Group06_ResearchPaperDraft_Class01.docx"
+      },
+      "status": "Shortlisted",
+      "createdAt": "2026-04-02T11:25:12.436Z",
+      "updatedAt": "2026-04-03T05:18:49.424Z"
+    },
+    {
+      "id": "3b8f3037-969b-43ae-b4bc-809941ecf811",
+      "candidateId": "647527b6-59c6-460b-86e7-9ff1492b0175",
+      "jobId": "bao-ve-that-thoat-ban-le",
+      "fullName": "Đào Hải Nam",
+      "email": "hainam16042005@gmail.com",
+      "phone": "",
+      "note": "",
+      "cvFile": {
+        "fileName": "Word_Research.docx",
+        "mimeType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "size": 19027,
+        "storedFileName": "cv-Word_Research.docx",
+        "relativePath": "3b8f3037-969b-43ae-b4bc-809941ecf811\\cv-Word_Research.docx"
+      },
+      "healthFile": {
+        "fileName": "Báo cáo nhiệm vụ_Đào Hải Nam_2301140064_Nhóm7.docx",
+        "mimeType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "size": 1612818,
+        "storedFileName": "health-B-o-c-o-nhi-m-v-_-o-H-i-Nam_2301140064_Nh-m7.docx",
+        "relativePath": "3b8f3037-969b-43ae-b4bc-809941ecf811\\health-B-o-c-o-nhi-m-v-_-o-H-i-Nam_2301140064_Nh-m7.docx"
+      },
+      "status": "Shortlisted",
+      "createdAt": "2026-04-03T05:45:36.966Z",
+      "updatedAt": "2026-04-03T05:45:56.738Z"
+    }
+  ],
+  "notifications": [
+    {
+      "id": "06af3c46-1c3e-4288-9357-eacdc6d961f4",
+      "userId": "c431c778-beae-41e4-8fa0-58bb2d5d1620",
+      "type": "INTERVIEW_SCHEDULED",
+      "title": "Th?ng b?o l?ch ph?ng v?n",
+      "message": "B?n c? l?ch ph?ng v?n cho v? tr? Nhân viên bảo vệ ca đêm.",
+      "interview": {
+        "candidateName": "hainam",
+        "position": "Nhân viên bảo vệ ca đêm",
+        "interviewDate": "Th? N?m, 24 th?ng 10, 2023",
+        "interviewTime": "09:00 - 10:00",
+        "location": "V?n ph?ng Long H?i Security, Qu?n 1, TP H? Ch? Minh",
+        "interviewId": "INV-8829-X"
+      },
+      "isRead": true,
+      "createdAt": "2026-03-12T08:06:57.610Z",
+      "readAt": "2026-03-12T08:07:10.810Z"
+    },
+    {
+      "id": "41a6cf89-a3bb-4e80-aa06-f3c4b700fa93",
+      "userId": "c431c778-beae-41e4-8fa0-58bb2d5d1620",
+      "type": "INTERVIEW_SCHEDULED",
+      "title": "Th?ng b?o l?ch ph?ng v?n",
+      "message": "B?n c? l?ch ph?ng v?n cho v? tr? Nhân viên bảo vệ ca đêm.",
+      "interview": {
+        "candidateName": "hainam",
+        "position": "Nhân viên bảo vệ ca đêm",
+        "interviewDate": "Th? N?m, 24 th?ng 10, 2023",
+        "interviewTime": "09:00 - 10:00",
+        "location": "V?n ph?ng Long H?i Security, Qu?n 1, TP H? Ch? Minh",
+        "interviewId": "INV-8829-X"
+      },
+      "isRead": true,
+      "createdAt": "2026-03-12T08:07:44.725Z",
+      "readAt": "2026-03-12T08:07:57.152Z"
+    },
+    {
+      "id": "b0237a55-035e-4c4c-9352-71612b9c9589",
+      "userId": "c431c778-beae-41e4-8fa0-58bb2d5d1620",
+      "type": "INTERVIEW_SCHEDULED",
+      "title": "Th?ng b?o l?ch ph?ng v?n",
+      "message": "B?n c? l?ch ph?ng v?n cho v? tr? Nhân viên bảo vệ ca đêm.",
+      "interview": {
+        "candidateName": "hainam",
+        "position": "Nhân viên bảo vệ ca đêm",
+        "interviewDate": "Th? N?m, 24 th?ng 10, 2023",
+        "interviewTime": "09:00 - 10:00",
+        "location": "V?n ph?ng Long H?i Security, Qu?n 1, TP H? Ch? Minh",
+        "interviewId": "INV-8829-X"
+      },
+      "isRead": true,
+      "createdAt": "2026-03-16T07:09:15.852Z",
+      "readAt": "2026-03-16T07:09:24.708Z"
+    },
+    {
+      "id": "48a96da0-3572-4153-b3f6-3483718e71c9",
+      "userId": "c431c778-beae-41e4-8fa0-58bb2d5d1620",
+      "type": "INTERVIEW_SCHEDULED",
+      "title": "Th?ng b?o l?ch ph?ng v?n",
+      "message": "B?n c? l?ch ph?ng v?n cho v? tr? Bảo vệ ngân hàng.",
+      "interview": {
+        "candidateName": "hainam",
+        "position": "Bảo vệ ngân hàng",
+        "interviewDate": "Th? N?m, 24 th?ng 10, 2023",
+        "interviewTime": "09:00 - 10:00",
+        "location": "V?n ph?ng Long H?i Security, Qu?n 1, TP H? Ch? Minh",
+        "interviewId": "INV-8829-X"
+      },
+      "isRead": true,
+      "createdAt": "2026-03-16T07:24:12.460Z",
+      "readAt": "2026-03-16T07:24:20.481Z"
+    },
+    {
+      "id": "9375f783-56d1-411c-a935-bbf3e06f75b9",
+      "userId": "c431c778-beae-41e4-8fa0-58bb2d5d1620",
+      "type": "INTERVIEW_SCHEDULED",
+      "title": "Th?ng b?o l?ch ph?ng v?n",
+      "message": "B?n c? l?ch ph?ng v?n cho v? tr? Bảo vệ ngân hàng.",
+      "interview": {
+        "candidateName": "hainam",
+        "position": "Bảo vệ ngân hàng",
+        "interviewDate": "Thứ Ba, 24 tháng 10, 2023",
+        "interviewTime": "09:00 - 10:10",
+        "location": "V?n ph?ng Long H?i Security, Qu?n 1, TP H? Ch? Minh",
+        "interviewId": "INV-8829-X"
+      },
+      "isRead": true,
+      "createdAt": "2026-03-16T07:25:01.042Z",
+      "readAt": "2026-03-16T07:25:46.503Z"
+    },
+    {
+      "id": "51247e29-39f0-4f64-a2b7-5c149bf4c3d2",
+      "userId": "c431c778-beae-41e4-8fa0-58bb2d5d1620",
+      "type": "INTERVIEW_SCHEDULED",
+      "title": "Th?ng b?o l?ch ph?ng v?n",
+      "message": "B?n c? l?ch ph?ng v?n cho v? tr? Bảo vệ ngân hàng.",
+      "interview": {
+        "candidateName": "hainam",
+        "position": "Bảo vệ ngân hàng",
+        "interviewDate": "Thứ Ba, 24 tháng 10, 2023",
+        "interviewTime": "06:25 - 12:35",
+        "location": "V?n ph?ng Long H?i Security, Qu?n 1, TP H? Ch? Minh",
+        "interviewId": "INV-8829-X"
+      },
+      "isRead": true,
+      "createdAt": "2026-03-16T13:23:07.849Z",
+      "readAt": "2026-03-16T13:23:18.478Z"
+    },
+    {
+      "id": "de356405-b765-4ebe-88f7-c2d69fa02a20",
+      "userId": "c431c778-beae-41e4-8fa0-58bb2d5d1620",
+      "type": "INTERVIEW_SCHEDULED",
+      "title": "Th?ng b?o l?ch ph?ng v?n",
+      "message": "B?n c? l?ch ph?ng v?n cho v? tr? Bảo vệ ngân hàng.",
+      "interview": {
+        "candidateName": "hainam",
+        "position": "Bảo vệ ngân hàng",
+        "interviewDate": "Thứ Ba, 24 tháng 10, 2023",
+        "interviewTime": "06:10 - 08:55",
+        "location": "V?n ph?ng Long H?i Security, Qu?n 1, TP H? Ch? Minh",
+        "interviewId": "INV-8829-X"
+      },
+      "isRead": true,
+      "createdAt": "2026-03-16T13:40:44.382Z",
+      "readAt": "2026-03-16T13:40:57.966Z"
+    },
+    {
+      "id": "34418fda-6dcf-4bbc-bcee-00c18d756f23",
+      "userId": "c431c778-beae-41e4-8fa0-58bb2d5d1620",
+      "type": "INTERVIEW_SCHEDULED",
+      "title": "Th?ng b?o l?ch ph?ng v?n",
+      "message": "B?n c? l?ch ph?ng v?n cho v? tr? Bảo vệ ngân hàng.",
+      "interview": {
+        "candidateName": "hainam",
+        "position": "Bảo vệ ngân hàng",
+        "interviewDate": "Th? N?m, 24 th?ng 10, 2023",
+        "interviewTime": "09:00 - 10:00",
+        "location": "V?n ph?ng Long H?i Security, Qu?n 1, TP H? Ch? Minh",
+        "interviewId": "INV-8829-X"
+      },
+      "isRead": true,
+      "createdAt": "2026-03-16T15:48:55.755Z",
+      "readAt": "2026-03-17T06:15:37.344Z"
+    },
+    {
+      "id": "8808b801-68b4-4c8b-bc03-2b817c817e68",
+      "userId": "c431c778-beae-41e4-8fa0-58bb2d5d1620",
+      "type": "INTERVIEW_SCHEDULED",
+      "title": "Th?ng b?o l?ch ph?ng v?n",
+      "message": "B?n c? l?ch ph?ng v?n cho v? tr? Bảo vệ ngân hàng.",
+      "interview": {
+        "candidateName": "hainam",
+        "position": "Bảo vệ ngân hàng",
+        "interviewDate": "Thứ Ba, 24 tháng 10, 2023",
+        "interviewTime": "09:00 - 13:25",
+        "location": "V?n ph?ng Long H?i Security, Qu?n 1, TP H? Ch? Minh",
+        "interviewId": "INV-8829-X"
+      },
+      "isRead": true,
+      "createdAt": "2026-03-17T06:21:35.709Z",
+      "readAt": "2026-03-17T06:21:43.950Z"
+    },
+    {
+      "id": "405c3e2e-16b4-4cf0-89ae-dbdda4293b8a",
+      "userId": "e1f528a6-1f51-47fb-a9f4-1dd48785393d",
+      "type": "INTERVIEW_SCHEDULED",
+      "title": "Th?ng b?o l?ch ph?ng v?n",
+      "message": "B?n c? l?ch ph?ng v?n cho v? tr? Nhân viên chống thất thoát bán lẻ.",
+      "interview": {
+        "candidateName": "đỗ quốc hưng",
+        "position": "Nhân viên chống thất thoát bán lẻ",
+        "interviewDate": "Th? N?m, 24 th?ng 10, 2023",
+        "interviewTime": "09:00 - 10:00",
+        "location": "V?n ph?ng Long H?i Security, Qu?n 1, TP H? Ch? Minh",
+        "interviewId": "INV-8829-X"
+      },
+      "isRead": true,
+      "createdAt": "2026-03-17T06:26:38.037Z",
+      "readAt": "2026-03-17T06:26:50.299Z"
+    },
+    {
+      "id": "5e541cf5-d196-41d0-ad2b-5a3bc75950f3",
+      "userId": "647527b6-59c6-460b-86e7-9ff1492b0175",
+      "type": "INTERVIEW_SCHEDULED",
+      "title": "Th?ng b?o l?ch ph?ng v?n",
+      "message": "B?n c? l?ch ph?ng v?n cho v? tr? Nhân viên bảo vệ trung tâm thương mại.",
+      "interview": {
+        "candidateId": "647527b6-59c6-460b-86e7-9ff1492b0175",
+        "candidateName": "Đào Hải Nam",
+        "position": "Nhân viên bảo vệ trung tâm thương mại",
+        "interviewDate": "Thứ Ba, 24 tháng 10, 2023",
+        "interviewTime": "09:00 - 10:00",
+        "location": "V?n ph?ng Long H?i Security, Qu?n 1, TP H? Ch? Minh",
+        "interviewId": "INV-8829-X"
+      },
+      "isRead": true,
+      "createdAt": "2026-04-02T11:22:45.908Z",
+      "readAt": "2026-04-02T11:22:57.932Z"
+    },
+    {
+      "id": "207257b4-6b73-495a-beea-dcf8d8165dd3",
+      "userId": "578ba58d-2b70-4047-ac7a-8f87ca34e46c",
+      "type": "INTERVIEW_SCHEDULED",
+      "title": "Thông báo lịch phỏng vấn",
+      "message": "Bạn có lịch phỏng vấn cho vị trí Nhân viên chống thất thoát bán lẻ.",
+      "interview": {
+        "candidateId": "578ba58d-2b70-4047-ac7a-8f87ca34e46c",
+        "candidateName": "Đoàn Anh Sơn",
+        "position": "Nhân viên chống thất thoát bán lẻ",
+        "interviewDate": "Th? N?m, 24 th?ng 10, 2023",
+        "interviewTime": "09:00 - 10:00",
+        "location": "V?n ph?ng Long H?i Security, Qu?n 1, TP H? Ch? Minh",
+        "interviewId": "INV-8829-X"
+      },
+      "isRead": false,
+      "createdAt": "2026-04-03T05:19:20.539Z"
+    }
+  ],
+  "chatThreads": [
+    {
+      "id": "bd2e2cdd-a8c7-4345-abbc-5e46f9b4024f",
+      "candidateId": "647527b6-59c6-460b-86e7-9ff1492b0175",
+      "participants": [
+        "admin-internal",
+        "647527b6-59c6-460b-86e7-9ff1492b0175"
+      ],
+      "messages": [
+        {
+          "id": "f767aa18-eec0-4b4c-9e80-0647d4ebb29d",
+          "senderId": "647527b6-59c6-460b-86e7-9ff1492b0175",
+          "receiverId": "admin-internal",
+          "content": "em chào anh ạ",
+          "createdAt": "2026-04-04T13:05:55.718Z",
+          "isRead": true,
+          "readAt": "2026-04-04T13:07:36.358Z"
+        },
+        {
+          "id": "e3aedf2c-3716-4fd9-a133-1a7266885312",
+          "senderId": "647527b6-59c6-460b-86e7-9ff1492b0175",
+          "receiverId": "admin-internal",
+          "content": "hello",
+          "createdAt": "2026-04-04T13:07:26.597Z",
+          "isRead": true,
+          "readAt": "2026-04-04T13:07:36.358Z"
+        },
+        {
+          "id": "51bf726c-9fd3-45a6-a190-6e74253679ec",
+          "senderId": "admin-internal",
+          "receiverId": "647527b6-59c6-460b-86e7-9ff1492b0175",
+          "content": "sao vậy em",
+          "createdAt": "2026-04-04T13:07:41.619Z",
+          "isRead": true,
+          "readAt": "2026-04-04T13:07:54.650Z"
+        }
+      ],
+      "createdAt": "2026-04-04T13:05:55.716Z",
+      "updatedAt": "2026-04-04T13:07:54.650Z"
+    }
+  ]
+}

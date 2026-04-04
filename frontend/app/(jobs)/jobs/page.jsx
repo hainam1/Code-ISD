@@ -1,8 +1,8 @@
-import JobsListView from '../../../features/jobs/JobsListView';
-import { getJobs } from '../../../services/api/jobsApi';
+import JobsListView from '@/features/jobs/JobsListView';
+import { getJobs } from '@/features/jobs/api/jobsApi';
 
 export const metadata = {
-  title: 'Cong viec | Smart Guard',
+  title: 'Công việc | Smart Guard',
 };
 
 export default async function JobsPage() {

@@ -1,10 +1,10 @@
 import bcrypt from 'bcryptjs';
 import { NextResponse } from 'next/server';
-import { getDb } from '../../../../lib/db/database';
+import { getDb } from '@/lib/db/database';
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const PHONE_REGEX = /^\d{10}$/;
-const INVALID_LOGIN_MESSAGE = 'email, so dien thoai, password, loai tai khoan chua chinh xac';
+const INVALID_LOGIN_MESSAGE = 'Email, số điện thoại, mật khẩu hoặc loại tài khoản chưa chính xác';
 const ADMIN_EMAIL = 'admin@gmail.com';
 const ADMIN_PASSWORD = 'admin12345';
 
@@ -16,7 +16,7 @@ export async function POST(request) {
     const password = (body.password || '').trim();
 
     if (!identifier || !password) {
-      return NextResponse.json({ message: 'Vui long nhap day du Email hoac Password.' }, { status: 400 });
+      return NextResponse.json({ message: 'Vui lòng nhập đầy đủ Email hoặc Password.' }, { status: 400 });
     }
 
     if (password.length <= 6) {
@@ -29,7 +29,7 @@ export async function POST(request) {
       }
 
       return NextResponse.json({
-        message: 'Login successful',
+        message: 'Đăng nhập thành công',
         token: 'admin-internal-token',
         user: {
           id: 'admin-internal',
@@ -43,7 +43,7 @@ export async function POST(request) {
 
     const isEmailLogin = identifier.includes('@');
     if (isEmailLogin && !EMAIL_REGEX.test(identifier)) {
-      return NextResponse.json({ message: 'Email khong hop le (vi du: abc@gmail.com).' }, { status: 400 });
+      return NextResponse.json({ message: 'Email không hợp lệ (ví dụ: abc@gmail.com).' }, { status: 400 });
     }
     if (!isEmailLogin && !PHONE_REGEX.test(identifier)) {
       return NextResponse.json({ message: INVALID_LOGIN_MESSAGE }, { status: 401 });
@@ -59,21 +59,29 @@ export async function POST(request) {
     if (!isMatch) {
       return NextResponse.json({ message: INVALID_LOGIN_MESSAGE }, { status: 401 });
     }
+    if ((user.role || '').toUpperCase() === 'ADMIN') {
+      return NextResponse.json({ message: INVALID_LOGIN_MESSAGE }, { status: 401 });
+    }
 
     return NextResponse.json({
-      message: 'Login successful',
+      message: 'Đăng nhập thành công',
       token: `user-${user.id}`,
       user: {
         id: user.id,
+        fullName: user.fullName || '',
         name: user.fullName,
-        email: user.email,
-        phone: user.phone,
+        email: user.email || '',
+        phone: user.phone || '',
+        dob: user.dob || '',
+        idCard: user.idCard || '',
+        address: user.address || '',
+        avatarUrl: user.avatarUrl || '',
         role: user.role || 'USER',
       },
     });
   } catch (error) {
     return NextResponse.json(
-      { message: 'Dang nhap that bai. Vui long thu lai.', error: String(error) },
+      { message: 'Đăng nhập thất bại. Vui lòng thử lại.', error: String(error) },
       { status: 500 }
     );
   }

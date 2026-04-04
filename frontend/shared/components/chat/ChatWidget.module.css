@@ -1,0 +1,347 @@
+.launcher {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 90;
+  width: 64px;
+  height: 64px;
+  border: none;
+  border-radius: 22px;
+  background:
+    radial-gradient(circle at top left, rgba(240, 244, 255, 0.95), transparent 42%),
+    linear-gradient(135deg, #0f172a, #1d4ed8);
+  color: #f8fafc;
+  box-shadow: 0 22px 50px rgba(15, 23, 42, 0.28);
+  cursor: pointer;
+}
+
+.launcher svg {
+  width: 26px;
+  height: 26px;
+}
+
+.launcherBadge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  min-width: 24px;
+  height: 24px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: #f97316;
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.panel {
+  position: fixed;
+  right: 24px;
+  bottom: 100px;
+  z-index: 90;
+  width: min(92vw, 380px);
+  height: min(72vh, 640px);
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  border-radius: 28px;
+  overflow: hidden;
+  background: linear-gradient(180deg, rgba(248, 250, 252, 0.98), rgba(241, 245, 249, 0.98));
+  box-shadow: 0 24px 70px rgba(15, 23, 42, 0.24);
+  backdrop-filter: blur(12px);
+}
+
+.panelAdmin {
+  width: min(94vw, 760px);
+  grid-template-columns: minmax(220px, 270px) 1fr;
+  grid-template-rows: auto 1fr auto;
+}
+
+.header {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 18px 18px 16px;
+  background: linear-gradient(135deg, #0f172a, #1e3a8a);
+  color: #eff6ff;
+}
+
+.headerCopy {
+  display: grid;
+  gap: 4px;
+}
+
+.eyebrow {
+  margin: 0;
+  font-size: 0.74rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(191, 219, 254, 0.88);
+}
+
+.title {
+  margin: 0;
+  font-size: 1.02rem;
+  font-weight: 700;
+}
+
+.subtitle {
+  margin: 0;
+  font-size: 0.83rem;
+  color: rgba(219, 234, 254, 0.88);
+}
+
+.closeButton {
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.12);
+  color: inherit;
+  cursor: pointer;
+}
+
+.threadList {
+  border-right: 1px solid rgba(148, 163, 184, 0.18);
+  background: rgba(248, 250, 252, 0.94);
+  overflow-y: auto;
+}
+
+.threadListHeader {
+  padding: 14px 16px 10px;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+}
+
+.threadListTitle {
+  margin: 0;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #475569;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.threadButton {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid rgba(226, 232, 240, 0.9);
+  background: transparent;
+  padding: 14px 16px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.threadButtonActive {
+  background: linear-gradient(135deg, rgba(219, 234, 254, 0.8), rgba(239, 246, 255, 0.9));
+}
+
+.threadMeta {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 6px;
+}
+
+.threadName,
+.threadTime,
+.threadPreview,
+.threadEmpty,
+.messageMeta,
+.emptyText,
+.composerNote {
+  margin: 0;
+}
+
+.threadName {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.threadTime,
+.threadPreview,
+.threadEmpty,
+.messageMeta,
+.emptyText,
+.composerNote {
+  color: #64748b;
+}
+
+.threadTime,
+.messageMeta {
+  font-size: 0.72rem;
+}
+
+.threadPreview,
+.threadEmpty,
+.emptyText,
+.composerNote {
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
+
+.threadBadge {
+  display: inline-flex;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  margin-top: 8px;
+  border-radius: 999px;
+  align-items: center;
+  justify-content: center;
+  background: #dbeafe;
+  color: #1d4ed8;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.conversation {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  min-height: 0;
+}
+
+.conversationHeader {
+  padding: 16px 18px 14px;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.16);
+  background: rgba(255, 255, 255, 0.74);
+}
+
+.conversationTitle {
+  margin: 0;
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.messageList {
+  overflow-y: auto;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background:
+    radial-gradient(circle at top, rgba(191, 219, 254, 0.26), transparent 38%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.8), rgba(241, 245, 249, 0.95));
+}
+
+.messageItem {
+  max-width: 84%;
+  padding: 12px 14px;
+  border-radius: 18px;
+  background: #ffffff;
+  box-shadow: 0 12px 28px rgba(148, 163, 184, 0.16);
+}
+
+.messageOutgoing {
+  align-self: flex-end;
+  background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+}
+
+.messageAuthor {
+  margin: 0 0 6px;
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: #1e3a8a;
+}
+
+.messageText {
+  margin: 0;
+  color: #0f172a;
+  font-size: 0.92rem;
+  line-height: 1.5;
+  white-space: pre-wrap;
+}
+
+.composer {
+  grid-column: 1 / -1;
+  padding: 14px 16px 16px;
+  border-top: 1px solid rgba(148, 163, 184, 0.16);
+  background: rgba(255, 255, 255, 0.85);
+}
+
+.composerForm {
+  display: grid;
+  gap: 10px;
+}
+
+.composerInput {
+  width: 100%;
+  min-height: 92px;
+  padding: 14px 16px;
+  border: 1px solid rgba(148, 163, 184, 0.34);
+  border-radius: 18px;
+  resize: none;
+  font: inherit;
+  color: #0f172a;
+  background: rgba(248, 250, 252, 0.92);
+}
+
+.composerActions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.sendButton {
+  border: none;
+  border-radius: 999px;
+  padding: 11px 18px;
+  background: linear-gradient(135deg, #0f172a, #2563eb);
+  color: #eff6ff;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.sendButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.emptyState {
+  display: grid;
+  place-items: center;
+  padding: 24px 18px;
+  text-align: center;
+}
+
+.emptyTitle {
+  margin: 0 0 8px;
+  color: #0f172a;
+  font-size: 0.98rem;
+  font-weight: 700;
+}
+
+@media (max-width: 780px) {
+  .panelAdmin {
+    width: min(96vw, 420px);
+    grid-template-columns: 1fr;
+  }
+
+  .threadList {
+    max-height: 170px;
+    border-right: none;
+    border-bottom: 1px solid rgba(148, 163, 184, 0.18);
+  }
+}
+
+@media (max-width: 640px) {
+  .launcher {
+    right: 16px;
+    bottom: 16px;
+  }
+
+  .panel {
+    right: 12px;
+    left: 12px;
+    bottom: 88px;
+    width: auto;
+    height: min(76vh, 640px);
+  }
+}

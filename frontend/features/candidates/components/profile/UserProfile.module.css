@@ -1,0 +1,318 @@
+.container {
+  min-height: calc(100vh - 64px);
+  padding: clamp(24px, 4vw, 44px) 16px 56px;
+}
+
+.loadingContainer {
+  min-height: calc(100vh - 64px);
+  display: grid;
+  place-items: center;
+  padding: 32px 16px;
+  color: var(--ink-soft);
+}
+
+.pageHeader,
+.mainContent {
+  width: min(1180px, 100%);
+  margin: 0 auto;
+}
+
+.pageHeader {
+  margin-bottom: 26px;
+}
+
+.pageHeaderContent {
+  flex: 1 1 auto;
+  min-width: 0;
+  max-width: 920px;
+}
+
+.eyebrow,
+.sectionEyebrow {
+  margin: 0 0 10px;
+  font-size: 0.76rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--brand-deep) 72%, white);
+}
+
+.pageHeaderRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 18px;
+}
+
+.pageTitle {
+  margin: 0;
+  max-width: 18ch;
+  font-family: var(--font-display), 'Segoe UI', sans-serif;
+  font-size: clamp(1.7rem, 3.2vw, 2.8rem);
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  color: var(--ink-strong);
+}
+
+.pageSubtitle {
+  margin: 12px 0 0;
+  max-width: 78ch;
+  font-size: 0.98rem;
+  line-height: 1.65;
+  color: var(--ink-soft);
+}
+
+.primaryAction {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0 22px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--brand-deep), color-mix(in srgb, var(--brand-accent) 55%, var(--brand-deep)));
+  color: white;
+  text-decoration: none;
+  font-weight: 700;
+  white-space: nowrap;
+  box-shadow: var(--shadow-soft);
+  flex-shrink: 0;
+}
+
+.mainContent {
+  display: grid;
+  gap: 24px;
+}
+
+.heroCard {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(280px, 0.8fr);
+  gap: 22px;
+}
+
+.heroPanel,
+.sidePanel,
+.detailsSection {
+  border: 1px solid color-mix(in srgb, var(--line-soft) 88%, white);
+  border-radius: 32px;
+  background: color-mix(in srgb, var(--surface-elevated) 94%, white);
+  box-shadow: var(--shadow-soft);
+}
+
+.heroPanel {
+  padding: clamp(22px, 4vw, 34px);
+  background:
+    radial-gradient(circle at top right, color-mix(in srgb, var(--brand-accent) 13%, white) 0, transparent 16rem),
+    linear-gradient(180deg, color-mix(in srgb, var(--surface-elevated) 92%, white), white);
+}
+
+.profileTop {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.heroAvatar {
+  width: clamp(74px, 9vw, 96px);
+  height: clamp(74px, 9vw, 96px);
+  border-radius: 28px;
+  background:
+    linear-gradient(150deg, color-mix(in srgb, var(--brand-accent) 16%, white), color-mix(in srgb, var(--brand-deep) 16%, white));
+  color: var(--brand-deep);
+  display: grid;
+  place-items: center;
+  font-size: clamp(1.4rem, 2.2vw, 2rem);
+  font-weight: 800;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  flex-shrink: 0;
+}
+
+.headingTexts {
+  min-width: 0;
+}
+
+.statusChip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  padding: 0 12px;
+  margin-bottom: 14px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--brand-accent) 12%, white);
+  color: color-mix(in srgb, var(--brand-deep) 82%, black);
+  font-size: 0.84rem;
+  font-weight: 700;
+}
+
+.profileName {
+  margin: 0;
+  font-family: var(--font-display), 'Segoe UI', sans-serif;
+  font-size: clamp(1.55rem, 3vw, 2.3rem);
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+}
+
+.sectionSub {
+  margin: 10px 0 0;
+  max-width: 56ch;
+  color: var(--ink-soft);
+  line-height: 1.7;
+}
+
+.heroMeta {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 26px;
+}
+
+.metricCard {
+  display: grid;
+  gap: 6px;
+  padding: 18px 18px 16px;
+  border-radius: 24px;
+  background: color-mix(in srgb, var(--surface-base) 78%, white);
+  border: 1px solid color-mix(in srgb, var(--line-soft) 85%, white);
+}
+
+.metricLabel {
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.metricValue {
+  font-size: clamp(1.1rem, 2.2vw, 1.45rem);
+  line-height: 1.2;
+  color: var(--ink-strong);
+}
+
+.metricHint {
+  color: var(--ink-soft);
+  line-height: 1.55;
+}
+
+.sidePanel {
+  padding: 26px 22px;
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--brand-deep) 7%, white), white 44%),
+    white;
+}
+
+.sideTitle {
+  margin: 0 0 16px;
+  font-family: var(--font-display), 'Segoe UI', sans-serif;
+  font-size: 1.25rem;
+  letter-spacing: -0.03em;
+}
+
+.sideList {
+  margin: 0;
+  padding-left: 18px;
+  display: grid;
+  gap: 12px;
+  color: var(--ink-soft);
+  line-height: 1.65;
+}
+
+.detailsSection {
+  padding: clamp(22px, 4vw, 34px);
+}
+
+.sectionHeading {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 18px;
+  margin-bottom: 22px;
+}
+
+.sectionTitle {
+  margin: 0;
+  font-family: var(--font-display), 'Segoe UI', sans-serif;
+  font-size: clamp(1.4rem, 2.6vw, 2rem);
+  letter-spacing: -0.04em;
+}
+
+.sectionNote {
+  margin: 0;
+  max-width: 42ch;
+  color: var(--ink-soft);
+  line-height: 1.6;
+}
+
+.infoGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.infoCard {
+  min-height: 124px;
+  padding: 18px 18px 16px;
+  border-radius: 24px;
+  background: color-mix(in srgb, var(--surface-base) 76%, white);
+  border: 1px solid color-mix(in srgb, var(--line-soft) 88%, white);
+  display: grid;
+  align-content: start;
+  gap: 10px;
+}
+
+.infoCard label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.infoCard span {
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.55;
+  color: var(--ink-strong);
+  word-break: break-word;
+}
+
+@media (max-width: 960px) {
+  .heroCard {
+    grid-template-columns: 1fr;
+  }
+
+  .pageHeaderRow,
+  .sectionHeading {
+    align-items: start;
+    flex-direction: column;
+  }
+
+  .pageHeaderContent {
+    max-width: none;
+  }
+}
+
+@media (max-width: 720px) {
+  .container {
+    padding-inline: 12px;
+  }
+
+  .heroMeta,
+  .infoGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .profileTop {
+    flex-direction: column;
+    align-items: start;
+  }
+
+  .heroPanel,
+  .sidePanel,
+  .detailsSection {
+    border-radius: 24px;
+  }
+
+  .primaryAction {
+    width: 100%;
+  }
+}
