@@ -3,11 +3,14 @@
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { buildBackendUrl } from '@/lib/api/backendClient';
 import { getSession, setSession } from '@/features/auth/api/authApi';
 import styles from './EditProfile.module.css';
 
 const PHONE_REGEX = /^0[3-9][0-9]{8}$/;
+const MAX_AVATAR_SIZE = 2 * 1024 * 1024;
+const ALLOWED_AVATAR_TYPES = new Set(['image/png', 'image/jpeg', 'image/webp']);
+const AVATAR_OUTPUT_SIZE = 512;
+const AVATAR_OUTPUT_QUALITY = 0.82;
 
 function CameraIcon() {
   return (
@@ -82,6 +85,52 @@ function getProfileCompletion(formData) {
   return Math.round((filled / values.length) * 100);
 }
 
+function loadImage(file) {
+  return new Promise((resolve, reject) => {
+    const objectUrl = URL.createObjectURL(file);
+    const image = new Image();
+
+    image.onload = () => {
+      URL.revokeObjectURL(objectUrl);
+      resolve(image);
+    };
+
+    image.onerror = () => {
+      URL.revokeObjectURL(objectUrl);
+      reject(new Error('Khong the doc anh dai dien.'));
+    };
+
+    image.src = objectUrl;
+  });
+}
+
+async function buildAvatarDataUrl(file) {
+  const image = await loadImage(file);
+  const canvas = document.createElement('canvas');
+  const context = canvas.getContext('2d');
+
+  if (!context) {
+    throw new Error('Trinh duyet khong ho tro xu ly anh.');
+  }
+
+  canvas.width = AVATAR_OUTPUT_SIZE;
+  canvas.height = AVATAR_OUTPUT_SIZE;
+
+  const scale = Math.max(
+    AVATAR_OUTPUT_SIZE / Math.max(image.width, 1),
+    AVATAR_OUTPUT_SIZE / Math.max(image.height, 1),
+  );
+  const drawWidth = image.width * scale;
+  const drawHeight = image.height * scale;
+  const offsetX = (AVATAR_OUTPUT_SIZE - drawWidth) / 2;
+  const offsetY = (AVATAR_OUTPUT_SIZE - drawHeight) / 2;
+
+  context.clearRect(0, 0, AVATAR_OUTPUT_SIZE, AVATAR_OUTPUT_SIZE);
+  context.drawImage(image, offsetX, offsetY, drawWidth, drawHeight);
+
+  return canvas.toDataURL('image/webp', AVATAR_OUTPUT_QUALITY);
+}
+
 export default function EditProfile() {
   const [user, setUser] = useState(null);
   const [isSaving, setIsSaving] = useState(false);
@@ -96,6 +145,7 @@ export default function EditProfile() {
     address: '',
     avatarUrl: '',
   });
+  const [phonePlaceholder, setPhonePlaceholder] = useState('03xxxxxxxx');
   const fileInputRef = useRef(null);
   const router = useRouter();
 
@@ -106,12 +156,13 @@ export default function EditProfile() {
       setFormData({
         fullName: session.user.fullName || session.user.name || '',
         email: session.user.email || '',
-        phone: session.user.phone || '',
+        phone: '',
         dob: session.user.dob || '',
         idCard: session.user.idCard || '',
         address: session.user.address || '',
         avatarUrl: session.user.avatarUrl || '',
       });
+      setPhonePlaceholder(session.user.phone || '03xxxxxxxx');
     } else {
       setUser({});
     }
@@ -130,20 +181,39 @@ export default function EditProfile() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   }
 
-  function handleAvatarSelect(event) {
+  async function handleAvatarSelect(event) {
     const file = event.target.files?.[0];
     if (!file) {
       return;
     }
 
-    const reader = new FileReader();
-    reader.onload = () => {
+    if (!ALLOWED_AVATAR_TYPES.has(file.type)) {
+      setFormMessage('Anh dai dien chi ho tro PNG, JPG hoac WEBP.');
+      setFormMessageType('error');
+      event.target.value = '';
+      return;
+    }
+
+    if (file.size > MAX_AVATAR_SIZE) {
+      setFormMessage('Anh dai dien vuot qua 2MB. Hay chon anh nhe hon.');
+      setFormMessageType('error');
+      event.target.value = '';
+      return;
+    }
+
+    try {
+      const avatarUrl = await buildAvatarDataUrl(file);
+      setFormMessage('');
+      setFormMessageType('');
       setFormData((prev) => ({
         ...prev,
-        avatarUrl: typeof reader.result === 'string' ? reader.result : prev.avatarUrl,
+        avatarUrl,
       }));
-    };
-    reader.readAsDataURL(file);
+    } catch (error) {
+      setFormMessage(error?.message || 'Khong the xu ly anh dai dien.');
+      setFormMessageType('error');
+      event.target.value = '';
+    }
   }
 
   async function handleSubmit(event) {
@@ -159,16 +229,25 @@ export default function EditProfile() {
 
     const session = getSession();
     if (session?.user) {
+      const userId = String(session.user.id || '').trim();
+      const authToken = String(session.token || `user-${userId}`).trim();
+      if (!userId) {
+        setFormMessage('Phiên đăng nhập không hợp lệ. Vui lòng đăng nhập lại.');
+        setFormMessageType('error');
+        return;
+      }
+
       setIsSaving(true);
 
       try {
-        const response = await fetch(buildBackendUrl('/api/profile'), {
+        const response = await fetch('/api/profile', {
           method: 'PATCH',
           headers: {
             'Content-Type': 'application/json',
-            ...(session.token ? { Authorization: `Bearer ${session.token}` } : {}),
+            ...(authToken ? { Authorization: `Bearer ${authToken}` } : {}),
           },
           body: JSON.stringify({
+            userId,
             fullName: formData.fullName,
             email: formData.email,
             phone: formData.phone,
@@ -250,7 +329,7 @@ export default function EditProfile() {
                 style={formData.avatarUrl ? { backgroundImage: `url(${formData.avatarUrl})` } : undefined}
               >
                 {formData.avatarUrl ? null : <CameraIcon />}
-                {formData.avatarUrl ? <span className={styles.avatarFallback}>{getInitial(formData.fullName)}</span> : null}
+                {formData.avatarUrl ? null : <span className={styles.avatarFallback}>{getInitial(formData.fullName)}</span>}
               </div>
               <span className={styles.avatarText}>Tải ảnh đại diện</span>
             </button>
@@ -311,7 +390,7 @@ export default function EditProfile() {
                     <input
                       type="text"
                       name="phone"
-                      placeholder="03xxxxxxxx"
+                      placeholder={phonePlaceholder}
                       value={formData.phone}
                       onChange={handleChange}
                       className={`${styles.inputField} ${styles.withIcon}`}

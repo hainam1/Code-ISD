@@ -20,16 +20,16 @@ export default function JobCard({ job }) {
         ) : null}
       </div>
 
-      <p className={styles.meta}>📍 {job.location}</p>
+      <p className={styles.meta}>Dia diem: {job.location}</p>
 
       <p className={styles.description}>
-        Tuần tra và giám sát khu vực theo ca để đảm bảo an ninh và an toàn tại site.
+        {job.description || 'Xem chi tiet cong viec de biet them thong tin.'}
       </p>
 
-      <p className={styles.salary}>💵 {job.salary}</p>
+      <p className={styles.salary}>Luong: {job.salary || 'Thoa thuan'}</p>
 
       <Link href={`/jobs/${job.id}`} className={styles.button}>
-        Chi tiết công việc
+        Chi tiet cong viec
       </Link>
     </article>
   );

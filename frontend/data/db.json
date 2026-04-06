@@ -1,8 +1,0 @@
-{
-  "migrated": true,
-  "files": {
-    "users": "users.json",
-    "jobs": "jobs.json",
-    "appData": "app-data.json"
-  }
-}

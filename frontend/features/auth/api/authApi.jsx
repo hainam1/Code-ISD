@@ -1,5 +1,3 @@
-import { buildBackendUrl } from '@/lib/api/backendClient';
-
 async function requestJson(url, options) {
   const response = await fetch(url, options);
   const payload = await response.json().catch(() => ({}));
@@ -13,26 +11,40 @@ async function requestJson(url, options) {
   return payload;
 }
 
-async function requestAuthWithFallback(path, options = {}) {
-  try {
-    return await requestJson(buildBackendUrl(path), options);
-  } catch (error) {
-    const shouldFallback = !('status' in error) || error.status >= 500;
+function isPlaceholderEmail(value) {
+  return /@smartguard\.local$/i.test(String(value || '').trim());
+}
 
-    if (!shouldFallback) {
-      throw error;
-    }
+function isPlaceholderPhone(value) {
+  return /^placeholder-/i.test(String(value || '').trim());
+}
+
+function normalizeSession(session) {
+  if (!session?.user) {
+    return session;
   }
 
+  return {
+    ...session,
+    user: {
+      ...session.user,
+      email: isPlaceholderEmail(session.user.email) ? '' : String(session.user.email || '').trim().toLowerCase(),
+      phone: isPlaceholderPhone(session.user.phone) ? '' : String(session.user.phone || '').trim(),
+    },
+  };
+}
+
+async function requestAuthWithFallback(path, options = {}) {
+  // Try Next.js API route first
   return requestJson(path, options);
 }
 
 export async function login({ identifier, password, loginType = 'user' }) {
-  const payload = await requestAuthWithFallback('/api/auth/login', {
+  const payload = normalizeSession(await requestAuthWithFallback('/api/auth/login', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ identifier, password, loginType }),
-  });
+  }));
 
   if (typeof window !== 'undefined') {
     localStorage.setItem('smart_guard_session', JSON.stringify(payload));
@@ -62,7 +74,7 @@ export function setSession(nextSession) {
     return;
   }
 
-  localStorage.setItem('smart_guard_session', JSON.stringify(nextSession));
+  localStorage.setItem('smart_guard_session', JSON.stringify(normalizeSession(nextSession)));
   window.dispatchEvent(new Event('smart-guard-session-changed'));
 }
 
@@ -78,7 +90,7 @@ export function getSession() {
   }
 
   try {
-    return JSON.parse(raw);
+    return normalizeSession(JSON.parse(raw));
   } catch {
     return null;
   }

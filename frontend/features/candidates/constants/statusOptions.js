@@ -1,15 +1,17 @@
 export const CANDIDATE_STATUS = {
   all: 'All',
+  noApplication: 'No Application',
   review: 'Under Review',
   shortlisted: 'Shortlisted',
   rejected: 'Rejected',
 };
 
 export const STATUS_LABELS = {
-  [CANDIDATE_STATUS.all]: 'Tất cả trạng thái',
-  [CANDIDATE_STATUS.review]: 'Cần đánh giá',
-  [CANDIDATE_STATUS.shortlisted]: 'Sẵn sàng',
-  [CANDIDATE_STATUS.rejected]: 'Bị loại',
+  [CANDIDATE_STATUS.all]: 'Tat ca trang thai',
+  [CANDIDATE_STATUS.noApplication]: 'Chua ung tuyen',
+  [CANDIDATE_STATUS.review]: 'Can danh gia',
+  [CANDIDATE_STATUS.shortlisted]: 'San sang',
+  [CANDIDATE_STATUS.rejected]: 'Bi loai',
 };
 
 export function getStatusLabel(status) {

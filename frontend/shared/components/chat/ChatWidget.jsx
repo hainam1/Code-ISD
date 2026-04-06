@@ -41,6 +41,31 @@ function formatTime(dateValue) {
   }).format(new Date(dateValue));
 }
 
+function mergeActiveThreadState(threads, activeThread) {
+  if (!activeThread?.id) {
+    return threads;
+  }
+
+  const lastMessage = activeThread.messages?.[activeThread.messages.length - 1] || null;
+  return threads.map((thread) =>
+    thread.id === activeThread.id
+      ? {
+          ...thread,
+          unreadCount: 0,
+          lastMessage: lastMessage
+            ? {
+                id: lastMessage.id,
+                senderId: lastMessage.senderId,
+                content: lastMessage.content,
+                createdAt: lastMessage.createdAt,
+              }
+            : thread.lastMessage,
+          updatedAt: activeThread.updatedAt || thread.updatedAt,
+        }
+      : thread,
+  );
+}
+
 async function requestChat(params) {
   const searchParams = new URLSearchParams(params);
   const response = await fetch(`/api/chat?${searchParams.toString()}`, { cache: 'no-store' });
@@ -105,20 +130,13 @@ export default function ChatWidget() {
         }
 
         const nextThreads = Array.isArray(payload.threads) ? payload.threads : [];
-        setThreads(nextThreads);
+        setThreads(mergeActiveThreadState(nextThreads, payload.activeThread));
 
-        const fallbackThreadId =
-          explicitThreadId ||
-          selectedThreadId ||
-          (!isAdmin ? nextThreads[0]?.id || '' : '');
-
-        if (!selectedThreadId && fallbackThreadId) {
-          setSelectedThreadId(fallbackThreadId);
-        }
+        const fallbackThreadId = explicitThreadId || selectedThreadId || '';
 
         if (payload.activeThread) {
           setActiveThread(payload.activeThread);
-        } else if (!fallbackThreadId) {
+        } else if (!isOpen || !fallbackThreadId) {
           setActiveThread(null);
         }
       } catch {
@@ -128,14 +146,18 @@ export default function ChatWidget() {
       }
     }
 
-    loadChat(selectedThreadId);
-    const intervalId = window.setInterval(() => loadChat(selectedThreadId), REFRESH_INTERVAL_MS);
+    const requestedThreadId = isOpen ? selectedThreadId : '';
+    loadChat(requestedThreadId);
+    const intervalId = window.setInterval(
+      () => loadChat(isOpen ? selectedThreadId : ''),
+      REFRESH_INTERVAL_MS,
+    );
 
     return () => {
       active = false;
       window.clearInterval(intervalId);
     };
-  }, [viewer?.id, role, isAdmin, selectedThreadId]);
+  }, [viewer?.id, role, isAdmin, selectedThreadId, isOpen]);
 
   useEffect(() => {
     const list = messageListRef.current;
@@ -165,7 +187,7 @@ export default function ChatWidget() {
       viewerRole: role,
       threadId,
     });
-    setThreads(Array.isArray(payload.threads) ? payload.threads : []);
+    setThreads(mergeActiveThreadState(Array.isArray(payload.threads) ? payload.threads : [], payload.activeThread));
     setActiveThread(payload.activeThread || null);
   }
 
@@ -215,6 +237,14 @@ export default function ChatWidget() {
 
   if (!viewer?.id) {
     return null;
+  }
+
+  function handleToggleOpen() {
+    if (!isOpen && !selectedThreadId && !isAdmin && threads[0]?.id) {
+      setSelectedThreadId(threads[0].id);
+    }
+
+    setIsOpen((value) => !value);
   }
 
   const canReply = !isAdmin || Boolean(activeThread?.candidate?.id);
@@ -339,8 +369,9 @@ export default function ChatWidget() {
         </section>
       ) : null}
 
-      <button type="button" className={styles.launcher} onClick={() => setIsOpen((value) => !value)} aria-label={title}>
+      <button type="button" className={styles.launcher} onClick={handleToggleOpen} aria-label={title}>
         <ChatIcon />
+        <span className={styles.launcherLabel}>Chat</span>
         {unreadCount > 0 ? <span className={styles.launcherBadge}>{unreadCount}</span> : null}
       </button>
     </>

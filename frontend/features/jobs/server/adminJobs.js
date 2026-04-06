@@ -1,95 +1,117 @@
-import { JOB_STATUS } from '@/lib/constants/jobFormOptions';
-import { getDb } from '@/lib/db/database';
+import { createClient } from '@/lib/supabase/server';
 
-export async function getAdminJobById(jobId) {
-  const db = await getDb();
-  return db.data.jobs.find((job) => job.id === jobId) || null;
+function normalizeJobStatus(status) {
+  const rawStatus = String(status || '').trim().toUpperCase();
+
+  if (rawStatus.includes('CLOSED') || rawStatus.includes('ĐÃ ĐÓNG') || rawStatus.includes('DA DONG')) {
+    return 'CLOSED';
+  }
+
+  if (rawStatus.includes('DRAFT') || rawStatus.includes('NHÁP') || rawStatus.includes('NHAP')) {
+    return 'DRAFT';
+  }
+
+  return 'OPEN';
 }
 
-function slugify(value) {
-  return String(value || '')
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .toLowerCase()
-    .trim()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-+|-+$/g, '')
-    .slice(0, 50);
+function normalizeRequirements(requirements) {
+  if (!Array.isArray(requirements)) {
+    return [];
+  }
+
+  return requirements
+    .map((item) => String(item || '').trim())
+    .filter(Boolean);
+}
+
+function toNumberOrNull(value) {
+  const normalized = String(value ?? '').replace(/[^\d.-]/g, '');
+  if (!normalized) {
+    return null;
+  }
+
+  const parsed = Number(normalized);
+  return Number.isFinite(parsed) ? parsed : null;
+}
+
+function buildJobPayload(input) {
+  return {
+    title: String(input.title || '').trim(),
+    company_name: String(input.company || '').trim() || 'Smart Guard',
+    location: String(input.location || '').trim(),
+    address: String(input.address || '').trim() || String(input.location || '').trim(),
+    description: String(input.description || '').trim(),
+    requirements: normalizeRequirements(input.requirements),
+    experience: String(input.experience || '').trim() || null,
+    schedule_type: String(input.scheduleType || '').trim() || null,
+    work_hours: String(input.workHours || '').trim() || null,
+    day_off: String(input.dayOff || '').trim() || null,
+    employment_type: String(input.workMode || '').trim() || 'Full-time',
+    status: normalizeJobStatus(input.status),
+    salary_min: toNumberOrNull(input.minSalary),
+    salary_max: toNumberOrNull(input.maxSalary),
+    salary_currency: 'VND',
+    slots_total: Number(String(input.quantity || '').replace(/[^\d]/g, '')) || 0,
+  };
+}
+
+export async function getAdminJobById(jobId) {
+  const supabase = createClient();
+  const { data: job, error } = await supabase
+    .from('jobs')
+    .select('*')
+    .eq('id', jobId)
+    .single();
+    
+  if (error || !job) return null;
+  return job;
 }
 
 export async function createAdminJob(input) {
-  const db = await getDb();
-  const baseId = slugify(input.title) || 'job-moi';
-  let nextId = baseId;
-  let counter = 1;
+  const supabase = createClient();
+  const payload = buildJobPayload(input);
 
-  while (db.data.jobs.some((job) => job.id === nextId)) {
-    counter += 1;
-    nextId = `${baseId}-${counter}`;
-  }
+  const { data: job, error } = await supabase
+    .from('jobs')
+    .insert([payload])
+    .select()
+    .single();
 
-  const job = {
-    id: nextId,
-    title: input.title,
-    location: input.location,
-    salary: input.salary,
-    badge: input.badge || 'NEW',
-    company: input.company,
-    address: input.address || input.location,
-    description: input.description,
-    requirements: input.requirements,
-    experience: input.experience,
-    candidates: input.candidates || '0 ứng viên',
-    quantity: input.quantity || '',
-    status: input.status || JOB_STATUS.recruiting,
-    summary: input.summary,
-    schedule: input.schedule,
-  };
-
-  db.data.jobs.push(job);
-  await db.write();
+  if (error) throw new Error(error.message);
+  
   return job;
 }
 
 export async function updateAdminJobById(jobId, updates) {
-  const db = await getDb();
-  const index = db.data.jobs.findIndex((job) => job.id === jobId);
-
-  if (index === -1) {
-    return null;
-  }
-
-  const currentJob = db.data.jobs[index];
-  const nextJob = {
-    ...currentJob,
-    ...updates,
-    summary: {
-      ...(currentJob.summary || {}),
-      ...(updates.summary || {}),
-    },
-    schedule: Array.isArray(updates.schedule) ? updates.schedule : currentJob.schedule,
-    requirements: Array.isArray(updates.requirements) ? updates.requirements : currentJob.requirements,
+  const supabase = createClient();
+  const payload = {
+    ...buildJobPayload(updates),
+    updated_at: new Date().toISOString(),
   };
 
-  db.data.jobs[index] = nextJob;
-  await db.write();
+  // Remove undefined fields
+  Object.keys(payload).forEach((key) => payload[key] === undefined && delete payload[key]);
+
+  const { data: nextJob, error } = await supabase
+    .from('jobs')
+    .update(payload)
+    .eq('id', jobId)
+    .select()
+    .single();
+
+  if (error) {
+    throw new Error(error.message);
+  }
   return nextJob;
 }
 
 export async function deleteAdminJobById(jobId) {
-  const db = await getDb();
-  const existingJob = db.data.jobs.find((job) => job.id === jobId);
+  const supabase = createClient();
+  
+  const { error } = await supabase
+    .from('jobs')
+    .delete()
+    .eq('id', jobId);
 
-  if (!existingJob) {
-    return false;
-  }
-
-  db.data.jobs = db.data.jobs.filter((job) => job.id !== jobId);
-
-  if (!db.data.deletedJobIds.includes(jobId)) {
-    db.data.deletedJobIds.push(jobId);
-  }
-
-  await db.write();
-  return true;
+  return !error;
 }

@@ -2,6 +2,7 @@ import styles from '@/shared/components/admin/AdminDashboard.module.css';
 import { getStatusLabel } from '@/features/candidates/constants/statusOptions';
 
 const STATUS_CLASS_MAP = {
+  'No Application': styles.statusReview,
   'Under Review': styles.statusReview,
   Shortlisted: styles.statusShortlisted,
   Rejected: styles.statusRejected,

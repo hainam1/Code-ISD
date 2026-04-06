@@ -10,20 +10,6 @@ import { getSession } from '@/features/auth/api/authApi.jsx';
 
 const ITEMS_PER_PAGE = 9;
 
-function BellIcon() {
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <path
-        d="M12 4a4 4 0 0 0-4 4v2.2c0 .8-.24 1.57-.69 2.21L6 14.2V16h12v-1.8l-1.31-1.79A3.87 3.87 0 0 1 16 10.2V8a4 4 0 0 0-4-4Z"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.8"
-      />
-      <path d="M10 18a2 2 0 0 0 4 0" fill="none" stroke="currentColor" strokeWidth="1.8" />
-    </svg>
-  );
-}
-
 function PlusIcon() {
   return (
     <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -221,7 +207,7 @@ export default function AdminJobsPage() {
 
     async function loadJobs() {
       try {
-        const response = await fetch('/api/jobs');
+        const response = await fetch('/api/jobs', { cache: 'no-store' });
         const payload = await response.json();
         setJobs(Array.isArray(payload.jobs) ? payload.jobs : []);
       } finally {
@@ -244,11 +230,6 @@ export default function AdminJobsPage() {
     const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
     return jobs.slice(startIndex, startIndex + ITEMS_PER_PAGE);
   }, [currentPage, jobs]);
-
-  const highlightedJobs = useMemo(
-    () => jobs.filter((job) => String(job.badge || '').trim().toUpperCase() === 'HOT').length,
-    [jobs],
-  );
 
   async function handleDelete(job) {
     setPageMessage('');
@@ -290,17 +271,11 @@ export default function AdminJobsPage() {
       <main className={styles.jobsPage}>
         <section className={styles.jobsHero}>
           <div className={styles.jobsHeroCopy}>
-            <p className={styles.jobsEyebrow}>POSITION CONTROL</p>
-            <h1 className={styles.jobsHeading}>Quản lý danh mục công việc đang mở</h1>
-            <p className={styles.jobsSubheading}>
-              Giữ danh sách tuyển dụng gọn, rõ trạng thái và sẵn sàng cho đội xét duyệt ứng viên ở mọi vị trí.
-            </p>
+            <p className={styles.jobsEyebrow}>Tuyen dung bao ve</p>
+            <h1 className={styles.jobsHeading}>Cong viec</h1>
           </div>
 
           <div className={styles.jobsHeroActions}>
-            <button type="button" className={styles.jobsGhostIconButton} aria-label="Thông báo">
-              <BellIcon />
-            </button>
             <Link href={ADMIN_ROUTES.jobCreate} className={styles.jobsAddButton}>
               <span className={styles.jobsAddButtonIcon}>
                 <PlusIcon />
@@ -310,30 +285,13 @@ export default function AdminJobsPage() {
           </div>
         </section>
 
-        <section className={styles.summaryGrid}>
-          <article className={`${styles.summaryCard} ${styles.summaryCardNeutral}`}>
-            <p className={styles.summaryLabel}>Tổng vị trí đang đăng</p>
-            <p className={styles.summaryValue}>{String(jobs.length).padStart(2, '0')}</p>
-          </article>
-          <article className={`${styles.summaryCard} ${styles.summaryCardReview}`}>
-            <p className={styles.summaryLabel}>Vị trí ưu tiên</p>
-            <p className={styles.summaryValue}>{String(highlightedJobs).padStart(2, '0')}</p>
-          </article>
-          <article className={`${styles.summaryCard} ${styles.summaryCardShortlisted}`}>
-            <p className={styles.summaryLabel}>Trang đang xem</p>
-            <p className={styles.summaryValue}>{currentPage}</p>
-          </article>
-        </section>
-
         <section className={styles.card}>
           <div className={styles.sectionHeader}>
             <div>
-              <p className={styles.sectionEyebrow}>Danh sách tin tuyển</p>
-              <h2 className={styles.sectionTitleLarge}>Tất cả công việc đang mở</h2>
+              <p className={styles.sectionEyebrow}>Danh sach xet duyet</p>
+              <h2 className={styles.sectionTitleLarge}>Cong viec</h2>
             </div>
-            <p className={styles.sectionMeta}>
-              {jobs.length} vị trí • {highlightedJobs} mục ưu tiên
-            </p>
+            <p className={styles.sectionMeta}>{jobs.length} cong viec</p>
           </div>
 
           {pageMessage ? (
@@ -368,3 +326,4 @@ export default function AdminJobsPage() {
     </div>
   );
 }
+

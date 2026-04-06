@@ -3,27 +3,36 @@
   right: 24px;
   bottom: 24px;
   z-index: 90;
-  width: 64px;
-  height: 64px;
+  min-width: 112px;
+  height: 56px;
+  padding: 0 20px;
   border: none;
-  border-radius: 22px;
-  background:
-    radial-gradient(circle at top left, rgba(240, 244, 255, 0.95), transparent 42%),
-    linear-gradient(135deg, #0f172a, #1d4ed8);
-  color: #f8fafc;
-  box-shadow: 0 22px 50px rgba(15, 23, 42, 0.28);
+  border-radius: 999px;
+  background: #000;
+  color: #fff;
+  box-shadow: 0 18px 38px rgba(0, 0, 0, 0.24);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
   cursor: pointer;
 }
 
 .launcher svg {
-  width: 26px;
-  height: 26px;
+  width: 22px;
+  height: 22px;
+}
+
+.launcherLabel {
+  font-size: 0.95rem;
+  font-weight: 700;
+  line-height: 1;
 }
 
 .launcherBadge {
   position: absolute;
-  top: -4px;
-  right: -4px;
+  top: -6px;
+  right: -2px;
   min-width: 24px;
   height: 24px;
   padding: 0 6px;
@@ -335,6 +344,9 @@
   .launcher {
     right: 16px;
     bottom: 16px;
+    min-width: 104px;
+    height: 52px;
+    padding: 0 18px;
   }
 
   .panel {

@@ -59,14 +59,12 @@ const NAV_ITEMS = [
   {
     href: ADMIN_ROUTES.candidates,
     label: 'Ứng viên',
-    caption: 'Xét duyệt hồ sơ',
     match: ADMIN_ROUTES.candidates,
     icon: CandidateIcon,
   },
   {
     href: ADMIN_ROUTES.jobs,
     label: 'Công việc',
-    caption: 'Quản lý bài đăng',
     match: ADMIN_ROUTES.jobs,
     icon: JobIcon,
   },
@@ -90,14 +88,9 @@ export default function AdminHeader() {
           </span>
           <span className={styles.brandTextWrap}>
             <strong className={styles.brandTitle}>Smart Guard</strong>
-            <span className={styles.brandSubtitle}>Trung tâm quản trị tuyển dụng</span>
+            <span className={styles.brandSubtitle}>Tuyen dung bao ve</span>
           </span>
         </Link>
-
-        <div className={styles.sidebarMeta}>
-          <p className={styles.sidebarEyebrow}>Bàn tuyển dụng</p>
-          <p className={styles.sidebarLabel}>Bộ phận xét duyệt hồ sơ và điều phối lịch phỏng vấn</p>
-        </div>
 
         <nav className={styles.nav}>
           {NAV_ITEMS.map((item) => {
@@ -113,10 +106,7 @@ export default function AdminHeader() {
                 <span className={styles.navIcon}>
                   <Icon />
                 </span>
-                <span className={styles.navText}>
-                  <strong>{item.label}</strong>
-                  <span>{item.caption}</span>
-                </span>
+                <span className={styles.navText}><strong>{item.label}</strong></span>
               </Link>
             );
           })}
@@ -132,3 +122,4 @@ export default function AdminHeader() {
     </aside>
   );
 }
+

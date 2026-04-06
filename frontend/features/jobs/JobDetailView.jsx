@@ -14,14 +14,14 @@ export default function JobDetailView({ job }) {
   if (!job) {
     return (
       <main className={styles.page}>
-        <p className={styles.notFound}>Không tìm thấy thông tin vị trí.</p>
+        <p className={styles.notFound}>Khong tim thay thong tin vi tri.</p>
       </main>
     );
   }
 
   return (
     <main className={styles.page}>
-      <div className={styles.breadcrumb}>Tổng quan &gt; Vị trí tuyển dụng &gt; Chi tiết vị trí bảo vệ</div>
+      <div className={styles.breadcrumb}>Tong quan &gt; Vi tri tuyen dung &gt; Chi tiet</div>
 
       <div className={styles.toolbar}>
         <div className={styles.toolbarRight}>
@@ -34,24 +34,24 @@ export default function JobDetailView({ job }) {
                 strokeWidth="1.8"
               />
             </svg>
-            <input type="text" placeholder="Tìm kiếm công việc..." />
+            <input type="text" placeholder="Tim kiem cong viec..." />
           </div>
 
-          <button type="button" className={styles.filterButton} aria-label="Bộ lọc">
+          <button type="button" className={styles.filterButton} aria-label="Bo loc">
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <path d="M4 7h16M7 12h10M10 17h4" fill="none" stroke="currentColor" strokeWidth="1.8" />
             </svg>
           </button>
 
           <Link className={styles.backButton} href="/jobs">
-            Quay lại danh sách
+            Quay lai danh sach
           </Link>
         </div>
       </div>
 
       <section className={styles.heading}>
         <div className={styles.titleRow}>
-          <p className={styles.badge}>{job.badge || 'ĐANG TUYỂN'}</p>
+          <p className={styles.badge}>{job.badge || 'DANG TUYEN'}</p>
           <h1 className={styles.title}>{job.title}</h1>
         </div>
 
@@ -84,9 +84,9 @@ export default function JobDetailView({ job }) {
             <Icon>
               <path d="M4 8h16v8H4zM8 8V6m8 2V6M8 12h3" fill="none" stroke="currentColor" strokeWidth="1.6" />
             </Icon>
-            Mức lương
+            Muc luong
           </div>
-          <p className={styles.statValue}>{job.salary}</p>
+          <p className={styles.statValue}>{job.salary || 'Thoa thuan'}</p>
         </article>
 
         <article className={styles.statCard}>
@@ -95,9 +95,9 @@ export default function JobDetailView({ job }) {
               <path d="M4 18h16V9l-4-3H8L4 9v9Z" fill="none" stroke="currentColor" strokeWidth="1.6" />
               <path d="M9 12h6" fill="none" stroke="currentColor" strokeWidth="1.6" />
             </Icon>
-            Kinh nghiệm
+            Kinh nghiem
           </div>
-          <p className={styles.statValue}>{job.experience}</p>
+          <p className={styles.statValue}>{job.experience || 'Khong yeu cau'}</p>
         </article>
 
         <article className={styles.statCard}>
@@ -110,7 +110,7 @@ export default function JobDetailView({ job }) {
                 strokeWidth="1.6"
               />
             </Icon>
-            Ứng viên
+            Ung vien
           </div>
           <p className={styles.statValue}>{job.candidates}</p>
         </article>
@@ -119,18 +119,12 @@ export default function JobDetailView({ job }) {
       <section className={styles.contentGrid}>
         <div className={styles.contentCol}>
           <section className={styles.block}>
-            <h2 className={styles.sectionTitle}>Mô tả công việc</h2>
-
-            <p className={styles.bodyText}>{job.description}</p>
-
-            <p className={styles.bodyText}>
-              Bạn sẽ đại diện cho thương hiệu uy tín của Bảo vệ Long Hải, cung cấp dịch vụ chuyên nghiệp và thực thi
-              quy trình an ninh với thái độ kiên quyết nhưng nhã nhặn.
-            </p>
+            <h2 className={styles.sectionTitle}>Mo ta cong viec</h2>
+            <p className={styles.bodyText}>{job.description || 'Chua co mo ta cong viec.'}</p>
           </section>
 
           <section className={styles.block}>
-            <h2 className={styles.sectionTitle}>Yêu cầu công việc</h2>
+            <h2 className={styles.sectionTitle}>Yeu cau cong viec</h2>
 
             <ul className={styles.requirements}>
               {(job.requirements || []).map((item) => (
@@ -145,7 +139,7 @@ export default function JobDetailView({ job }) {
           </section>
 
           <section className={styles.block}>
-            <h2 className={styles.sectionTitle}>Lịch làm việc</h2>
+            <h2 className={styles.sectionTitle}>Lich lam viec</h2>
 
             <div className={styles.schedule}>
               {(job.schedule || []).map((item) => (
@@ -162,8 +156,8 @@ export default function JobDetailView({ job }) {
       </section>
 
       <section className={styles.cta}>
-        <h3>Sẵn sàng đồng hành cùng chúng tôi?</h3>
-        <p>Quá trình ứng tuyển diễn ra chưa đầy 5 phút.</p>
+        <h3>San sang dong hanh cung chung toi?</h3>
+        <p>Qua trinh ung tuyen dien ra nhanh va dong bo voi thong tin moi nhat cua vi tri.</p>
       </section>
     </main>
   );

@@ -1,4 +1,3 @@
-import { buildBackendUrl } from '@/lib/api/backendClient';
 import { getSession } from '@/features/auth/api/authApi';
 
 export async function submitApplication(payload) {
@@ -17,7 +16,7 @@ export async function submitApplication(payload) {
   }
 
   const session = getSession();
-  const response = await fetch(buildBackendUrl('/api/applications'), {
+  const response = await fetch('/api/applications', {
     method: 'POST',
     headers: session?.token ? { Authorization: `Bearer ${session.token}` } : undefined,
     body: formData,

@@ -27,9 +27,9 @@ export default function CandidateItem({ candidate, appliedDate }) {
         </div>
       </div>
       <p className={`${styles.muted} ${styles.truncateText}`} title={candidate.email}>
-        {candidate.email}
+        {candidate.email || ''}
       </p>
-      <p className={styles.muted}>{candidate.phone}</p>
+      <p className={styles.muted}>{candidate.phone || ''}</p>
       <p className={`${styles.muted} ${styles.truncateText}`} title={candidate.position}>
         {candidate.position}
       </p>

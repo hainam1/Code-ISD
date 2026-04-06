@@ -1,12 +1,136 @@
 import 'server-only';
-import { getDb } from '@/lib/db/database';
+import { unstable_noStore as noStore } from 'next/cache';
+import { createClient } from '@/lib/supabase/server';
+import { JOB_SCHEDULE_LABELS } from '@/lib/constants/jobFormOptions';
+
+function formatCurrencyValue(value) {
+  if (value == null || !Number.isFinite(Number(value))) {
+    return '';
+  }
+
+  return new Intl.NumberFormat('vi-VN').format(Number(value));
+}
+
+function formatSalaryRange(min, max, currency = 'VND') {
+  if (min == null && max == null) {
+    return '';
+  }
+
+  const resolvedMin = min == null ? max : min;
+  const resolvedMax = max == null ? min : max;
+  const suffix = currency || 'VND';
+
+  if (resolvedMin === resolvedMax) {
+    return `${formatCurrencyValue(resolvedMin)} ${suffix} / thang`;
+  }
+
+  return `${formatCurrencyValue(resolvedMin)} - ${formatCurrencyValue(resolvedMax)} ${suffix} / thang`;
+}
+
+function mapStatusToLegacy(status) {
+  switch (String(status || '').toUpperCase()) {
+    case 'CLOSED':
+      return 'Da dong';
+    case 'DRAFT':
+      return 'Nhap';
+    default:
+      return 'Dang tuyen dung';
+  }
+}
+
+function buildPostedAtLabel(value) {
+  if (!value) {
+    return 'Vua dang';
+  }
+
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) {
+    return 'Vua dang';
+  }
+
+  return new Intl.DateTimeFormat('vi-VN').format(date);
+}
+
+function buildJobViewModel(jobRow, applicationCount) {
+  const requirements = Array.isArray(jobRow.requirements)
+    ? jobRow.requirements.map((item) => String(item || '').trim()).filter(Boolean)
+    : [];
+  const schedule = [
+    { label: JOB_SCHEDULE_LABELS.rotation, value: String(jobRow.schedule_type || '').trim() || 'Lam theo ca' },
+    { label: JOB_SCHEDULE_LABELS.time, value: String(jobRow.work_hours || '').trim() || '8h' },
+    { label: JOB_SCHEDULE_LABELS.dayOff, value: String(jobRow.day_off || '').trim() || 'Theo quy dinh' },
+    { label: JOB_SCHEDULE_LABELS.mode, value: String(jobRow.employment_type || '').trim() || 'Toan thoi gian' },
+  ];
+  const location = String(jobRow.location || '').trim();
+  const address = String(jobRow.address || '').trim() || location;
+
+  return {
+    id: jobRow.id,
+    title: String(jobRow.title || '').trim(),
+    location,
+    salary: formatSalaryRange(jobRow.salary_min, jobRow.salary_max, jobRow.salary_currency),
+    badge: String(jobRow.status || '').toUpperCase() === 'OPEN' ? 'NEW' : '',
+    company: String(jobRow.company_name || '').trim() || 'Smart Guard',
+    address,
+    description: String(jobRow.description || '').trim(),
+    requirements,
+    experience: String(jobRow.experience || '').trim(),
+    candidates: `${applicationCount} ung vien`,
+    quantity: jobRow.slots_total ? String(jobRow.slots_total) : '',
+    status: mapStatusToLegacy(jobRow.status),
+    summary: {
+      place: address,
+      mode: String(jobRow.employment_type || '').trim() || 'Toan thoi gian',
+      postedAt: buildPostedAtLabel(jobRow.created_at),
+    },
+    schedule,
+  };
+}
 
 export async function getJobs() {
-  const db = await getDb();
-  return db.data.jobs;
+  noStore();
+  const supabase = createClient();
+  const [{ data: jobs, error }, { data: applications, error: applicationsError }] = await Promise.all([
+    supabase
+      .from('jobs')
+      .select('*')
+      .order('created_at', { ascending: false }),
+    supabase
+      .from('applications')
+      .select('job_id'),
+  ]);
+
+  if (error || !jobs) return [];
+  if (applicationsError) return [];
+
+  const applicationCountByJobId = new Map();
+  for (const application of applications || []) {
+    applicationCountByJobId.set(
+      application.job_id,
+      (applicationCountByJobId.get(application.job_id) || 0) + 1,
+    );
+  }
+
+  return jobs.map((job) => buildJobViewModel(job, applicationCountByJobId.get(job.id) || 0));
 }
 
 export async function getJobById(jobId) {
-  const db = await getDb();
-  return db.data.jobs.find((job) => job.id === jobId) || null;
+  noStore();
+  const supabase = createClient();
+  const [{ data: job, error }, { count, error: countError }] = await Promise.all([
+    supabase
+      .from('jobs')
+      .select('*')
+      .eq('id', jobId)
+      .single(),
+    supabase
+      .from('applications')
+      .select('*', { count: 'exact', head: true })
+      .eq('job_id', jobId),
+  ]);
+
+  if (error || !job) return null;
+  if (countError) return buildJobViewModel(job, 0);
+
+  return buildJobViewModel(job, count || 0);
 }

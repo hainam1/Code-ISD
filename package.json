@@ -1,11 +1,14 @@
 {
   "name": "isd-workspace",
   "private": true,
+  "workspaces": [
+    "frontend"
+  ],
   "scripts": {
-    "dev:frontend": "npm --prefix frontend run dev",
-    "dev:backend": "npm --prefix backend run dev",
-    "build:frontend": "npm --prefix frontend run build",
-    "start:frontend": "npm --prefix frontend run start",
-    "start:backend": "npm --prefix backend run start"
+    "dev": "npm run dev --workspace frontend",
+    "build": "npm run build --workspace frontend",
+    "start": "npm run start --workspace frontend",
+    "lint": "npm run lint --workspace frontend",
+    "seed:supabase": "node backend/scripts/supabase-seed.js"
   }
 }

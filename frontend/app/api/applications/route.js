@@ -1,6 +1,5 @@
-import { randomUUID } from 'node:crypto';
 import { NextResponse } from 'next/server';
-import { getDb } from '@/lib/db/database';
+import { createClient } from '@/lib/supabase/server';
 import { saveApplicationFile } from '../../../lib/files/applicationStorage';
 
 const ALLOWED_MIME_TYPES = new Set([
@@ -28,26 +27,38 @@ export async function GET(request) {
       return NextResponse.json({ message: 'Thiếu mã ứng viên.' }, { status: 400 });
     }
 
-    const db = await getDb();
-    const applications = db.data.applications
-      .filter((item) => item.candidateId === candidateId)
-      .map((item) => {
-        const job = db.data.jobs.find((jobItem) => jobItem.id === item.jobId);
+    const supabase = createClient();
+    const { data: rawApps, error } = await supabase
+      .from('applications')
+      .select('*, jobs(*)')
+      .eq('candidate_id', candidateId)
+      .order('created_at', { ascending: false });
 
-        return {
-          ...item,
-          job: job
-            ? {
-                id: job.id,
-                title: job.title,
-                company: job.company,
-                location: job.location,
-                salary: job.salary,
-              }
-            : null,
-        };
-      })
-      .sort((left, right) => new Date(right.createdAt).getTime() - new Date(left.createdAt).getTime());
+    if (error) {
+      throw error;
+    }
+
+    const applications = rawApps.map(item => ({
+      id: item.id,
+      candidateId: item.candidate_id,
+      jobId: item.job_id,
+      fullName: item.candidate_full_name,
+      email: item.candidate_email,
+      phone: item.candidate_phone,
+      note: item.note,
+      cvFile: { fileName: item.cv_original_name, mimeType: item.cv_mime_type, size: item.cv_size, storedFileName: item.cv_path, relativePath: item.cv_path },
+      healthFile: item.health_path ? { fileName: item.health_original_name, mimeType: item.health_mime_type, size: item.health_size, storedFileName: item.health_path, relativePath: item.health_path } : null,
+      status: item.status,
+      createdAt: item.created_at,
+      updatedAt: item.updated_at,
+      job: item.jobs ? {
+        id: item.jobs.id,
+        title: item.jobs.title,
+        company: item.jobs.company_name,
+        location: item.jobs.location,
+        salary: item.jobs.salary_max !== null ? `${item.jobs.salary_min} - ${item.jobs.salary_max}` : 'Thỏa thuận',
+      } : null
+    }));
 
     return NextResponse.json({ applications });
   } catch (error) {
@@ -129,24 +140,35 @@ export async function POST(request) {
       );
     }
 
-    const db = await getDb();
-    const job = db.data.jobs.find((item) => item.id === jobId);
-    if (!job) {
+    const supabase = createClient();
+    
+    // Check if job exists
+    const { data: job, error: jobError } = await supabase.from('jobs').select('id').eq('id', jobId).single();
+    if (jobError || !job) {
       return NextResponse.json({ message: 'Công việc không tồn tại.' }, { status: 404 });
     }
 
-    const candidate = db.data.users.find((user) => user.id === candidateId);
-    if (!candidate) {
+    // Check if user exists
+    const { data: candidate, error: candidateError } = await supabase.from('users').select('id').eq('id', candidateId).single();
+    if (candidateError || !candidate) {
       return NextResponse.json({ message: 'Không tìm thấy tài khoản ứng viên.' }, { status: 401 });
     }
 
-    const duplicated = db.data.applications.some(
-      (item) => item.candidateId === candidateId && item.jobId === jobId
-    );
+    // Check if duplicated
+    const { data: duplicated } = await supabase
+      .from('applications')
+      .select('id')
+      .eq('candidate_id', candidateId)
+      .eq('job_id', jobId)
+      .limit(1)
+      .single();
+
     if (duplicated) {
       return NextResponse.json({ message: 'Bạn đã ứng tuyển vị trí này rồi.' }, { status: 409 });
     }
 
+    // Since we don't have Supabase storage setup right now, we keep the original save file logic
+    const { randomUUID } = await import('node:crypto');
     const applicationId = randomUUID();
     const savedCvFile = await saveApplicationFile({
       applicationId,
@@ -160,6 +182,41 @@ export async function POST(request) {
     });
 
     const now = new Date().toISOString();
+    
+    const payload = {
+      id: applicationId,
+      candidate_id: candidateId,
+      job_id: jobId,
+      candidate_full_name: fullName,
+      candidate_email: email || null,
+      candidate_phone: phone || null,
+      note: note || null,
+      cv_original_name: savedCvFile.fileName,
+      cv_mime_type: savedCvFile.mimeType,
+      cv_size: savedCvFile.size,
+      cv_path: savedCvFile.relativePath,
+      health_original_name: savedHealthFile.fileName,
+      health_mime_type: savedHealthFile.mimeType,
+      health_size: savedHealthFile.size,
+      health_path: savedHealthFile.relativePath,
+      status: 'Under Review',
+      status_history: [
+        {
+          status: 'Under Review',
+          updatedAt: now,
+          updatedBy: candidateId,
+        },
+      ],
+      created_at: now,
+      updated_at: now
+    };
+
+    const { error: insertError } = await supabase.from('applications').insert([payload]);
+    
+    if (insertError) {
+      throw insertError;
+    }
+
     const application = {
       id: applicationId,
       candidateId,
@@ -174,8 +231,6 @@ export async function POST(request) {
       createdAt: now,
       updatedAt: now,
     };
-    db.data.applications.push(application);
-    await db.write();
 
     return NextResponse.json(
       {

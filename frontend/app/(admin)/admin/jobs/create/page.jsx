@@ -15,30 +15,28 @@ import { ADMIN_ROUTES } from '@/lib/constants/routes';
 import { getSession } from '@/features/auth/api/authApi.jsx';
 
 const DEFAULT_FORM = {
-  title: 'Nhân viên bảo vệ ca đêm',
-  company: 'Long Hải Security Company',
-  location: 'Quận 1, TP. Hồ Chí Minh',
+  title: 'Nhan vien bao ve ca dem',
+  company: 'Smart Guard',
+  location: 'Quan 1, TP HCM',
+  address: 'Toa nha van phong, Quan 1, TP HCM',
   status: STATUS_OPTIONS[0],
-  minSalary: '8.000.000',
-  maxSalary: '12.000.000',
+  minSalary: '8000000',
+  maxSalary: '12000000',
   quantity: '10',
   experience: EXPERIENCE_OPTIONS[0],
-  description: `- Thực hiện công tác tuần tra, canh gác tại mục tiêu.
-- Đảm bảo an ninh trật tự và an toàn tài sản cho khách hàng.
-- Kiểm soát người và phương tiện ra vào mục tiêu.
-- Xử lý các tình huống khẩn cấp, cháy nổ, gây rối (nếu có).
-- Báo cáo định kỳ cho chỉ huy trưởng mục tiêu.`,
+  description: `Tuan tra, canh gac tai muc tieu.
+Dam bao an ninh trat tu va an toan tai san.
+Kiem soat nguoi va phuong tien ra vao.
+Xu ly tinh huong khan cap va bao cao ca truc.`,
   requirements: [
-    'Học vấn: THPT trở lên',
-    'Chiều cao: Từ 1m65 trở lên',
-    'Sức khỏe tốt',
-    'Lý lịch trong sạch',
-    'Kỹ năng võ thuật',
-    'Kỹ năng giao tiếp',
+    'Hoc van THPT tro len',
+    'Suc khoe tot',
+    'Ly lich ro rang',
+    'Ky nang giao tiep tot',
   ],
   scheduleType: SCHEDULE_OPTIONS[0],
-  workHours: '12 tiếng',
-  dayOff: '4 ngày/tháng',
+  workHours: '12 tieng',
+  dayOff: '4 ngay/thang',
   workMode: WORK_MODE_OPTIONS[0],
 };
 
@@ -75,7 +73,7 @@ function PlusIcon() {
 }
 
 function EditorToolbar() {
-  const items = ['B', 'I', 'T', '≡', '☰', '↺'];
+  const items = ['B', 'I', 'T', '=', '*', '<'];
 
   return (
     <div className={styles.jobEditorToolbar}>
@@ -100,7 +98,7 @@ function RequirementItem({ title, onDelete }) {
       <button
         type="button"
         className={styles.jobRequirementDelete}
-        aria-label={`Xóa yêu cầu ${title}`}
+        aria-label={`Xoa yeu cau ${title}`}
         onClick={onDelete}
       >
         <TrashIcon />
@@ -168,20 +166,20 @@ export default function AdminJobCreatePage() {
       const payload = await response.json();
 
       if (!response.ok) {
-        setErrorMessage(payload.message || 'Không thể đăng tuyển công việc.');
+        setErrorMessage(payload.message || 'Khong the dang tuyen cong viec.');
         return;
       }
 
       router.push(ADMIN_ROUTES.jobs);
     } catch (error) {
-      setErrorMessage(`Không thể đăng tuyển công việc. ${String(error)}`);
+      setErrorMessage(`Khong the dang tuyen cong viec. ${String(error)}`);
     } finally {
       setIsSaving(false);
     }
   }
 
   if (!isAuthorized || isLoading) {
-    return <div className={styles.loadingState}>Đang tải biểu mẫu công việc...</div>;
+    return <div className={styles.loadingState}>Dang tai bieu mau cong viec...</div>;
   }
 
   return (
@@ -193,45 +191,49 @@ export default function AdminJobCreatePage() {
           <div className={styles.jobFormTop}>
             <nav className={styles.jobFormBreadcrumb}>
               <Link href={ADMIN_ROUTES.jobs} className={styles.jobFormBreadcrumbLink}>
-                Công việc
+                Cong viec
               </Link>
               <span className={styles.jobFormBreadcrumbDivider}>{'>'}</span>
-              <span className={styles.jobFormBreadcrumbCurrent}>Thêm công việc</span>
+              <span className={styles.jobFormBreadcrumbCurrent}>Them cong viec</span>
             </nav>
 
             <div className={styles.jobFormActions}>
               <Link href={ADMIN_ROUTES.jobs} className={styles.jobFormCancelButton}>
-                Hủy
+                Huy
               </Link>
               <button type="submit" className={styles.jobFormPublishButton} disabled={isSaving}>
                 <span className={styles.jobFormPublishIcon}>
                   <PlusIcon />
                 </span>
-                <span>{isSaving ? 'Đang đăng...' : 'Đăng tuyển'}</span>
+                <span>{isSaving ? 'Dang dang...' : 'Dang tuyen'}</span>
               </button>
             </div>
           </div>
 
-          <h1 className={styles.jobFormTitle}>Thêm công việc</h1>
+          <h1 className={styles.jobFormTitle}>Them cong viec</h1>
           {errorMessage ? <p className={styles.jobFormError}>{errorMessage}</p> : null}
 
           <section className={styles.jobFormSection}>
-            <h2 className={styles.jobFormSectionTitle}>Thông tin cơ bản</h2>
+            <h2 className={styles.jobFormSectionTitle}>Thong tin co ban</h2>
             <div className={styles.jobFormGrid}>
               <label className={styles.jobField}>
-                <span className={styles.jobFieldLabel}>Tên công việc <strong>*</strong></span>
+                <span className={styles.jobFieldLabel}>Ten cong viec <strong>*</strong></span>
                 <input className={styles.jobFieldInput} value={form.title} onChange={(event) => updateField('title', event.target.value)} />
               </label>
               <label className={styles.jobField}>
-                <span className={styles.jobFieldLabel}>Tên công ty <strong>*</strong></span>
+                <span className={styles.jobFieldLabel}>Ten cong ty <strong>*</strong></span>
                 <input className={styles.jobFieldInput} value={form.company} onChange={(event) => updateField('company', event.target.value)} />
               </label>
               <label className={styles.jobField}>
-                <span className={styles.jobFieldLabel}>Địa điểm làm việc <strong>*</strong></span>
+                <span className={styles.jobFieldLabel}>Dia diem lam viec <strong>*</strong></span>
                 <input className={styles.jobFieldInput} value={form.location} onChange={(event) => updateField('location', event.target.value)} />
               </label>
               <label className={styles.jobField}>
-                <span className={styles.jobFieldLabel}>Trạng thái</span>
+                <span className={styles.jobFieldLabel}>Dia chi chi tiet <strong>*</strong></span>
+                <input className={styles.jobFieldInput} value={form.address} onChange={(event) => updateField('address', event.target.value)} />
+              </label>
+              <label className={styles.jobField}>
+                <span className={styles.jobFieldLabel}>Trang thai</span>
                 <select className={styles.jobFieldInput} value={form.status} onChange={(event) => updateField('status', event.target.value)}>
                   {STATUS_OPTIONS.map((option) => (
                     <option key={option} value={option}>
@@ -244,28 +246,28 @@ export default function AdminJobCreatePage() {
           </section>
 
           <section className={styles.jobFormSection}>
-            <h2 className={styles.jobFormSectionTitle}>Thông tin chính</h2>
+            <h2 className={styles.jobFormSectionTitle}>Thong tin chinh</h2>
             <div className={styles.jobFormGrid}>
               <label className={styles.jobField}>
-                <span className={styles.jobFieldLabel}>Mức lương tối thiểu <strong>*</strong></span>
+                <span className={styles.jobFieldLabel}>Muc luong toi thieu <strong>*</strong></span>
                 <div className={styles.jobFieldInputWrap}>
                   <input className={styles.jobFieldInput} value={form.minSalary} onChange={(event) => updateField('minSalary', event.target.value)} />
                   <span className={styles.jobFieldSuffix}>VND</span>
                 </div>
               </label>
               <label className={styles.jobField}>
-                <span className={styles.jobFieldLabel}>Mức lương tối đa <strong>*</strong></span>
+                <span className={styles.jobFieldLabel}>Muc luong toi da <strong>*</strong></span>
                 <div className={styles.jobFieldInputWrap}>
                   <input className={styles.jobFieldInput} value={form.maxSalary} onChange={(event) => updateField('maxSalary', event.target.value)} />
                   <span className={styles.jobFieldSuffix}>VND</span>
                 </div>
               </label>
               <label className={styles.jobField}>
-                <span className={styles.jobFieldLabel}>Số lượng tuyển</span>
+                <span className={styles.jobFieldLabel}>So luong tuyen</span>
                 <input className={styles.jobFieldInput} value={form.quantity} onChange={(event) => updateField('quantity', event.target.value)} />
               </label>
               <label className={styles.jobField}>
-                <span className={styles.jobFieldLabel}>Kinh nghiệm <strong>*</strong></span>
+                <span className={styles.jobFieldLabel}>Kinh nghiem <strong>*</strong></span>
                 <select className={styles.jobFieldInput} value={form.experience} onChange={(event) => updateField('experience', event.target.value)}>
                   {EXPERIENCE_OPTIONS.map((option) => (
                     <option key={option} value={option}>
@@ -278,7 +280,7 @@ export default function AdminJobCreatePage() {
           </section>
 
           <section className={styles.jobFormSection}>
-            <h2 className={styles.jobFormSectionTitle}>Mô tả công việc <strong>*</strong></h2>
+            <h2 className={styles.jobFormSectionTitle}>Mo ta cong viec <strong>*</strong></h2>
             <div className={styles.jobEditor}>
               <EditorToolbar />
               <textarea className={styles.jobEditorTextarea} value={form.description} onChange={(event) => updateField('description', event.target.value)} />
@@ -287,12 +289,12 @@ export default function AdminJobCreatePage() {
 
           <section className={styles.jobFormSection}>
             <div className={styles.jobRequirementsHeader}>
-              <h2 className={styles.jobFormSectionTitle}>Yêu cầu công việc <strong>*</strong></h2>
+              <h2 className={styles.jobFormSectionTitle}>Yeu cau cong viec <strong>*</strong></h2>
               <button type="button" className={styles.jobRequirementAddButton} onClick={handleAddRequirement}>
                 <span className={styles.jobRequirementAddIcon}>
                   <PlusIcon />
                 </span>
-                <span>Thêm yêu cầu</span>
+                <span>Them yeu cau</span>
               </button>
             </div>
             <div className={styles.jobRequirementInputRow}>
@@ -300,7 +302,7 @@ export default function AdminJobCreatePage() {
                 className={styles.jobFieldInput}
                 value={newRequirement}
                 onChange={(event) => setNewRequirement(event.target.value)}
-                placeholder="Nhập yêu cầu mới"
+                placeholder="Nhap yeu cau moi"
               />
             </div>
             <div className={styles.jobRequirementsGrid}>
@@ -311,10 +313,10 @@ export default function AdminJobCreatePage() {
           </section>
 
           <section className={styles.jobFormSection}>
-            <h2 className={styles.jobFormSectionTitle}>Thông tin công việc / Lịch làm</h2>
+            <h2 className={styles.jobFormSectionTitle}>Thong tin cong viec / Lich lam</h2>
             <div className={styles.jobFormGrid}>
               <label className={styles.jobField}>
-                <span className={styles.jobFieldLabel}>Loại lịch</span>
+                <span className={styles.jobFieldLabel}>Loai lich</span>
                 <select className={styles.jobFieldInput} value={form.scheduleType} onChange={(event) => updateField('scheduleType', event.target.value)}>
                   {SCHEDULE_OPTIONS.map((option) => (
                     <option key={option} value={option}>
@@ -324,15 +326,15 @@ export default function AdminJobCreatePage() {
                 </select>
               </label>
               <label className={styles.jobField}>
-                <span className={styles.jobFieldLabel}>Số giờ làm / ngày <strong>*</strong></span>
+                <span className={styles.jobFieldLabel}>So gio lam / ngay <strong>*</strong></span>
                 <input className={styles.jobFieldInput} value={form.workHours} onChange={(event) => updateField('workHours', event.target.value)} />
               </label>
               <label className={styles.jobField}>
-                <span className={styles.jobFieldLabel}>Ngày nghỉ</span>
+                <span className={styles.jobFieldLabel}>Ngay nghi</span>
                 <input className={styles.jobFieldInput} value={form.dayOff} onChange={(event) => updateField('dayOff', event.target.value)} />
               </label>
               <label className={styles.jobField}>
-                <span className={styles.jobFieldLabel}>Hình thức làm việc <strong>*</strong></span>
+                <span className={styles.jobFieldLabel}>Hinh thuc lam viec <strong>*</strong></span>
                 <select className={styles.jobFieldInput} value={form.workMode} onChange={(event) => updateField('workMode', event.target.value)}>
                   {WORK_MODE_OPTIONS.map((option) => (
                     <option key={option} value={option}>
