@@ -12,9 +12,11 @@ import { getSession } from '@/features/auth/api/authApi';
 import { CANDIDATE_STATUS, STATUS_LABELS } from '@/features/candidates/constants/statusOptions';
 
 const STATUS_OPTIONS = [
-  { value: CANDIDATE_STATUS.all, label: 'Loc theo trang thai' },
+  { value: CANDIDATE_STATUS.all, label: 'Lọc theo trạng thái' },
+  { value: CANDIDATE_STATUS.noApplication, label: STATUS_LABELS[CANDIDATE_STATUS.noApplication] },
   { value: CANDIDATE_STATUS.review, label: STATUS_LABELS[CANDIDATE_STATUS.review] },
   { value: CANDIDATE_STATUS.shortlisted, label: STATUS_LABELS[CANDIDATE_STATUS.shortlisted] },
+  { value: CANDIDATE_STATUS.interview, label: STATUS_LABELS[CANDIDATE_STATUS.interview] },
   { value: CANDIDATE_STATUS.rejected, label: STATUS_LABELS[CANDIDATE_STATUS.rejected] },
 ];
 
@@ -26,7 +28,7 @@ function countByStatus(candidates, status) {
 
 function formatAppliedDate(dateString) {
   if (!dateString) {
-    return 'Chua cap nhat';
+    return 'Chưa cập nhật';
   }
 
   return new Intl.DateTimeFormat('vi-VN', {
@@ -63,14 +65,14 @@ export default function CandidateManagementPage() {
         const payload = await response.json().catch(() => ({}));
 
         if (!response.ok) {
-          throw new Error(payload.message || 'Khong the tai danh sach ung vien.');
+          throw new Error(payload.message || 'Không thể tải danh sách ứng viên.');
         }
 
         setCandidates(Array.isArray(payload.candidates) ? payload.candidates : []);
         setLoadError('');
       } catch (error) {
         setCandidates([]);
-        setLoadError(error?.message || 'Khong the tai danh sach ung vien.');
+        setLoadError(error?.message || 'Không thể tải danh sách ứng viên.');
       } finally {
         setIsLoading(false);
       }
@@ -113,24 +115,27 @@ export default function CandidateManagementPage() {
   const summaryItems = useMemo(
     () => [
       {
-        label: 'Tong so ung vien',
-        value: String(candidates.length).padStart(2, '0'),
-        tone: 'Neutral',
+        label: 'Chưa ứng tuyển',
+        value: String(countByStatus(candidates, CANDIDATE_STATUS.noApplication)).padStart(2, '0'),
+        tone: 'NoApplication',
       },
       {
-        label: 'Chua duyet',
-        value: String(
-          countByStatus(candidates, CANDIDATE_STATUS.review) + countByStatus(candidates, CANDIDATE_STATUS.noApplication),
-        ).padStart(2, '0'),
+        label: 'Cần đánh giá',
+        value: String(countByStatus(candidates, CANDIDATE_STATUS.review)).padStart(2, '0'),
         tone: 'Review',
       },
       {
-        label: 'Da duyet',
+        label: 'Sẵn sàng',
         value: String(countByStatus(candidates, CANDIDATE_STATUS.shortlisted)).padStart(2, '0'),
         tone: 'Shortlisted',
       },
       {
-        label: 'Bi loai',
+        label: 'Phỏng vấn',
+        value: String(countByStatus(candidates, CANDIDATE_STATUS.interview)).padStart(2, '0'),
+        tone: 'Interview',
+      },
+      {
+        label: 'Bị loại',
         value: String(countByStatus(candidates, CANDIDATE_STATUS.rejected)).padStart(2, '0'),
         tone: 'Rejected',
       },
@@ -139,7 +144,7 @@ export default function CandidateManagementPage() {
   );
 
   if (!isAuthorized || isLoading) {
-    return <div className={styles.loadingState}>Dang tai man hinh quan ly ung vien...</div>;
+    return <div className={styles.loadingState}>Đang tải màn hình quản lý ứng viên...</div>;
   }
 
   if (loadError) {
@@ -152,8 +157,15 @@ export default function CandidateManagementPage() {
       <main className={styles.content}>
         <section className={styles.dashboardHero}>
           <div className={styles.titleBlock}>
-            <p className={styles.pageEyebrow}>Tuyen dung bao ve</p>
-            <h1 className={styles.title}>Bang dieu phoi xet duyet</h1>
+            <p className={styles.pageEyebrow}>Tuyển dụng bảo vệ</p>
+            <h1 className={styles.title}>Bảng điều phối xét duyệt</h1>
+          </div>
+          <div className={`${styles.heroPanel} ${styles.candidateHeroPanel}`}>
+            <p className={styles.heroPanelLabel}>Tổng số ứng viên</p>
+            <p className={`${styles.heroPanelValue} ${styles.candidateHeroValue}`}>
+              {String(candidates.length).padStart(2, '0')}
+            </p>
+            <p className={styles.heroPanelText}>Số lượng hồ sơ hiện đang có trong hệ thống xét duyệt.</p>
           </div>
         </section>
 
@@ -168,8 +180,8 @@ export default function CandidateManagementPage() {
 
         <section className={styles.toolbarShell}>
           <div className={styles.toolbarCopy}>
-            <p className={styles.toolbarEyebrow}>Bo loc thao tac</p>
-            <h2 className={styles.toolbarTitle}>Tim nhanh va thu hep danh sach</h2>
+            <p className={styles.toolbarEyebrow}>Bộ lọc thao tác</p>
+            <h2 className={styles.toolbarTitle}>Tìm nhanh và thu hẹp danh sách</h2>
           </div>
           <div className={styles.toolbar}>
             <SearchBar value={searchTerm} onChange={setSearchTerm} />
@@ -180,22 +192,22 @@ export default function CandidateManagementPage() {
         <section className={styles.card}>
           <div className={styles.sectionHeader}>
             <div>
-              <p className={styles.sectionEyebrow}>Danh sach xet duyet</p>
-              <h2 className={styles.sectionTitleLarge}>Danh sach theo doi</h2>
+              <p className={styles.sectionEyebrow}>Danh sách xét duyệt</p>
+              <h2 className={styles.sectionTitleLarge}>Danh sách theo dõi</h2>
             </div>
             <p className={styles.sectionMeta}>
-              Trang {currentPage}/{totalPages} • {filteredCandidates.length} ung vien
+              Trang {currentPage}/{totalPages} • {filteredCandidates.length} ứng viên
             </p>
           </div>
 
           <div className={styles.tableHeader}>
-            <span>Ho va ten</span>
+            <span>Họ và tên</span>
             <span>Email</span>
-            <span>So dien thoai</span>
-            <span>Vi tri ung tuyen</span>
-            <span>Ngay cap nhat</span>
-            <span>Trang thai</span>
-            <span>Hanh dong</span>
+            <span>Số điện thoại</span>
+            <span>Vị trí ứng tuyển</span>
+            <span>Ngày cập nhật</span>
+            <span>Trạng thái</span>
+            <span>Hành động</span>
           </div>
 
           {visibleCandidates.length > 0 ? (
@@ -208,8 +220,8 @@ export default function CandidateManagementPage() {
             ))
           ) : (
             <div className={styles.emptyState}>
-              <p className={styles.emptyStateTitle}>Khong co ung vien phu hop</p>
-              <p className={styles.emptyStateText}>Thu doi tu khoa tim kiem hoac bo loc trang thai de mo rong ket qua.</p>
+              <p className={styles.emptyStateTitle}>Không có ứng viên phù hợp</p>
+              <p className={styles.emptyStateText}>Thử đổi từ khóa tìm kiếm hoặc bộ lọc trạng thái để mở rộng kết quả.</p>
             </div>
           )}
 

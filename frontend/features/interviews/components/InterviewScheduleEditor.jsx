@@ -78,7 +78,7 @@ export default function InterviewScheduleEditor({
   const [selectedDate, setSelectedDate] = useState(initialDate || '2023-10-24');
   const [startTime, setStartTime] = useState(parsedTime.startTime);
   const [endTime, setEndTime] = useState(parsedTime.endTime);
-  const [location, setLocation] = useState(initialLocation || 'Van phong Long Hai Security, Quan 1, TP Ho Chi Minh');
+  const [location, setLocation] = useState(initialLocation || 'Văn phòng Long Hải Security, Quận 1, TP Hồ Chí Minh');
   const [isSaving, setIsSaving] = useState(false);
   const [feedback, setFeedback] = useState('');
 
@@ -111,7 +111,7 @@ export default function InterviewScheduleEditor({
       const payload = await response.json().catch(() => null);
 
       if (!response.ok) {
-        setFeedback(payload?.message || 'Khong the luu lich phong van.');
+        setFeedback(payload?.message || 'Không thể lưu lịch phỏng vấn.');
         return;
       }
 
@@ -128,7 +128,7 @@ export default function InterviewScheduleEditor({
 
       router.push(nextUrl);
     } catch {
-      setFeedback('Khong the luu lich phong van.');
+      setFeedback('Không thể lưu lịch phỏng vấn.');
     } finally {
       setIsSaving(false);
     }
@@ -140,27 +140,27 @@ export default function InterviewScheduleEditor({
       <main className={styles.successLayout}>
         <nav className={styles.breadcrumb}>
           <Link href={ADMIN_ROUTES.candidates} className={styles.breadcrumbLink}>
-            Ung vien
+            Ứng viên
           </Link>
           <span className={styles.breadcrumbDivider}>{'>'}</span>
           <Link href={ADMIN_ROUTES.candidateDetail(candidateId)} className={styles.breadcrumbLink}>
             {candidateName}
           </Link>
           <span className={styles.breadcrumbDivider}>{'>'}</span>
-          <span className={styles.breadcrumbCurrent}>Chinh sua lich phong van</span>
+          <span className={styles.breadcrumbCurrent}>Chỉnh sửa lịch phỏng vấn</span>
         </nav>
 
         <section className={styles.successCard}>
           <div className={styles.successCardBody}>
-            <h1 className={styles.successTitle}>Chinh sua lich phong van</h1>
+            <h1 className={styles.successTitle}>Chỉnh sửa lịch phỏng vấn</h1>
             <p className={styles.successDescription}>
-              Chon ngay phong van va khung gio phu hop cho {candidateName}. Interview ID: {interviewId || 'se duoc tao sau khi luu'}.
+              Chọn ngày phỏng vấn và khung giờ phù hợp cho {candidateName}. Interview ID: {interviewId || 'sẽ được tạo sau khi lưu'}.
             </p>
 
             <form onSubmit={handleSubmit} className={styles.scheduleForm}>
               <div className={styles.scheduleCard}>
                 <label className={styles.scheduleLabel} htmlFor="interview-date">
-                  Ngay phong van
+                  Ngày phỏng vấn
                 </label>
                 <input
                   id="interview-date"
@@ -173,11 +173,11 @@ export default function InterviewScheduleEditor({
               </div>
 
               <div className={styles.scheduleCard}>
-                <p className={styles.scheduleLabel}>Khung gio phong van</p>
+                <p className={styles.scheduleLabel}>Khung giờ phỏng vấn</p>
                 <div className={styles.timeAdjusters}>
                   <div className={styles.timeAdjusterCard}>
                     <label className={styles.scheduleLabel} htmlFor="interview-start-time">
-                      Gio bat dau
+                      Giờ bắt đầu
                     </label>
                     <input
                       id="interview-start-time"
@@ -190,7 +190,7 @@ export default function InterviewScheduleEditor({
                   </div>
                   <div className={styles.timeAdjusterCard}>
                     <label className={styles.scheduleLabel} htmlFor="interview-end-time">
-                      Gio ket thuc
+                      Giờ kết thúc
                     </label>
                     <input
                       id="interview-end-time"
@@ -202,17 +202,17 @@ export default function InterviewScheduleEditor({
                     />
                   </div>
                 </div>
-                <p className={styles.scheduleHint}>Khung gio da chon: {selectedTime}</p>
+                <p className={styles.scheduleHint}>Khung giờ đã chọn: {selectedTime}</p>
                 {hasInvalidTimeRange ? (
                   <p className={`${styles.feedbackText} ${styles.feedbackError}`}>
-                    Gio bat dau lon hon gio ket thuc la khong hop le.
+                    Giờ bắt đầu lớn hơn giờ kết thúc là không hợp lệ.
                   </p>
                 ) : null}
               </div>
 
               <div className={styles.scheduleCard}>
                 <label className={styles.scheduleLabel} htmlFor="interview-location">
-                  Dia diem phong van
+                  Địa điểm phỏng vấn
                 </label>
                 <input
                   id="interview-location"
@@ -228,13 +228,13 @@ export default function InterviewScheduleEditor({
                   <span className={styles.buttonIcon}>
                     <SaveIcon />
                   </span>
-                  {isSaving ? 'Dang luu...' : 'Luu lich phong van'}
+                  {isSaving ? 'Đang lưu...' : 'Lưu lịch phỏng vấn'}
                 </button>
                 <Link href={ADMIN_ROUTES.candidateDetail(candidateId)} className={styles.secondaryButton}>
                   <span className={styles.buttonIcon}>
                     <BackIcon />
                   </span>
-                  Quay lai chi tiet ung vien
+                  Quay lại chi tiết ứng viên
                 </Link>
               </div>
               {feedback ? (

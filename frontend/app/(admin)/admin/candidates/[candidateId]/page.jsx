@@ -15,7 +15,12 @@ import { ADMIN_ROUTES } from '@/lib/constants/routes';
 import { getSession } from '@/features/auth/api/authApi';
 import { CANDIDATE_STATUS } from '@/features/candidates/constants/statusOptions';
 
-const STATUS_OPTIONS = [CANDIDATE_STATUS.review, CANDIDATE_STATUS.shortlisted, CANDIDATE_STATUS.rejected];
+const STATUS_OPTIONS = [
+  CANDIDATE_STATUS.review,
+  CANDIDATE_STATUS.shortlisted,
+  CANDIDATE_STATUS.interview,
+  CANDIDATE_STATUS.rejected,
+];
 
 export default function CandidateDetailPage() {
   const params = useParams();
@@ -64,7 +69,7 @@ export default function CandidateDetailPage() {
 
   async function patchCandidate(updates, successMessage) {
     if (!candidate?.hasApplication) {
-      setFeedback('Ung vien nay chua nop ho so, khong co trang thai de cap nhat.');
+      setFeedback('Ứng viên này chưa nộp hồ sơ, không có trạng thái để cập nhật.');
       return;
     }
 
@@ -75,7 +80,7 @@ export default function CandidateDetailPage() {
     });
 
     if (!response.ok) {
-      setFeedback('Khong the cap nhat ung vien.');
+      setFeedback('Không thể cập nhật ứng viên.');
       return;
     }
 
@@ -86,21 +91,21 @@ export default function CandidateDetailPage() {
   }
 
   async function handleStatusUpdate() {
-    await patchCandidate({ status: statusValue }, 'Cap nhat trang thai thanh cong.');
+    await patchCandidate({ status: statusValue }, 'Cập nhật trạng thái thành công.');
   }
 
   if (!isAuthorized || isLoading) {
-    return <div className={styles.loadingState}>Dang tai man hinh chi tiet ung vien...</div>;
+    return <div className={styles.loadingState}>Đang tải màn hình chi tiết ứng viên...</div>;
   }
 
   if (!candidate) {
-    return <div className={styles.loadingState}>Khong tim thay ung vien.</div>;
+    return <div className={styles.loadingState}>Không tìm thấy ứng viên.</div>;
   }
 
   const interviewHref =
     `${ADMIN_ROUTES.interviews}?candidateId=${candidate.id}` +
     `&candidateName=${encodeURIComponent(candidate.fullName)}` +
-    `&position=${encodeURIComponent(candidate.position || 'Nhan vien bao ve ca dem')}` +
+    `&position=${encodeURIComponent(candidate.position || 'Nhân viên bảo vệ ca đêm')}` +
     `&interviewId=${encodeURIComponent(candidate.interview?.id || '')}` +
     `&rawDate=${encodeURIComponent(candidate.interview?.rawDate || '')}` +
     `&date=${encodeURIComponent(candidate.interview?.interviewDate || '')}` +
@@ -112,7 +117,7 @@ export default function CandidateDetailPage() {
       <AdminHeader />
       <main className={styles.detailLayout}>
         <Link href={ADMIN_ROUTES.candidates} className={styles.backLink}>
-          Quay lai danh sach ung vien
+          Quay lại danh sách ứng viên
         </Link>
 
         <div className={styles.detailStack}>
@@ -122,55 +127,55 @@ export default function CandidateDetailPage() {
             avatarUrl={candidate.avatarUrl}
             action={(
               <Link href={ADMIN_ROUTES.candidates} className={styles.secondaryButton}>
-                Quay lai trang
+                Quay lại trang
               </Link>
             )}
           />
 
           <InfoCard
-            title="Thong tin ung vien"
+            title="Thông tin ứng viên"
             items={[
-              { label: 'Ho va ten', value: candidate.fullName },
+              { label: 'Họ và tên', value: candidate.fullName },
               { label: 'Email', value: candidate.email || '' },
-              { label: 'So dien thoai', value: candidate.phone || '' },
-              { label: 'Ngay sinh', value: candidate.dob || 'Chua cap nhat' },
-              { label: 'CCCD / CMND', value: candidate.idCard || 'Chua cap nhat' },
-              { label: 'Dia chi', value: candidate.address || 'Chua cap nhat' },
-              { label: 'Vi tri ung tuyen', value: candidate.position || 'Chua cap nhat' },
+              { label: 'Số điện thoại', value: candidate.phone || '' },
+              { label: 'Ngày sinh', value: candidate.dob || 'Chưa cập nhật' },
+              { label: 'CCCD / CMND', value: candidate.idCard || 'Chưa cập nhật' },
+              { label: 'Địa chỉ', value: candidate.address || 'Chưa cập nhật' },
+              { label: 'Vị trí ứng tuyển', value: candidate.position || 'Chưa cập nhật' },
             ]}
           />
 
           <DocumentSection
-            title="Ho so CV"
-            description="CV duoc ung vien tai len trong qua trinh nop ho so."
+            title="Hồ sơ CV"
+            description="CV được ứng viên tải lên trong quá trình nộp hồ sơ."
             fileName={candidate.cvFileName}
-            emptyText="Ung vien chua tai CV."
+            emptyText="Ứng viên chưa tải CV."
           >
             {candidate.cvFileName ? (
               <a href={`/api/admin/candidates/${candidate.id}/cv?download=1`} className={styles.detailButton}>
-                Tai CV
+                Tải CV
               </a>
             ) : null}
           </DocumentSection>
 
           <DocumentSection
-            title="Ho so suc khoe"
-            description="Thong tin ho so suc khoe cua ung vien."
+            title="Hồ sơ sức khỏe"
+            description="Thông tin hồ sơ sức khỏe của ứng viên."
             fileName={candidate.healthCertificateFileName}
-            emptyText="Chua tai len ho so suc khoe."
+            emptyText="Chưa tải lên hồ sơ sức khỏe."
           >
             {candidate.healthCertificateFileName ? (
               <a
                 href={`/api/admin/candidates/${candidate.id}/health?download=1`}
                 className={styles.detailButton}
               >
-                Tai ho so suc khoe
+                Tải hồ sơ sức khỏe
               </a>
             ) : null}
           </DocumentSection>
 
           <section className={styles.detailCard}>
-            <h2 className={styles.sectionTitle}>Cap nhat trang thai ung vien</h2>
+            <h2 className={styles.sectionTitle}>Cập nhật trạng thái ứng viên</h2>
             <div className={styles.statusSectionTop}>
               <StatusBadge status={candidate.status} />
             </div>
@@ -186,14 +191,14 @@ export default function CandidateDetailPage() {
                 onClick={handleStatusUpdate}
                 disabled={!candidate.hasApplication}
               >
-                Cap nhat trang thai
+                Cập nhật trạng thái
               </ActionButton>
             </div>
             {!candidate.hasApplication ? (
-              <p className={styles.feedbackText}>Ung vien nay da co tai khoan nhung chua nop ho so ung tuyen.</p>
+              <p className={styles.feedbackText}>Ứng viên này đã có tài khoản nhưng chưa nộp hồ sơ ứng tuyển.</p>
             ) : null}
             {feedback ? (
-              <p className={`${styles.feedbackText} ${feedback.includes('Khong the') ? styles.feedbackError : styles.feedbackSuccess}`}>
+              <p className={`${styles.feedbackText} ${feedback.includes('Không thể') ? styles.feedbackError : styles.feedbackSuccess}`}>
                 {feedback}
               </p>
             ) : null}
@@ -201,7 +206,7 @@ export default function CandidateDetailPage() {
 
           {candidate.hasApplication ? (
             <Link href={interviewHref} className={`${styles.detailButton} ${styles.fullWidthButton}`}>
-              {candidate.interview ? 'Chinh sua lich phong van' : 'Len lich phong van'}
+              {candidate.interview ? 'Chỉnh sửa lịch phỏng vấn' : 'Lên lịch phỏng vấn'}
             </Link>
           ) : null}
         </div>

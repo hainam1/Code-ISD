@@ -4,7 +4,7 @@ import { createClient } from '@/lib/supabase/server';
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const PHONE_REGEX = /^\d{10}$/;
-const INVALID_LOGIN_MESSAGE = 'Email, so dien thoai, mat khau hoac loai tai khoan chua chinh xac';
+const INVALID_LOGIN_MESSAGE = 'Email, số điện thoại, mật khẩu hoặc loại tài khoản chưa chính xác';
 const ADMIN_EMAIL = process.env.ADMIN_EMAIL?.trim() || 'admin@gmail.com';
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD?.trim() || 'admin12345';
 
@@ -34,7 +34,7 @@ export async function POST(request) {
     const password = String(body.password || '').trim();
 
     if (!identifier || !password) {
-      return NextResponse.json({ message: 'Vui long nhap day du Email hoac Password.' }, { status: 400 });
+      return NextResponse.json({ message: 'Vui lòng nhập đầy đủ Email hoặc Password.' }, { status: 400 });
     }
 
     if (password.length <= 6) {
@@ -47,7 +47,7 @@ export async function POST(request) {
       }
 
       return NextResponse.json({
-        message: 'Dang nhap thanh cong',
+        message: 'Đăng nhập thành công',
         token: 'admin-internal-token',
         user: {
           id: 'admin-internal',
@@ -61,7 +61,7 @@ export async function POST(request) {
 
     const isEmailLogin = identifier.includes('@');
     if (isEmailLogin && !EMAIL_REGEX.test(identifier)) {
-      return NextResponse.json({ message: 'Email khong hop le (vi du: abc@gmail.com).' }, { status: 400 });
+      return NextResponse.json({ message: 'Email không hợp lệ (ví dụ: abc@gmail.com).' }, { status: 400 });
     }
     if (!isEmailLogin && !PHONE_REGEX.test(identifier)) {
       return NextResponse.json({ message: INVALID_LOGIN_MESSAGE }, { status: 401 });
@@ -75,7 +75,7 @@ export async function POST(request) {
       .limit(1);
 
     if (error) {
-      return NextResponse.json({ message: 'Da co loi xay ra khi truy xuat co so du lieu.' }, { status: 500 });
+      return NextResponse.json({ message: 'Đã có lỗi xảy ra khi truy xuất cơ sở dữ liệu.' }, { status: 500 });
     }
 
     const user = users?.[0];
@@ -89,7 +89,7 @@ export async function POST(request) {
     }
 
     return NextResponse.json({
-      message: 'Dang nhap thanh cong',
+      message: 'Đăng nhập thành công',
       token: `user-${user.id}`,
       user: {
         id: user.id,
@@ -106,7 +106,7 @@ export async function POST(request) {
     });
   } catch (error) {
     return NextResponse.json(
-      { message: 'Dang nhap that bai. Vui long thu lai.', error: String(error) },
+      { message: 'Đăng nhập thất bại. Vui lòng thử lại.', error: String(error) },
       { status: 500 },
     );
   }

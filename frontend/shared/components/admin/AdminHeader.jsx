@@ -88,7 +88,7 @@ export default function AdminHeader() {
           </span>
           <span className={styles.brandTextWrap}>
             <strong className={styles.brandTitle}>Smart Guard</strong>
-            <span className={styles.brandSubtitle}>Tuyen dung bao ve</span>
+            <span className={styles.brandSubtitle}>Tuyển dụng bảo vệ</span>
           </span>
         </Link>
 
@@ -122,4 +122,3 @@ export default function AdminHeader() {
     </aside>
   );
 }
-

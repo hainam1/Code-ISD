@@ -21,31 +21,31 @@ function formatSalaryRange(min, max, currency = 'VND') {
   const suffix = currency || 'VND';
 
   if (resolvedMin === resolvedMax) {
-    return `${formatCurrencyValue(resolvedMin)} ${suffix} / thang`;
+    return `${formatCurrencyValue(resolvedMin)} ${suffix} / tháng`;
   }
 
-  return `${formatCurrencyValue(resolvedMin)} - ${formatCurrencyValue(resolvedMax)} ${suffix} / thang`;
+  return `${formatCurrencyValue(resolvedMin)} - ${formatCurrencyValue(resolvedMax)} ${suffix} / tháng`;
 }
 
 function mapStatusToLegacy(status) {
   switch (String(status || '').toUpperCase()) {
     case 'CLOSED':
-      return 'Da dong';
+      return 'Đã đóng';
     case 'DRAFT':
-      return 'Nhap';
+      return 'Nháp';
     default:
-      return 'Dang tuyen dung';
+      return 'Đang tuyển dụng';
   }
 }
 
 function buildPostedAtLabel(value) {
   if (!value) {
-    return 'Vua dang';
+    return 'Vừa đăng';
   }
 
   const date = new Date(value);
   if (Number.isNaN(date.getTime())) {
-    return 'Vua dang';
+    return 'Vừa đăng';
   }
 
   return new Intl.DateTimeFormat('vi-VN').format(date);
@@ -56,10 +56,10 @@ function buildJobViewModel(jobRow, applicationCount) {
     ? jobRow.requirements.map((item) => String(item || '').trim()).filter(Boolean)
     : [];
   const schedule = [
-    { label: JOB_SCHEDULE_LABELS.rotation, value: String(jobRow.schedule_type || '').trim() || 'Lam theo ca' },
+    { label: JOB_SCHEDULE_LABELS.rotation, value: String(jobRow.schedule_type || '').trim() || 'Làm theo ca' },
     { label: JOB_SCHEDULE_LABELS.time, value: String(jobRow.work_hours || '').trim() || '8h' },
-    { label: JOB_SCHEDULE_LABELS.dayOff, value: String(jobRow.day_off || '').trim() || 'Theo quy dinh' },
-    { label: JOB_SCHEDULE_LABELS.mode, value: String(jobRow.employment_type || '').trim() || 'Toan thoi gian' },
+    { label: JOB_SCHEDULE_LABELS.dayOff, value: String(jobRow.day_off || '').trim() || 'Theo quy định' },
+    { label: JOB_SCHEDULE_LABELS.mode, value: String(jobRow.employment_type || '').trim() || 'Toàn thời gian' },
   ];
   const location = String(jobRow.location || '').trim();
   const address = String(jobRow.address || '').trim() || location;
@@ -75,12 +75,12 @@ function buildJobViewModel(jobRow, applicationCount) {
     description: String(jobRow.description || '').trim(),
     requirements,
     experience: String(jobRow.experience || '').trim(),
-    candidates: `${applicationCount} ung vien`,
+    candidates: `${applicationCount} ứng viên`,
     quantity: jobRow.slots_total ? String(jobRow.slots_total) : '',
     status: mapStatusToLegacy(jobRow.status),
     summary: {
       place: address,
-      mode: String(jobRow.employment_type || '').trim() || 'Toan thoi gian',
+      mode: String(jobRow.employment_type || '').trim() || 'Toàn thời gian',
       postedAt: buildPostedAtLabel(jobRow.created_at),
     },
     schedule,

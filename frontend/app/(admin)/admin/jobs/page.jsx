@@ -271,8 +271,8 @@ export default function AdminJobsPage() {
       <main className={styles.jobsPage}>
         <section className={styles.jobsHero}>
           <div className={styles.jobsHeroCopy}>
-            <p className={styles.jobsEyebrow}>Tuyen dung bao ve</p>
-            <h1 className={styles.jobsHeading}>Cong viec</h1>
+            <p className={styles.jobsEyebrow}>Tuyển dụng bảo vệ</p>
+            <h1 className={styles.jobsHeading}>Công việc</h1>
           </div>
 
           <div className={styles.jobsHeroActions}>
@@ -288,10 +288,10 @@ export default function AdminJobsPage() {
         <section className={styles.card}>
           <div className={styles.sectionHeader}>
             <div>
-              <p className={styles.sectionEyebrow}>Danh sach xet duyet</p>
-              <h2 className={styles.sectionTitleLarge}>Cong viec</h2>
+              <p className={styles.sectionEyebrow}>Danh sách xét duyệt</p>
+              <h2 className={styles.sectionTitleLarge}>Công việc</h2>
             </div>
-            <p className={styles.sectionMeta}>{jobs.length} cong viec</p>
+            <p className={styles.sectionMeta}>{jobs.length} công việc</p>
           </div>
 
           {pageMessage ? (
@@ -326,4 +326,3 @@ export default function AdminJobsPage() {
     </div>
   );
 }
-

@@ -2,7 +2,7 @@ import { randomUUID } from 'node:crypto';
 import { createClient } from '@/lib/supabase/server';
 
 const ADMIN_DISPLAY_ID = 'admin-internal';
-const ADMIN_NAME = 'Admin tuyen dung';
+const ADMIN_NAME = 'Admin tuyển dụng';
 const ADMIN_EMAIL = process.env.ADMIN_EMAIL?.trim() || 'admin@gmail.com';
 
 function normalizeText(value) {
@@ -119,7 +119,7 @@ function mapThreadSummary(thread, viewerDisplayId, adminDbId) {
     id: thread.id,
     candidate: {
       id: thread.candidate_id,
-      fullName: user.full_name || 'Ung vien',
+      fullName: user.full_name || 'Ứng viên',
       role: user.role || 'CANDIDATE',
       email: user.email || '',
       phone: user.phone || '',
@@ -232,7 +232,7 @@ export async function getChatThread({ threadId, viewerId, viewerRole }) {
     id: data.id,
     candidate: {
       id: data.candidate_id,
-      fullName: user.full_name || 'Ung vien',
+      fullName: user.full_name || 'Ứng viên',
       role: user.role || 'CANDIDATE',
       email: user.email || '',
       phone: user.phone || '',
@@ -240,7 +240,7 @@ export async function getChatThread({ threadId, viewerId, viewerRole }) {
     },
     participants: [
       { id: ADMIN_DISPLAY_ID, fullName: ADMIN_NAME, role: 'ADMIN', email: 'admin@gmail.com' },
-      { id: data.candidate_id, fullName: user.full_name || 'Ung vien', role: user.role || 'CANDIDATE', email: user.email || '' },
+      { id: data.candidate_id, fullName: user.full_name || 'Ứng viên', role: user.role || 'CANDIDATE', email: user.email || '' },
     ],
     messages: messages.map((message) => ({
       id: message.id,
@@ -265,7 +265,7 @@ export async function sendChatMessage({ senderId, senderRole, candidateId, threa
   const now = new Date().toISOString();
 
   if (!senderDbId || !normalizedCandidateId || !normalizedContent) {
-    throw new Error('Thieu du lieu de gui tin nhan.');
+    throw new Error('Thiếu dữ liệu để gửi tin nhắn.');
   }
 
   let activeThreadId = normalizeText(threadId);

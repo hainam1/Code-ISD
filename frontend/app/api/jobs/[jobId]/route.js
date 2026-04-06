@@ -9,13 +9,13 @@ export async function GET(_request, { params }) {
     const job = await getJobById(params.jobId);
 
     if (!job) {
-      return NextResponse.json({ message: 'Khong tim thay cong viec.' }, { status: 404 });
+      return NextResponse.json({ message: 'Không tìm thấy công việc.' }, { status: 404 });
     }
 
     return NextResponse.json({ job });
   } catch (error) {
     return NextResponse.json(
-      { message: 'Khong the tai cong viec.', error: String(error) },
+      { message: 'Không thể tải công việc.', error: String(error) },
       { status: 500 },
     );
   }
@@ -54,7 +54,7 @@ export async function PATCH(request, { params }) {
       !workHours ||
       !workMode
     ) {
-      return NextResponse.json({ message: 'Thieu thong tin bat buoc.' }, { status: 400 });
+      return NextResponse.json({ message: 'Thiếu thông tin bắt buộc.' }, { status: 400 });
     }
 
     const job = await updateAdminJobById(params.jobId, {
@@ -76,13 +76,13 @@ export async function PATCH(request, { params }) {
     });
 
     if (!job) {
-      return NextResponse.json({ message: 'Khong tim thay cong viec.' }, { status: 404 });
+      return NextResponse.json({ message: 'Không tìm thấy công việc.' }, { status: 404 });
     }
 
-    return NextResponse.json({ message: 'Cap nhat cong viec thanh cong.', job });
+    return NextResponse.json({ message: 'Cập nhật công việc thành công.', job });
   } catch (error) {
     return NextResponse.json(
-      { message: 'Khong the cap nhat cong viec.', error: String(error) },
+      { message: 'Không thể cập nhật công việc.', error: String(error) },
       { status: 500 },
     );
   }
@@ -93,13 +93,13 @@ export async function DELETE(_request, { params }) {
     const deleted = await deleteAdminJobById(params.jobId);
 
     if (!deleted) {
-      return NextResponse.json({ message: 'Khong tim thay cong viec.' }, { status: 404 });
+      return NextResponse.json({ message: 'Không tìm thấy công việc.' }, { status: 404 });
     }
 
-    return NextResponse.json({ message: 'Xoa cong viec thanh cong.' });
+    return NextResponse.json({ message: 'Xóa công việc thành công.' });
   } catch (error) {
     return NextResponse.json(
-      { message: 'Khong the xoa cong viec.', error: String(error) },
+      { message: 'Không thể xóa công việc.', error: String(error) },
       { status: 500 },
     );
   }

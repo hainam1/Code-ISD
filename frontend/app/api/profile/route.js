@@ -65,11 +65,11 @@ export async function PATCH(request) {
     const token = getBearerToken(request);
 
     if (!userId) {
-      return NextResponse.json({ message: 'Thieu ma nguoi dung.' }, { status: 400 });
+      return NextResponse.json({ message: 'Thiếu mã người dùng.' }, { status: 400 });
     }
 
     if (token !== `user-${userId}`) {
-      return NextResponse.json({ message: 'Phien dang nhap khong hop le.' }, { status: 401 });
+      return NextResponse.json({ message: 'Phiên đăng nhập không hợp lệ.' }, { status: 401 });
     }
 
     const supabase = getSupabaseClient();
@@ -80,7 +80,7 @@ export async function PATCH(request) {
       .single();
 
     if (fetchError || !user) {
-      return NextResponse.json({ message: 'Khong tim thay tai khoan.' }, { status: 404 });
+      return NextResponse.json({ message: 'Không tìm thấy tài khoản.' }, { status: 404 });
     }
 
     const fullName = String(body.fullName || '').trim();
@@ -97,16 +97,16 @@ export async function PATCH(request) {
       : rawAvatarUrl;
 
     if (!fullName) {
-      return NextResponse.json({ message: 'Ho va ten khong duoc de trong.' }, { status: 400 });
+      return NextResponse.json({ message: 'Họ và tên không được để trống.' }, { status: 400 });
     }
 
     if (email && !EMAIL_REGEX.test(email)) {
-      return NextResponse.json({ message: 'Email khong hop le.' }, { status: 400 });
+      return NextResponse.json({ message: 'Email không hợp lệ.' }, { status: 400 });
     }
 
     if (phone && !PHONE_REGEX.test(phone)) {
       return NextResponse.json(
-        { message: 'So dien thoai phai gom 10 chu so va bat dau tu 03 den 09.' },
+        { message: 'Số điện thoại phải gồm 10 chữ số và bắt đầu từ 03 đến 09.' },
         { status: 400 }
       );
     }
@@ -124,10 +124,10 @@ export async function PATCH(request) {
 
       if (conflicts?.length) {
         if (email && conflicts.some((item) => item.email === email)) {
-          return NextResponse.json({ message: 'Email da duoc su dung.' }, { status: 409 });
+          return NextResponse.json({ message: 'Email đã được sử dụng.' }, { status: 409 });
         }
         if (phone && conflicts.some((item) => item.phone === phone)) {
-          return NextResponse.json({ message: 'So dien thoai da duoc su dung.' }, { status: 409 });
+          return NextResponse.json({ message: 'Số điện thoại đã được sử dụng.' }, { status: 409 });
         }
       }
     }
@@ -168,10 +168,10 @@ export async function PATCH(request) {
       const message = String(updateError.message || '');
       if (updateError.code === '23505' || message.includes('users_phone_key') || message.includes('users_email_key')) {
         if (message.includes('users_phone_key')) {
-          return NextResponse.json({ message: 'So dien thoai da duoc su dung.' }, { status: 409 });
+          return NextResponse.json({ message: 'Số điện thoại đã được sử dụng.' }, { status: 409 });
         }
         if (message.includes('users_email_key')) {
-          return NextResponse.json({ message: 'Email da duoc su dung.' }, { status: 409 });
+          return NextResponse.json({ message: 'Email đã được sử dụng.' }, { status: 409 });
         }
       }
 
@@ -179,12 +179,12 @@ export async function PATCH(request) {
     }
 
     return NextResponse.json({
-      message: 'Cap nhat thong tin thanh cong.',
+      message: 'Cập nhật thông tin thành công.',
       user: mapUser(updatedUser),
     });
   } catch (error) {
     return NextResponse.json(
-      { message: 'Khong the cap nhat thong tin.', error: String(error) },
+      { message: 'Không thể cập nhật thông tin.', error: String(error) },
       { status: 500 }
     );
   }

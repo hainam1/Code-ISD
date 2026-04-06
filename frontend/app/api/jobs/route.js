@@ -9,7 +9,7 @@ export async function GET() {
     return NextResponse.json({ jobs: await getJobs() });
   } catch (error) {
     return NextResponse.json(
-      { message: 'Khong the tai danh sach cong viec.', error: String(error) },
+      { message: 'Không thể tải danh sách công việc.', error: String(error) },
       { status: 500 },
     );
   }
@@ -48,7 +48,7 @@ export async function POST(request) {
       !workHours ||
       !workMode
     ) {
-      return NextResponse.json({ message: 'Thieu thong tin bat buoc.' }, { status: 400 });
+      return NextResponse.json({ message: 'Thiếu thông tin bắt buộc.' }, { status: 400 });
     }
 
     const job = await createAdminJob({
@@ -69,10 +69,10 @@ export async function POST(request) {
       dayOff,
     });
 
-    return NextResponse.json({ message: 'Dang tuyen cong viec thanh cong.', job }, { status: 201 });
+    return NextResponse.json({ message: 'Đăng tuyển công việc thành công.', job }, { status: 201 });
   } catch (error) {
     return NextResponse.json(
-      { message: 'Khong the dang tuyen cong viec.', error: String(error) },
+      { message: 'Không thể đăng tuyển công việc.', error: String(error) },
       { status: 500 },
     );
   }

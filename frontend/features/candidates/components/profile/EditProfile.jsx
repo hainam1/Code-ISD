@@ -97,7 +97,7 @@ function loadImage(file) {
 
     image.onerror = () => {
       URL.revokeObjectURL(objectUrl);
-      reject(new Error('Khong the doc anh dai dien.'));
+      reject(new Error('Không thể đọc ảnh đại diện.'));
     };
 
     image.src = objectUrl;
@@ -110,7 +110,7 @@ async function buildAvatarDataUrl(file) {
   const context = canvas.getContext('2d');
 
   if (!context) {
-    throw new Error('Trinh duyet khong ho tro xu ly anh.');
+    throw new Error('Trình duyệt không hỗ trợ xử lý ảnh.');
   }
 
   canvas.width = AVATAR_OUTPUT_SIZE;
@@ -188,14 +188,14 @@ export default function EditProfile() {
     }
 
     if (!ALLOWED_AVATAR_TYPES.has(file.type)) {
-      setFormMessage('Anh dai dien chi ho tro PNG, JPG hoac WEBP.');
+      setFormMessage('Ảnh đại diện chỉ hỗ trợ PNG, JPG hoặc WEBP.');
       setFormMessageType('error');
       event.target.value = '';
       return;
     }
 
     if (file.size > MAX_AVATAR_SIZE) {
-      setFormMessage('Anh dai dien vuot qua 2MB. Hay chon anh nhe hon.');
+      setFormMessage('Ảnh đại diện vượt quá 2MB. Hãy chọn ảnh nhẹ hơn.');
       setFormMessageType('error');
       event.target.value = '';
       return;
@@ -210,7 +210,7 @@ export default function EditProfile() {
         avatarUrl,
       }));
     } catch (error) {
-      setFormMessage(error?.message || 'Khong the xu ly anh dai dien.');
+      setFormMessage(error?.message || 'Không thể xử lý ảnh đại diện.');
       setFormMessageType('error');
       event.target.value = '';
     }
@@ -353,7 +353,7 @@ export default function EditProfile() {
           <section className={styles.mainCard}>
             <form onSubmit={handleSubmit}>
               <div className={styles.formGrid}>
-              <div className={`${styles.inputGroup} ${styles.fullWidth}`}>
+                <div className={`${styles.inputGroup} ${styles.fullWidth}`}>
                   <label>Họ và tên</label>
                   <p className={styles.fieldHint}>Sử dụng tên trùng với CCCD/CMND để tránh sai lệch khi đối chiếu hồ sơ.</p>
                   <input

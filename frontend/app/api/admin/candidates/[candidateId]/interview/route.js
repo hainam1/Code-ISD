@@ -7,7 +7,7 @@ export async function GET(_request, { params }) {
     return NextResponse.json({ interview });
   } catch (error) {
     return NextResponse.json(
-      { message: 'Khong the tai lich phong van.', error: String(error) },
+      { message: 'Không thể tải lịch phỏng vấn.', error: String(error) },
       { status: 500 }
     );
   }
@@ -25,11 +25,11 @@ export async function POST(request, { params }) {
     });
 
     return NextResponse.json({
-      message: 'Luu lich phong van thanh cong.',
+      message: 'Lưu lịch phỏng vấn thành công.',
       interview,
     });
   } catch (error) {
-    const message = error instanceof Error ? error.message : 'Khong the luu lich phong van.';
+    const message = error instanceof Error ? error.message : 'Không thể lưu lịch phỏng vấn.';
     return NextResponse.json({ message, error: String(error) }, { status: 500 });
   }
 }

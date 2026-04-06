@@ -10,7 +10,7 @@ function parseDataUrl(dataUrl) {
   const match = value.match(/^data:(image\/(?:png|jpeg|webp));base64,(.+)$/);
 
   if (!match) {
-    throw new Error('Anh dai dien khong hop le.');
+    throw new Error('Ảnh đại diện không hợp lệ.');
   }
 
   return {
@@ -23,12 +23,12 @@ function assertSupabaseStorageAdminAccess() {
   const { serviceRoleKey } = getSupabaseEnv();
 
   if (!serviceRoleKey) {
-    throw new Error('Thieu SUPABASE_SERVICE_ROLE_KEY de luu avatar len Supabase Storage.');
+    throw new Error('Thiếu SUPABASE_SERVICE_ROLE_KEY để lưu avatar lên Supabase Storage.');
   }
 
   if (serviceRoleKey.startsWith('sb_publishable_')) {
     throw new Error(
-      'SUPABASE_SERVICE_ROLE_KEY hien dang la publishable key. Hay thay bang secret/service-role key de tao bucket va upload avatar len Supabase Storage.',
+      'SUPABASE_SERVICE_ROLE_KEY hiện đang là publishable key. Hãy thay bằng secret/service-role key để tạo bucket và upload avatar lên Supabase Storage.',
     );
   }
 }
@@ -45,7 +45,7 @@ async function ensureAvatarBucket() {
     const { data: buckets, error: listError } = await supabase.storage.listBuckets();
 
     if (listError) {
-      throw new Error(`Khong the doc bucket avatar tren Supabase: ${listError.message}`);
+      throw new Error(`Không thể đọc bucket avatar trên Supabase: ${listError.message}`);
     }
 
     const existingBucket = (buckets || []).find(
@@ -60,7 +60,7 @@ async function ensureAvatarBucket() {
       });
 
       if (createError) {
-        throw new Error(`Khong the tao bucket avatar tren Supabase: ${createError.message}`);
+        throw new Error(`Không thể tạo bucket avatar trên Supabase: ${createError.message}`);
       }
 
       return;
@@ -74,7 +74,7 @@ async function ensureAvatarBucket() {
       });
 
       if (updateError) {
-        throw new Error(`Khong the cap nhat bucket avatar tren Supabase: ${updateError.message}`);
+        throw new Error(`Không thể cập nhật bucket avatar trên Supabase: ${updateError.message}`);
       }
     }
   })();
@@ -90,7 +90,7 @@ async function ensureAvatarBucket() {
 export async function saveAvatarDataUrl({ userId, dataUrl }) {
   const normalizedUserId = String(userId || '').trim();
   if (!normalizedUserId) {
-    throw new Error('Thieu userId de luu anh dai dien.');
+    throw new Error('Thiếu userId để lưu ảnh đại diện.');
   }
 
   const { mimeType, base64Payload } = parseDataUrl(dataUrl);
@@ -109,7 +109,7 @@ export async function saveAvatarDataUrl({ userId, dataUrl }) {
     });
 
   if (uploadError) {
-    throw new Error(`Khong the tai anh dai dien len Supabase: ${uploadError.message}`);
+    throw new Error(`Không thể tải ảnh đại diện lên Supabase: ${uploadError.message}`);
   }
 
   const { data } = supabase.storage.from(AVATAR_BUCKET).getPublicUrl(objectPath);

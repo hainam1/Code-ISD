@@ -261,9 +261,19 @@
   color: rgba(255, 255, 255, 0.82);
 }
 
+.candidateHeroPanel {
+  width: min(100%, 360px);
+  padding: 24px 24px 22px;
+  align-self: flex-start;
+}
+
+.candidateHeroValue {
+  font-size: 3.8rem;
+}
+
 .summaryGrid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 14px;
 }
 
@@ -284,6 +294,15 @@
   color: #1f5e99;
 }
 
+.summaryCardNoApplication {
+  border-color: rgba(92, 114, 138, 0.2);
+  background: linear-gradient(180deg, rgba(242, 246, 250, 0.98) 0%, rgba(226, 233, 241, 0.98) 100%);
+}
+
+.summaryCardNoApplication .summaryValue {
+  color: #4d647c;
+}
+
 .summaryCardReview {
   border-color: rgba(198, 124, 20, 0.18);
   background: linear-gradient(180deg, rgba(255, 247, 232, 0.98) 0%, rgba(255, 237, 196, 0.98) 100%);
@@ -300,6 +319,15 @@
 
 .summaryCardShortlisted .summaryValue {
   color: #1d6a43;
+}
+
+.summaryCardInterview {
+  border-color: rgba(23, 104, 163, 0.18);
+  background: linear-gradient(180deg, rgba(234, 246, 255, 0.98) 0%, rgba(205, 232, 251, 0.98) 100%);
+}
+
+.summaryCardInterview .summaryValue {
+  color: #0f5f96;
 }
 
 .summaryCardRejected {
@@ -552,11 +580,21 @@
   color: #8a5a00;
 }
 
+.statusNoApplication {
+  background: rgba(228, 236, 243, 0.95);
+  color: #44596e;
+}
+
 .statusShortlisted,
-.jobBadgeNew,
-.interviewStatusBadge {
+.jobBadgeNew {
   background: rgba(214, 243, 224, 0.95);
   color: #16603b;
+}
+
+.statusInterview,
+.interviewStatusBadge {
+  background: rgba(215, 237, 255, 0.95);
+  color: #0b5c93;
 }
 
 .statusRejected,
