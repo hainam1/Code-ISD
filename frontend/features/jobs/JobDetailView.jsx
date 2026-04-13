@@ -19,6 +19,13 @@ export default function JobDetailView({ job }) {
     );
   }
 
+  const normalizedBadge = (job.badge || '').trim().toUpperCase();
+  const badgeClassName = [
+    styles.badge,
+    normalizedBadge === 'NEW' ? styles.badgeNew : '',
+    normalizedBadge === 'HOT' ? styles.badgeHot : '',
+  ].filter(Boolean).join(' ');
+
   return (
     <main className={styles.page}>
       <div className={styles.breadcrumb}>Tổng quan &gt; Vị trí tuyển dụng &gt; Chi tiết</div>
@@ -51,7 +58,7 @@ export default function JobDetailView({ job }) {
 
       <section className={styles.heading}>
         <div className={styles.titleRow}>
-          <p className={styles.badge}>{job.badge || 'ĐANG TUYỂN'}</p>
+          <p className={badgeClassName}>{job.badge || 'ĐANG TUYỂN'}</p>
           <h1 className={styles.title}>{job.title}</h1>
         </div>
 

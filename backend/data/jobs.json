@@ -1,0 +1,814 @@
+{
+  "jobs": [
+    {
+      "id": "job-sg-001",
+      "title": "Nhân viên bảo vệ tòa nhà văn phòng hạng A - Quận 1",
+      "company": "Long Hai Security Company",
+      "location": "TP.HCM",
+      "address": "Tòa nhà Pearl Tower, 23 Nguyễn Thị Minh Khai, Quận 1, TP.HCM",
+      "salary": "9.000.000 - 11.500.000 VND / tháng",
+      "quantity": "05 vị trí",
+      "status": "Đang tuyển dụng",
+      "experience": "1 - 2 năm",
+      "scheduleType": "Cố định",
+      "workHours": "Ca 12 tiếng xoay ngày/đêm",
+      "dayOff": "04 ngày/tháng theo lịch đội",
+      "summary": {
+        "mode": "Toàn thời gian"
+      },
+      "createdAt": "2026-04-10T08:30:00.000Z",
+      "updatedAt": "2026-04-10T08:30:00.000Z",
+      "description": "Phụ trách kiểm soát ra vào tại sảnh chính, khu vực thang máy và bãi xe của tòa nhà văn phòng hạng A. Công việc yêu cầu tác phong chuyên nghiệp, giao tiếp tốt với khách thuê và xử lý nhanh các tình huống an ninh, thất lạc tài sản hoặc vi phạm nội quy. Nhân viên được đào tạo quy trình lễ tân an ninh, vận hành hệ thống camera và phối hợp với ban quản lý tòa nhà trong các ca trực cao điểm.",
+      "requirements": [
+        "Nam cao từ 1m68, sức khỏe tốt, không có tiền án tiền sự, hồ sơ nhân thân rõ ràng.",
+        "Có kinh nghiệm trực sảnh, trực tòa nhà văn phòng hoặc trung tâm thương mại tối thiểu 01 năm.",
+        "Giao tiếp lịch sự, biết sử dụng bộ đàm, máy tuần tra và ghi nhận sự cố bằng biểu mẫu.",
+        "Ưu tiên ứng viên từng làm việc trong môi trường có khách nước ngoài hoặc biết giao tiếp tiếng Anh cơ bản.",
+        "Có thể nhận ca đêm, ca cuối tuần và tuân thủ nghiêm quy trình bàn giao ca trực."
+      ]
+    },
+    {
+      "id": "job-sg-002",
+      "title": "Bảo vệ ngân hàng ca ngày - Chi nhánh Bình Thạnh",
+      "company": "Long Hai Security Company",
+      "location": "TP.HCM",
+      "address": "125 Điện Biên Phủ, Phường 15, Bình Thạnh, TP.HCM",
+      "salary": "10.000.000 - 12.000.000 VND / tháng",
+      "quantity": "05 vị trí",
+      "status": "Đang tuyển dụng",
+      "experience": "2 - 3 năm",
+      "scheduleType": "Cố định",
+      "workHours": "07:00 - 19:00",
+      "dayOff": "04 ngày/tháng",
+      "summary": {
+        "mode": "Toàn thời gian"
+      },
+      "createdAt": "2026-04-08T02:00:00.000Z",
+      "updatedAt": "2026-04-08T02:00:00.000Z",
+      "description": "Thực hiện nhiệm vụ bảo vệ vòng ngoài, hỗ trợ điều phối khách hàng, giám sát khu vực ATM và phối hợp với kiểm soát nội bộ trong thời gian giao nhận tiền. Vị trí làm việc trong môi trường ngân hàng nên yêu cầu kỷ luật cao, khả năng quan sát tốt và thái độ chuẩn mực khi tiếp xúc với khách hàng. Ứng viên sẽ được hướng dẫn thêm về quy trình xử lý báo động, sự cố gây rối và bảo vệ tài sản có giá trị.",
+      "requirements": [
+        "Đã có kinh nghiệm bảo vệ tại ngân hàng, tiệm vàng hoặc đơn vị tài chính tối thiểu 02 năm.",
+        "Tác phong nghiêm túc, biết kiểm soát khoảng cách an toàn và nhận diện hành vi bất thường.",
+        "Có chứng chỉ nghiệp vụ bảo vệ là lợi thế lớn.",
+        "Biết lập biên bản sự việc, phối hợp với công an địa phương khi có phát sinh.",
+        "Ưu tiên ứng viên có thể đi làm ngay sau khi phỏng vấn đạt."
+      ]
+    },
+    {
+      "id": "job-sg-003",
+      "title": "Nhân viên bảo vệ chung cư cao cấp - Ca đêm",
+      "company": "Long Hai Security Company",
+      "location": "TP.HCM",
+      "address": "Khu căn hộ Riverside Garden, Thảo Điền, TP Thủ Đức, TP.HCM",
+      "salary": "8.500.000 - 10.000.000 VND / tháng",
+      "quantity": "05 vị trí",
+      "status": "Đang tuyển dụng",
+      "experience": "Dưới 1 năm",
+      "scheduleType": "Xoay ca",
+      "workHours": "19:00 - 07:00",
+      "dayOff": "01 ngày/tuần",
+      "summary": {
+        "mode": "Theo ca"
+      },
+      "createdAt": "2026-04-06T12:00:00.000Z",
+      "updatedAt": "2026-04-06T12:00:00.000Z",
+      "description": "Trực chốt cổng cư dân, giám sát khách vãng lai, điều phối xe ra vào tầng hầm và tuần tra các tầng theo lịch. Môi trường làm việc yên tĩnh nhưng yêu cầu sự cẩn trọng cao vào ban đêm, đặc biệt ở khu vực kỹ thuật, hồ bơi và hành lang căn hộ. Công việc phù hợp với ứng viên chịu được ca đêm, có tinh thần trách nhiệm và phản hồi nhanh khi cư dân cần hỗ trợ.",
+      "requirements": [
+        "Nam từ 20 - 45 tuổi, có thể làm ca đêm cố định hoặc xoay theo lịch đội.",
+        "Biết sử dụng điện thoại thông minh để cập nhật nhật ký tuần tra và chụp ảnh hiện trường.",
+        "Ưu tiên ứng viên từng làm tại chung cư, khách sạn hoặc bãi giữ xe.",
+        "Không hút thuốc trong ca trực, giữ tác phong gọn gàng và giao tiếp đúng mực với cư dân.",
+        "Có khả năng xử lý các tình huống nhỏ như mất thẻ cư dân, nhầm xe hoặc yêu cầu hỗ trợ mở cổng."
+      ]
+    },
+    {
+      "id": "job-sg-004",
+      "title": "Bảo vệ trường quốc tế - Ca hành chính",
+      "company": "Long Hai Security Company",
+      "location": "Bình Dương",
+      "address": "Khu đô thị mới Thành phố Mới, Thủ Dầu Một, Bình Dương",
+      "salary": "9.500.000 - 11.000.000 VND / tháng",
+      "quantity": "05 vị trí",
+      "status": "Đang tuyển dụng",
+      "experience": "1 - 2 năm",
+      "scheduleType": "Cố định",
+      "workHours": "06:30 - 18:00",
+      "dayOff": "Chủ nhật cố định",
+      "summary": {
+        "mode": "Toàn thời gian"
+      },
+      "createdAt": "2026-04-02T01:30:00.000Z",
+      "updatedAt": "2026-04-02T01:30:00.000Z",
+      "description": "Giữ an ninh cổng trường, kiểm soát xe đưa đón học sinh, phối hợp với giáo viên và phụ huynh trong các khung giờ cao điểm đầu giờ và tan học. Đây là vị trí cần sự bình tĩnh, lịch thiệp và nghiêm túc trong việc thực hiện các quy trình an toàn trường học. Nhân viên sẽ tham gia diễn tập PCCC, hướng dẫn lối thoát hiểm và hỗ trợ đội ngũ vận hành khi có sự kiện nội bộ.",
+      "requirements": [
+        "Có kinh nghiệm làm bảo vệ trường học, bệnh viện hoặc cơ sở có nhiều trẻ em là một lợi thế.",
+        "Giọng nói rõ ràng, giao tiếp tốt với phụ huynh và cán bộ nhà trường.",
+        "Biết hướng dẫn phương tiện vào đúng khu vực đón trả học sinh an toàn.",
+        "Có tinh thần trách nhiệm cao, không sử dụng điện thoại cá nhân khi đang trực cổng.",
+        "Ưu tiên ứng viên đã từng tham gia các buổi diễn tập thoát nạn hoặc PCCC."
+      ]
+    },
+    {
+      "id": "job-sg-005",
+      "title": "Nhân viên an ninh bệnh viện tư nhân - Khoa cấp cứu",
+      "company": "Long Hai Security Company",
+      "location": "TP.HCM",
+      "address": "Bệnh viện Đa khoa An Phúc, Quận 7, TP.HCM",
+      "salary": "10.500.000 - 12.500.000 VND / tháng",
+      "quantity": "05 vị trí",
+      "status": "Đang tuyển dụng",
+      "experience": "2 - 3 năm",
+      "scheduleType": "Xoay ca",
+      "workHours": "Ca 8 tiếng xoay 3 ca",
+      "dayOff": "05 ngày/tháng",
+      "summary": {
+        "mode": "Toàn thời gian"
+      },
+      "createdAt": "2026-03-29T07:45:00.000Z",
+      "updatedAt": "2026-03-29T07:45:00.000Z",
+      "description": "Bảo đảm trật tự khu vực cấp cứu, hỗ trợ phân luồng người nhà bệnh nhân, xử lý tình huống căng thẳng và phối hợp với bộ phận y tế khi có ca khẩn cấp. Công việc đòi hỏi khả năng kiềm chế cảm xúc, giao tiếp mềm mỏng nhưng dứt khoát, đồng thời tuân thủ chặt chẽ các quy trình an toàn trong môi trường y tế. Nhân viên còn chịu trách nhiệm kiểm tra khu vực ra vào dành cho xe cứu thương và hạn chế tụ tập đông người trước cửa khoa.",
+      "requirements": [
+        "Có kinh nghiệm an ninh bệnh viện, phòng khám lớn hoặc môi trường áp lực cao tương đương.",
+        "Biết xử lý tình huống xô xát, mất trật tự mà vẫn đảm bảo an toàn cho bệnh nhân và nhân viên y tế.",
+        "Sức khỏe tốt, có thể đứng và di chuyển liên tục trong ca trực.",
+        "Ưu tiên ứng viên từng làm việc với quy trình kiểm soát khách thăm và khu vực hạn chế.",
+        "Không ngại làm ca đêm, ca lễ và các thời điểm bệnh viện đông bệnh nhân."
+      ]
+    },
+    {
+      "id": "job-sg-006",
+      "title": "Bảo vệ kho logistics - KCN VSIP 1",
+      "company": "Long Hai Security Company",
+      "location": "Bình Dương",
+      "address": "Lô B2, KCN VSIP 1, Thuận An, Bình Dương",
+      "salary": "9.200.000 - 11.800.000 VND / tháng",
+      "quantity": "05 vị trí",
+      "status": "Đang tuyển dụng",
+      "experience": "1 - 2 năm",
+      "scheduleType": "Xoay ca",
+      "workHours": "Ca 12 tiếng",
+      "dayOff": "04 ngày/tháng",
+      "summary": {
+        "mode": "Toàn thời gian"
+      },
+      "createdAt": "2026-03-25T03:15:00.000Z",
+      "updatedAt": "2026-03-25T03:15:00.000Z",
+      "description": "Kiểm soát xe container, xe tải ra vào kho, đối chiếu lệnh xuất nhập hàng và tuần tra perimeter khu nhà kho vào ban đêm. Công việc phù hợp với ứng viên có kinh nghiệm làm kho, quen với áp lực xe ra vào liên tục và có khả năng phối hợp tốt với bộ phận vận hành. Vị trí yêu cầu ghi nhận chính xác biển số xe, thời gian giao nhận và báo cáo ngay các bất thường liên quan đến hàng hóa, niêm phong hoặc người lạ xâm nhập.",
+      "requirements": [
+        "Có kinh nghiệm trực kho, khu công nghiệp hoặc bãi xe container.",
+        "Biết ghi sổ bàn giao, đối chiếu lệnh xe và kiểm tra niêm phong cơ bản.",
+        "Có thể làm việc ngoài trời, chịu được môi trường đông xe và nhiều tiếng ồn.",
+        "Ưu tiên ứng viên biết sử dụng camera, đèn pin tuần tra và máy quét mã đơn giản.",
+        "Tinh thần kỷ luật cao, không rời chốt khi chưa có người thay ca."
+      ]
+    },
+    {
+      "id": "job-sg-007",
+      "title": "Nhân viên bảo vệ showroom ô tô cao cấp",
+      "company": "Long Hai Security Company",
+      "location": "Hà Nội",
+      "address": "98 Phạm Hùng, Nam Từ Liêm, Hà Nội",
+      "salary": "9.000.000 - 10.500.000 VND / tháng",
+      "quantity": "05 vị trí",
+      "status": "Đang tuyển dụng",
+      "experience": "1 - 2 năm",
+      "scheduleType": "Cố định",
+      "workHours": "08:00 - 20:00",
+      "dayOff": "01 ngày/tuần",
+      "summary": {
+        "mode": "Toàn thời gian"
+      },
+      "createdAt": "2026-03-21T04:00:00.000Z",
+      "updatedAt": "2026-03-21T04:00:00.000Z",
+      "description": "Phụ trách đón tiếp khách, bảo đảm an ninh sảnh trưng bày, hướng dẫn khu vực đỗ xe và giám sát xe lái thử theo quy trình của showroom. Môi trường làm việc yêu cầu hình ảnh chỉn chu, giao tiếp thân thiện và khả năng xử lý tinh tế các tình huống phát sinh với khách hàng. Nhân viên sẽ phối hợp với lễ tân, tư vấn bán hàng và đội kỹ thuật để đảm bảo khu vực showroom luôn an toàn, gọn gàng và đúng tiêu chuẩn dịch vụ.",
+      "requirements": [
+        "Ngoại hình sáng, tác phong lịch sự, ưu tiên ứng viên có kinh nghiệm trực showroom hoặc khách sạn.",
+        "Biết sắp xếp bãi xe và hướng dẫn khách ra vào khu vực lái thử an toàn.",
+        "Giao tiếp tốt, giọng nói rõ ràng, thái độ phục vụ chuyên nghiệp.",
+        "Có khả năng quan sát chi tiết và bảo vệ tài sản giá trị cao trong khu vực trưng bày.",
+        "Ưu tiên ứng viên có thể trao đổi tiếng Anh giao tiếp cơ bản với khách nước ngoài."
+      ]
+    },
+    {
+      "id": "job-sg-008",
+      "title": "Nhân viên trực camera an ninh (CCTV) - Trung tâm điều hành",
+      "company": "Long Hai Security Company",
+      "location": "TP.HCM",
+      "address": "Tầng 5, 215 Nguyễn Hữu Cảnh, Bình Thạnh, TP.HCM",
+      "salary": "10.000.000 - 12.000.000 VND / tháng",
+      "quantity": "05 vị trí",
+      "status": "Đang tuyển dụng",
+      "experience": "1 - 2 năm",
+      "scheduleType": "Xoay ca",
+      "workHours": "Ca 8 tiếng xoay 24/7",
+      "dayOff": "05 ngày/tháng",
+      "summary": {
+        "mode": "Toàn thời gian"
+      },
+      "createdAt": "2026-03-18T09:00:00.000Z",
+      "updatedAt": "2026-03-18T09:00:00.000Z",
+      "description": "Theo dõi hệ thống camera tại trung tâm điều hành, phát hiện bất thường, ghi nhận sự kiện và điều phối đội tuần tra đến đúng vị trí khi có cảnh báo. Vị trí này thiên về sự tập trung, tư duy logic và khả năng ghi nhận, truyền đạt thông tin nhanh chóng. Nhân viên làm việc trong phòng máy lạnh, theo ca cố định hoặc xoay, được đào tạo về nhận diện điểm mù camera, quy trình trích xuất hình ảnh và lưu biên bản sự cố.",
+      "requirements": [
+        "Có kinh nghiệm trực camera, phòng điều khiển hoặc bộ phận monitoring từ 01 năm trở lên.",
+        "Sử dụng máy tính cơ bản tốt, biết lập báo cáo theo mốc thời gian và ảnh chụp màn hình.",
+        "Tập trung tốt trong thời gian dài, không bỏ sót cảnh báo hoặc khung giờ trọng điểm.",
+        "Biết phối hợp với hiện trường qua bộ đàm, điện thoại nội bộ hoặc nhóm điều phối.",
+        "Ưu tiên ứng viên từng sử dụng phần mềm VMS hoặc NVR của Hikvision, Dahua, KBVision."
+      ]
+    },
+    {
+      "id": "job-sg-009",
+      "title": "Bảo vệ cửa hàng tiện lợi chuỗi 24/7 - Khu vực trung tâm",
+      "company": "Long Hai Security Company",
+      "location": "Đà Nẵng",
+      "address": "Lê Duẩn, Hải Châu, Đà Nẵng",
+      "salary": "8.000.000 - 9.500.000 VND / tháng",
+      "quantity": "05 vị trí",
+      "status": "Đang tuyển dụng",
+      "experience": "Dưới 1 năm",
+      "scheduleType": "Xoay ca",
+      "workHours": "Ca 8 tiếng",
+      "dayOff": "04 ngày/tháng",
+      "summary": {
+        "mode": "Theo ca"
+      },
+      "createdAt": "2026-03-14T05:15:00.000Z",
+      "updatedAt": "2026-03-14T05:15:00.000Z",
+      "description": "Giữ an ninh khu vực cửa hàng, giám sát khách ra vào, hỗ trợ cửa hàng xử lý tình huống mất cắp vặt và điều phối xe dừng đỗ trước cửa. Môi trường phù hợp với ứng viên nhanh nhẹn, giao tiếp lịch sự và có thể làm việc theo lịch xoay linh hoạt. Công việc không quá nặng nhưng yêu cầu hiện diện liên tục, quan sát tốt và biết phối hợp nhịp nhàng với nhân viên bán hàng vào khung giờ đông khách.",
+      "requirements": [
+        "Nhanh nhẹn, trung thực, không ngại ca đêm và có thể làm tại nhiều điểm trong cùng khu vực.",
+        "Có kinh nghiệm bảo vệ cửa hàng bán lẻ, siêu thị mini hoặc nhà thuốc là lợi thế.",
+        "Biết nhận diện các tình huống trộm cắp vặt, gây rối hoặc tụ tập trước cửa hàng.",
+        "Thái độ lịch sự, hỗ trợ khách hàng khi cần hướng dẫn chỗ gửi xe hoặc lối vào.",
+        "Ưu tiên ứng viên có hộ khẩu hoặc chỗ ở ổn định tại khu vực làm việc."
+      ]
+    },
+    {
+      "id": "job-sg-010",
+      "title": "Đội trưởng ca bảo vệ khu căn hộ cao cấp",
+      "company": "Long Hai Security Company",
+      "location": "TP.HCM",
+      "address": "Master Residence, An Phú, TP Thủ Đức, TP.HCM",
+      "salary": "12.500.000 - 15.000.000 VND / tháng",
+      "quantity": "05 vị trí",
+      "status": "Đang tuyển dụng",
+      "experience": "Trên 3 năm",
+      "scheduleType": "Xoay ca",
+      "workHours": "Ca 12 tiếng",
+      "dayOff": "04 ngày/tháng",
+      "summary": {
+        "mode": "Toàn thời gian"
+      },
+      "createdAt": "2026-03-12T08:20:00.000Z",
+      "updatedAt": "2026-03-12T08:20:00.000Z",
+      "description": "Quản lý nhân sự ca trực từ 6 đến 8 người, phân bổ chốt, kiểm tra tác phong, kiểm tra nhật ký và trực tiếp xử lý các sự cố lớn tại khu căn hộ. Đây là vị trí đầu mối giữa ban quản lý, cư dân và đội bảo vệ hiện trường nên yêu cầu kinh nghiệm điều phối, giao tiếp rõ ràng và khả năng ra quyết định nhanh. Ngoài công việc chuyên môn, đội trưởng còn huấn luyện nhân viên mới, kiểm tra nghiệp vụ và báo cáo KPI an ninh hàng tuần.",
+      "requirements": [
+        "Tối thiểu 03 năm kinh nghiệm bảo vệ, trong đó có ít nhất 01 năm làm ca trưởng hoặc tổ trưởng.",
+        "Có khả năng phân ca, đánh giá nhân sự và kiểm soát chất lượng vận hành chốt trực.",
+        "Biết lập báo cáo tuần, báo cáo sự cố, biên bản vi phạm và nội dung nhắc nhở nội bộ.",
+        "Kỹ năng giao tiếp tốt với cư dân khó tính và ban quản lý tòa nhà.",
+        "Ưu tiên ứng viên từng phụ trách khu căn hộ từ 300 căn trở lên."
+      ]
+    },
+    {
+      "id": "job-sg-011",
+      "title": "Nhân viên tuần tra cơ động khu công nghiệp",
+      "company": "Long Hai Security Company",
+      "location": "Đồng Nai",
+      "address": "KCN Amata, Biên Hòa, Đồng Nai",
+      "salary": "10.000.000 - 12.500.000 VND / tháng",
+      "quantity": "05 vị trí",
+      "status": "Đang tuyển dụng",
+      "experience": "1 - 2 năm",
+      "scheduleType": "Xoay ca",
+      "workHours": "Ca 12 tiếng",
+      "dayOff": "04 ngày/tháng",
+      "summary": {
+        "mode": "Toàn thời gian"
+      },
+      "createdAt": "2026-03-09T01:00:00.000Z",
+      "updatedAt": "2026-03-09T01:00:00.000Z",
+      "description": "Thực hiện tuần tra cơ động bằng xe máy trong khu công nghiệp, kiểm tra hàng rào, cổng phụ, kho chứa và các khu vực ít người qua lại. Vị trí này cần thể lực tốt, tinh thần chủ động và khả năng phản ứng nhanh với các cảnh báo từ trung tâm. Ứng viên phù hợp sẽ được cấp phương tiện tuần tra, trang thiết bị cơ bản và đào tạo quy trình hỗ trợ chốt cố định khi xảy ra sự cố khẩn cấp.",
+      "requirements": [
+        "Có bằng lái xe máy hợp lệ, di chuyển tốt trong khuôn viên lớn và làm việc ngoài trời.",
+        "Biết sử dụng bộ đàm, đèn pin công suất cao và thiết bị chấm điểm tuần tra.",
+        "Ưu tiên ứng viên từng làm tuần tra cơ động tại nhà máy, kho bãi hoặc khu công nghiệp.",
+        "Sức khỏe tốt, có thể đi tuần liên tục trong nhiều vòng ca.",
+        "Không ngại mưa nắng và có tinh thần hỗ trợ đội khi phát sinh đột xuất."
+      ]
+    },
+    {
+      "id": "job-sg-012",
+      "title": "Bảo vệ trung tâm thương mại - Khu vực sảnh chính",
+      "company": "Long Hai Security Company",
+      "location": "Cần Thơ",
+      "address": "Vincom Plaza Xuân Khánh, Ninh Kiều, Cần Thơ",
+      "salary": "8.800.000 - 10.500.000 VND / tháng",
+      "quantity": "05 vị trí",
+      "status": "Đang tuyển dụng",
+      "experience": "1 - 2 năm",
+      "scheduleType": "Xoay ca",
+      "workHours": "Ca 10 tiếng",
+      "dayOff": "04 ngày/tháng",
+      "summary": {
+        "mode": "Toàn thời gian"
+      },
+      "createdAt": "2026-03-05T10:30:00.000Z",
+      "updatedAt": "2026-03-05T10:30:00.000Z",
+      "description": "Tham gia kiểm soát an ninh tại sảnh chính, hỗ trợ hướng dẫn khách, phối hợp xử lý tình huống thất lạc trẻ em, mất đồ và chen lấn vào giờ cao điểm. Đây là môi trường đông người, nhịp độ nhanh, cần nhân sự có khả năng giao tiếp, quan sát và phối hợp đồng đội rất tốt. Nhân viên sẽ được điều phối theo khu vực sảnh, cửa ra vào, khu vui chơi và sự kiện cuối tuần.",
+      "requirements": [
+        "Có kinh nghiệm làm bảo vệ trung tâm thương mại, siêu thị hoặc sự kiện đông người.",
+        "Giao tiếp rõ ràng, biết hướng dẫn khách và xử lý các tình huống cần trấn an đám đông.",
+        "Có thể làm cuối tuần, lễ Tết theo lịch phân công.",
+        "Tác phong gọn gàng, thái độ phục vụ tích cực, ưu tiên ứng viên trẻ và nhanh nhẹn.",
+        "Biết phối hợp với bộ phận kỹ thuật, vệ sinh và chăm sóc khách hàng."
+      ]
+    },
+    {
+      "id": "job-sg-013",
+      "title": "Nhân viên bảo vệ bãi xe tòa nhà hỗn hợp",
+      "company": "Long Hai Security Company",
+      "location": "Hà Nội",
+      "address": "Tòa nhà Green Mix, Cầu Giấy, Hà Nội",
+      "salary": "8.700.000 - 9.800.000 VND / tháng",
+      "quantity": "05 vị trí",
+      "status": "Đang tuyển dụng",
+      "experience": "Dưới 1 năm",
+      "scheduleType": "Xoay ca",
+      "workHours": "Ca 12 tiếng",
+      "dayOff": "04 ngày/tháng",
+      "summary": {
+        "mode": "Theo ca"
+      },
+      "createdAt": "2026-03-02T02:45:00.000Z",
+      "updatedAt": "2026-03-02T02:45:00.000Z",
+      "description": "Giám sát khu vực giữ xe máy, ô tô của cư dân và khách văn phòng, kiểm tra thẻ xe, hỗ trợ phân làn và xử lý va quẹt nhỏ trong bãi. Công việc cần sự nhanh nhẹn, cẩn thận và khả năng duy trì trật tự ở không gian kín, nhiều phương tiện ra vào liên tục. Ứng viên sẽ được hướng dẫn quy trình kiểm xe, bàn giao doanh thu giữ xe và xử lý sự cố thẻ xe, mất vé hoặc xe để sai khu vực.",
+      "requirements": [
+        "Sức khỏe tốt, có thể đứng lâu và hỗ trợ điều phối xe trong giờ cao điểm.",
+        "Trung thực, cẩn thận, ưu tiên người từng làm bãi xe, chung cư hoặc siêu thị.",
+        "Biết ghi nhận biển số, xử lý mất vé và kiểm tra đối chiếu thông tin cơ bản.",
+        "Có tinh thần hỗ trợ khách hàng, hạn chế tranh cãi và giữ bình tĩnh khi áp lực cao.",
+        "Có thể nhận lịch làm xoay ca ngày đêm."
+      ]
+    },
+    {
+      "id": "job-sg-014",
+      "title": "An ninh sự kiện hội nghị - Theo dự án 3 tháng",
+      "company": "Long Hai Security Company",
+      "location": "TP.HCM",
+      "address": "Trung tâm Hội nghị Sài Gòn Riverside, Quận 4, TP.HCM",
+      "salary": "11.000.000 - 13.000.000 VND / tháng",
+      "quantity": "08 vị trí",
+      "status": "Đang tuyển dụng",
+      "experience": "1 - 2 năm",
+      "scheduleType": "Linh hoạt",
+      "workHours": "Theo lịch sự kiện, 8 - 12 tiếng/ngày",
+      "dayOff": "Theo lịch dự án",
+      "summary": {
+        "mode": "Theo ca"
+      },
+      "createdAt": "2026-02-27T06:00:00.000Z",
+      "updatedAt": "2026-02-27T06:00:00.000Z",
+      "description": "Tham gia bảo đảm an ninh cho chuỗi hội nghị, triển lãm và sự kiện doanh nghiệp trong 3 tháng. Nhiệm vụ bao gồm kiểm soát cổng check-in, phân luồng khách VIP, giám sát khu vực hậu trường và xử lý các tình huống tập trung đông người. Đây là vị trí phù hợp với ứng viên linh hoạt về thời gian, có sức bền và đã quen với môi trường sự kiện có tính thay đổi cao.",
+      "requirements": [
+        "Có kinh nghiệm làm bảo vệ sự kiện, lễ hội hoặc trung tâm hội nghị.",
+        "Tác phong nhanh nhẹn, giao tiếp rõ ràng, phối hợp tốt theo sơ đồ vị trí.",
+        "Có thể tăng ca, đổi lịch theo yêu cầu của dự án và chấp nhận lịch làm cuối tuần.",
+        "Biết kiểm soát khách mời, vòng đeo tay, thẻ ra vào và khu vực hậu trường.",
+        "Ưu tiên ứng viên cao từ 1m70 trở lên, ngoại hình sáng và chịu áp lực tốt."
+      ]
+    },
+    {
+      "id": "job-sg-015",
+      "title": "Bảo vệ khách sạn 4 sao - Ca xoay",
+      "company": "Long Hai Security Company",
+      "location": "Nha Trang",
+      "address": "Sea Pearl Hotel, Trần Phú, Nha Trang, Khánh Hòa",
+      "salary": "9.500.000 - 11.500.000 VND / tháng",
+      "quantity": "05 vị trí",
+      "status": "Đang tuyển dụng",
+      "experience": "1 - 2 năm",
+      "scheduleType": "Xoay ca",
+      "workHours": "Ca 8 tiếng",
+      "dayOff": "05 ngày/tháng",
+      "summary": {
+        "mode": "Toàn thời gian"
+      },
+      "createdAt": "2026-02-24T03:30:00.000Z",
+      "updatedAt": "2026-02-24T03:30:00.000Z",
+      "description": "Giữ an ninh khu vực sảnh khách sạn, cửa chính, nhà hàng và hỗ trợ xử lý các vấn đề liên quan đến khách lưu trú trong đêm. Đây là môi trường dịch vụ yêu cầu hình ảnh chuyên nghiệp, giao tiếp lễ phép và khả năng phối hợp với lễ tân, bellman, buồng phòng. Ứng viên phù hợp cần vừa giữ được tính kỷ luật an ninh, vừa hỗ trợ trải nghiệm của khách với thái độ mềm mỏng và đúng chuẩn khách sạn.",
+      "requirements": [
+        "Ưu tiên có kinh nghiệm bảo vệ khách sạn, resort hoặc tòa nhà có tiêu chuẩn dịch vụ cao.",
+        "Tác phong chuyên nghiệp, đồng phục gọn gàng, giao tiếp lịch sự với khách.",
+        "Có thể hỗ trợ xử lý khách say xỉn, gây rối hoặc thất lạc hành lý theo quy trình.",
+        "Biết giao tiếp tiếng Anh cơ bản là lợi thế.",
+        "Sẵn sàng làm ca đêm, lễ Tết và mùa cao điểm du lịch."
+      ]
+    },
+    {
+      "id": "job-sg-016",
+      "title": "Bảo vệ nhà máy điện tử - Khu vực cổng kiểm hàng",
+      "company": "Long Hai Security Company",
+      "location": "Bắc Ninh",
+      "address": "KCN Quế Võ, Bắc Ninh",
+      "salary": "9.800.000 - 12.000.000 VND / tháng",
+      "quantity": "05 vị trí",
+      "status": "Đang tuyển dụng",
+      "experience": "1 - 2 năm",
+      "scheduleType": "Xoay ca",
+      "workHours": "Ca 12 tiếng",
+      "dayOff": "04 ngày/tháng",
+      "summary": {
+        "mode": "Toàn thời gian"
+      },
+      "createdAt": "2026-02-20T09:10:00.000Z",
+      "updatedAt": "2026-02-20T09:10:00.000Z",
+      "description": "Kiểm soát cổng nhập xuất hàng, giám sát người và phương tiện ra vào theo lệnh sản xuất, lệnh giao hàng của nhà máy. Môi trường điện tử yêu cầu tính chính xác cao, quy trình chặt chẽ và khả năng nhận diện sai lệch giữa hàng hóa, phiếu xuất và người giao nhận. Công việc có hướng dẫn bài bản, phù hợp với người cẩn thận và quen làm việc với hồ sơ chứng từ cơ bản.",
+      "requirements": [
+        "Đã từng trực cổng nhà máy, khu công nghiệp hoặc kho vận có quy trình chặt chẽ.",
+        "Biết đối chiếu phiếu, kiểm tra niêm phong và hướng dẫn xe đúng khu vực chờ.",
+        "Có thể làm việc với bộ phận kho, QA hoặc xuất nhập khẩu khi có kiểm tra phát sinh.",
+        "Trung thực, nguyên tắc, không bỏ qua quy trình dù vào giờ cao điểm.",
+        "Ưu tiên ứng viên quen môi trường nhà máy có camera và kiểm soát nội bộ nghiêm ngặt."
+      ]
+    },
+    {
+      "id": "job-sg-017",
+      "title": "Nhân viên bảo vệ biệt thự compound - Kíp trực 24/24",
+      "company": "Long Hai Security Company",
+      "location": "TP.HCM",
+      "address": "Khu biệt thự Lakeview Compound, Quận 2, TP.HCM",
+      "salary": "9.000.000 - 10.800.000 VND / tháng",
+      "quantity": "05 vị trí",
+      "status": "Đang tuyển dụng",
+      "experience": "1 - 2 năm",
+      "scheduleType": "Xoay ca",
+      "workHours": "Ca 12 tiếng",
+      "dayOff": "04 ngày/tháng",
+      "summary": {
+        "mode": "Toàn thời gian"
+      },
+      "createdAt": "2026-02-17T01:20:00.000Z",
+      "updatedAt": "2026-02-17T01:20:00.000Z",
+      "description": "Kiểm soát cổng chính và cổng phụ của khu compound, xác minh khách đến thăm, nhà thầu, shipper và tuần tra nội khu theo tuyến cố định. Khu biệt thự có yêu cầu cao về riêng tư, nên ứng viên phải giao tiếp khéo léo nhưng vẫn tuân thủ quy trình kiểm soát an ninh. Công việc phù hợp với người lịch sự, biết quan sát và duy trì sự hiện diện ổn định trong không gian dân cư cao cấp.",
+      "requirements": [
+        "Có kinh nghiệm bảo vệ khu dân cư, biệt thự hoặc căn hộ cao cấp.",
+        "Biết kiểm tra danh sách khách hẹn trước, đơn vị giao hàng và nhà thầu thi công.",
+        "Tác phong nghiêm túc, không bàn tán thông tin cư dân, bảo mật tốt.",
+        "Có thể sử dụng điện thoại để xác nhận khách và cập nhật chốt trực.",
+        "Ưu tiên ứng viên giao tiếp nhẹ nhàng, không phản ứng nóng với cư dân."
+      ]
+    },
+    {
+      "id": "job-sg-018",
+      "title": "Bảo vệ văn phòng công nghệ - Ca hành chính linh hoạt",
+      "company": "Long Hai Security Company",
+      "location": "Đà Nẵng",
+      "address": "Tech Hub Building, Sơn Trà, Đà Nẵng",
+      "salary": "8.800.000 - 10.200.000 VND / tháng",
+      "quantity": "05 vị trí",
+      "status": "Đang tuyển dụng",
+      "experience": "Dưới 1 năm",
+      "scheduleType": "Cố định",
+      "workHours": "08:00 - 18:00",
+      "dayOff": "Thứ 7 chiều và Chủ nhật",
+      "summary": {
+        "mode": "Toàn thời gian"
+      },
+      "createdAt": "2026-02-13T07:10:00.000Z",
+      "updatedAt": "2026-02-13T07:10:00.000Z",
+      "description": "Trực khu vực lễ tân an ninh, hỗ trợ đăng ký khách đến văn phòng, kiểm soát thẻ nhân viên và giám sát nhà thầu kỹ thuật ra vào theo lịch. Môi trường công nghệ tương đối văn minh, nhẹ nhàng nhưng yêu cầu độ chính xác cao trong khâu xác minh khách và khu vực hạn chế. Ứng viên sẽ làm việc sát với lễ tân và văn phòng nhân sự nên phù hợp với người giao tiếp ổn định, tác phong chỉnh tề.",
+      "requirements": [
+        "Ưu tiên ứng viên có kinh nghiệm trực lễ tân an ninh hoặc sảnh văn phòng.",
+        "Biết sử dụng máy tính cơ bản để ghi nhận khách ra vào.",
+        "Tác phong lịch sự, giao tiếp chuẩn mực với nhân viên văn phòng và khách đối tác.",
+        "Có thể linh hoạt khi công ty tổ chức họp lớn hoặc tiếp đoàn khách vào chiều tối.",
+        "Không nói tục, không hút thuốc trong khu vực làm việc."
+      ]
+    },
+    {
+      "id": "job-sg-019",
+      "title": "Nhân viên an ninh nhà máy thực phẩm - Kiểm soát nội bộ",
+      "company": "Long Hai Security Company",
+      "location": "Long An",
+      "address": "KCN Tân Đức, Đức Hòa, Long An",
+      "salary": "10.200.000 - 12.300.000 VND / tháng",
+      "quantity": "05 vị trí",
+      "status": "Đang tuyển dụng",
+      "experience": "2 - 3 năm",
+      "scheduleType": "Xoay ca",
+      "workHours": "Ca 12 tiếng",
+      "dayOff": "04 ngày/tháng",
+      "summary": {
+        "mode": "Toàn thời gian"
+      },
+      "createdAt": "2026-02-10T02:20:00.000Z",
+      "updatedAt": "2026-02-10T02:20:00.000Z",
+      "description": "Kiểm soát người, vật tư và tài sản mang ra khỏi nhà máy theo quy trình kiểm soát nội bộ. Vị trí làm việc sát với bộ phận kho, sản xuất và QA nên cần sự chắc chắn, minh bạch và kỹ năng lập biên bản. Môi trường có nhiều quy định vệ sinh an toàn thực phẩm, ứng viên cần tác phong sạch sẽ, tuân thủ đồng phục và kỷ luật trong mọi khâu kiểm soát.",
+      "requirements": [
+        "Có kinh nghiệm kiểm soát nội bộ tại nhà máy thực phẩm, dược phẩm hoặc sản xuất tiêu dùng.",
+        "Biết kiểm tra túi xách, hàng mẫu, vật tư mang ra theo quy trình có xác nhận.",
+        "Có khả năng lập biên bản, làm việc với quản đốc và kho vận khi phát sinh vi phạm.",
+        "Tính nguyên tắc cao, cẩn trọng và không bỏ qua các bước xác minh.",
+        "Ưu tiên ứng viên từng làm việc trong môi trường có yêu cầu vệ sinh nghiêm ngặt."
+      ]
+    },
+    {
+      "id": "job-sg-020",
+      "title": "Bảo vệ trung tâm dữ liệu - Khu vực hạn chế",
+      "company": "Long Hai Security Company",
+      "location": "Hà Nội",
+      "address": "Khu công nghệ cao Hòa Lạc, Hà Nội",
+      "salary": "11.500.000 - 14.000.000 VND / tháng",
+      "quantity": "05 vị trí",
+      "status": "Đang tuyển dụng",
+      "experience": "2 - 3 năm",
+      "scheduleType": "Xoay ca",
+      "workHours": "Ca 12 tiếng",
+      "dayOff": "04 ngày/tháng",
+      "summary": {
+        "mode": "Toàn thời gian"
+      },
+      "createdAt": "2026-02-05T05:05:00.000Z",
+      "updatedAt": "2026-02-05T05:05:00.000Z",
+      "description": "Bảo vệ khu vực trung tâm dữ liệu có kiểm soát nhiều lớp, phụ trách xác minh người ra vào, kiểm tra thiết bị mang vào phòng máy và giám sát nhà thầu kỹ thuật trong khu vực hạn chế. Công việc yêu cầu mức độ bảo mật cao, thái độ nguyên tắc và khả năng bám sát quy trình. Ứng viên sẽ phối hợp với bộ phận kỹ thuật hạ tầng, trực NOC và kiểm soát nội bộ để đảm bảo an toàn vật lý cho hệ thống.",
+      "requirements": [
+        "Có kinh nghiệm làm bảo vệ tại khu vực hạn chế, phòng server, ngân hàng hoặc trung tâm công nghệ.",
+        "Biết tuân thủ quy trình nhiều lớp xác minh, ghi sổ và bàn giao chìa khóa/thẻ ra vào.",
+        "Tư duy nguyên tắc, bảo mật, không tiết lộ thông tin nội bộ và bố trí bảo vệ.",
+        "Biết làm việc với camera, báo động cửa, nhật ký ra vào điện tử là lợi thế.",
+        "Có thể làm ca đêm và xử lý nghiêm các vi phạm quy trình của nhà thầu."
+      ]
+    },
+    {
+      "id": "job-sg-021",
+      "title": "Bảo vệ siêu thị nội thất - Điều phối khách và hàng hóa",
+      "company": "Long Hai Security Company",
+      "location": "TP.HCM",
+      "address": "Khu bán lẻ Home Square, Quận 12, TP.HCM",
+      "salary": "8.600.000 - 10.200.000 VND / tháng",
+      "quantity": "05 vị trí",
+      "status": "Đang tuyển dụng",
+      "experience": "Dưới 1 năm",
+      "scheduleType": "Xoay ca",
+      "workHours": "Ca 9 tiếng",
+      "dayOff": "04 ngày/tháng",
+      "summary": {
+        "mode": "Toàn thời gian"
+      },
+      "createdAt": "2026-02-01T04:40:00.000Z",
+      "updatedAt": "2026-02-01T04:40:00.000Z",
+      "description": "Phối hợp kiểm soát khách vào siêu thị, khu vực thanh toán, cổng hàng hóa và bãi xe giao nhận nội thất cồng kềnh. Công việc cần sự linh hoạt, vì vừa có yếu tố dịch vụ khách hàng, vừa có khâu kiểm tra xuất hàng để tránh thất thoát. Vị trí phù hợp với ứng viên nhanh nhẹn, trung thực và có khả năng làm việc trong môi trường bán lẻ có lưu lượng khách lớn vào cuối tuần.",
+      "requirements": [
+        "Có thể đứng lâu, di chuyển linh hoạt giữa cổng khách và khu vực giao nhận hàng.",
+        "Ưu tiên ứng viên từng làm bảo vệ siêu thị, kho bán lẻ hoặc cửa hàng nội thất.",
+        "Biết kiểm tra hóa đơn, phiếu giao hàng và hỗ trợ khách mang hàng ra xe.",
+        "Thái độ lịch sự, không quát nạt khách hàng khi xử lý tình huống.",
+        "Có thể làm việc vào các dịp cao điểm cuối tuần và lễ."
+      ]
+    },
+    {
+      "id": "job-sg-022",
+      "title": "Bảo vệ khu du lịch sinh thái - Ca lưu trú",
+      "company": "Long Hai Security Company",
+      "location": "Lâm Đồng",
+      "address": "Khu nghỉ dưỡng Pine Valley, Đà Lạt, Lâm Đồng",
+      "salary": "9.200.000 - 11.000.000 VND / tháng",
+      "quantity": "05 vị trí",
+      "status": "Đang tuyển dụng",
+      "experience": "1 - 2 năm",
+      "scheduleType": "Xoay ca",
+      "workHours": "Ca 12 tiếng, có hỗ trợ chỗ ở",
+      "dayOff": "04 ngày/tháng",
+      "summary": {
+        "mode": "Toàn thời gian"
+      },
+      "createdAt": "2026-01-28T00:30:00.000Z",
+      "updatedAt": "2026-01-28T00:30:00.000Z",
+      "description": "Trực cổng khu nghỉ dưỡng, tuần tra khu villa, hồ cảnh quan và hỗ trợ kiểm soát khách lưu trú ngoài giờ. Khu du lịch rộng, nhiều khu vực cây xanh và ít người vào buổi tối nên cần nhân sự có thể lực tốt, tinh thần trách nhiệm và sự chủ động. Vị trí có hỗ trợ chỗ ở nội bộ, phù hợp với ứng viên ở tỉnh hoặc chấp nhận làm việc theo hình thức lưu trú dài ngày.",
+      "requirements": [
+        "Sức khỏe tốt, chấp nhận làm việc tại khu vực đồi dốc, thời tiết lạnh về đêm.",
+        "Có kinh nghiệm bảo vệ resort, khu du lịch hoặc trang trại nghỉ dưỡng là lợi thế.",
+        "Biết tuần tra tuyến dài, sử dụng đèn pin, áo mưa và thiết bị liên lạc.",
+        "Có thể ở lại nội trú theo ca và tuân thủ nội quy khu lưu trú nhân viên.",
+        "Tác phong thân thiện, hỗ trợ khách nhưng vẫn đảm bảo quy trình an ninh."
+      ]
+    },
+    {
+      "id": "job-sg-023",
+      "title": "Nhân viên bảo vệ công trường xây dựng - Ca đêm",
+      "company": "Long Hai Security Company",
+      "location": "Hải Phòng",
+      "address": "Dự án Harbor Central, Lê Chân, Hải Phòng",
+      "salary": "9.000.000 - 11.200.000 VND / tháng",
+      "quantity": "05 vị trí",
+      "status": "Đang tuyển dụng",
+      "experience": "Dưới 1 năm",
+      "scheduleType": "Xoay ca",
+      "workHours": "19:00 - 07:00",
+      "dayOff": "04 ngày/tháng",
+      "summary": {
+        "mode": "Theo ca"
+      },
+      "createdAt": "2026-01-24T11:00:00.000Z",
+      "updatedAt": "2026-01-24T11:00:00.000Z",
+      "description": "Canh gác vật tư, máy móc, container công trình và kiểm soát nhà thầu phụ ra vào ngoài giờ hành chính. Đây là môi trường làm việc khắc nghiệt hơn mặt bằng chung, phù hợp với ứng viên có thể lực và sự kiên nhẫn tốt. Công việc yêu cầu thường xuyên tuần tra khu vực vật liệu, lán trại và cổng phụ để hạn chế mất cắp, hút thuốc hoặc ra vào trái phép trong đêm.",
+      "requirements": [
+        "Có thể làm việc ngoài trời, môi trường bụi, tiếng ồn và thời tiết thay đổi.",
+        "Ưu tiên người từng làm bảo vệ công trường, kho bãi hoặc bến cảng.",
+        "Biết ghi sổ xe ra vào, kiểm tra nhà thầu phụ và chấm công cơ bản.",
+        "Không ngại làm ca đêm liên tục, có thể mang ủng và đồ bảo hộ theo quy định.",
+        "Tinh thần cảnh giác cao, không rời chốt khi chưa được thay ca."
+      ]
+    },
+    {
+      "id": "job-sg-024",
+      "title": "Bảo vệ nhà hàng tiệc cưới - Cuối tuần tăng cường",
+      "company": "Long Hai Security Company",
+      "location": "TP.HCM",
+      "address": "Royal Wedding Center, Tân Bình, TP.HCM",
+      "salary": "7.500.000 - 9.000.000 VND / tháng",
+      "quantity": "06 vị trí",
+      "status": "Đang tuyển dụng",
+      "experience": "Dưới 1 năm",
+      "scheduleType": "Linh hoạt",
+      "workHours": "Theo lịch tiệc, ưu tiên chiều tối",
+      "dayOff": "Linh hoạt theo lịch",
+      "summary": {
+        "mode": "Bán thời gian"
+      },
+      "createdAt": "2026-01-20T09:30:00.000Z",
+      "updatedAt": "2026-01-20T09:30:00.000Z",
+      "description": "Hỗ trợ giữ an ninh bãi xe, cổng sảnh và điều phối khách trong các buổi tiệc cưới, hội nghị và sự kiện đông người. Đây là vị trí phù hợp với ứng viên muốn làm lịch linh hoạt, có thể tăng cường vào chiều tối và cuối tuần. Công việc thiên về điều phối dòng người, giữ trật tự khu vực đón khách và hỗ trợ xử lý va chạm, mất vé xe hoặc chen lấn ở khu vực cổng.",
+      "requirements": [
+        "Có thể làm việc vào khung giờ chiều tối, cuối tuần và lễ cao điểm.",
+        "Nhanh nhẹn, giao tiếp rõ ràng, biết giữ bình tĩnh khi môi trường đông người.",
+        "Ưu tiên ứng viên sinh viên hoặc lao động thời vụ đã có kinh nghiệm bảo vệ sự kiện.",
+        "Có thể đứng lâu và di chuyển liên tục trong ca làm việc.",
+        "Tinh thần hỗ trợ khách tốt, không tranh cãi với tài xế hoặc khách dự tiệc."
+      ]
+    },
+    {
+      "id": "job-sg-025",
+      "title": "An ninh nhà máy may mặc - Cổng nhân sự",
+      "company": "Long Hai Security Company",
+      "location": "Tây Ninh",
+      "address": "KCN Phước Đông, Gò Dầu, Tây Ninh",
+      "salary": "8.900.000 - 10.700.000 VND / tháng",
+      "quantity": "05 vị trí",
+      "status": "Đang tuyển dụng",
+      "experience": "1 - 2 năm",
+      "scheduleType": "Xoay ca",
+      "workHours": "Ca 12 tiếng",
+      "dayOff": "04 ngày/tháng",
+      "summary": {
+        "mode": "Toàn thời gian"
+      },
+      "createdAt": "2026-01-16T02:10:00.000Z",
+      "updatedAt": "2026-01-16T02:10:00.000Z",
+      "description": "Kiểm soát cổng công nhân, chấm công ra vào, hỗ trợ phân luồng giờ tan ca và đảm bảo không xảy ra ùn tắc tại khu vực nhà xe. Đây là vị trí cần sự đều đặn, chịu khó và biết cách giữ trật tự khi số lượng nhân sự ra vào lớn trong thời gian ngắn. Ngoài ra, ứng viên còn hỗ trợ kiểm tra nhà thầu, khách giao hàng và phối hợp với bộ phận nhân sự khi có sự việc liên quan đến nội quy nhà máy.",
+      "requirements": [
+        "Có kinh nghiệm trực cổng nhà máy hoặc khu sản xuất đông lao động.",
+        "Biết điều phối đám đông nhỏ, hướng dẫn hàng người và xử lý tranh cãi cơ bản.",
+        "Tinh thần chịu khó, đúng giờ và bám sát vị trí trong giờ cao điểm.",
+        "Ưu tiên ứng viên từng làm tại nhà máy may, giày da hoặc điện tử.",
+        "Có thể làm ca đêm, ca cuối tuần theo lịch vận hành."
+      ]
+    },
+    {
+      "id": "bao-ve-ca-dem",
+      "title": "Nhân viên bảo vệ ca đêm tòa nhà hỗn hợp",
+      "company": "LONG HAI SECURITY",
+      "location": "Quận 1, TP. Hồ Chí Minh",
+      "address": "Tòa nhà Sài Gòn Central Hub, Quận 1, TP. Hồ Chí Minh",
+      "salary": "9.000.000 - 10.800.000 VND / tháng",
+      "quantity": "05 vị trí",
+      "status": "Đang tuyển dụng",
+      "experience": "1 - 2 năm",
+      "scheduleType": "Ca đêm cố định",
+      "workHours": "19:00 - 07:00",
+      "dayOff": "4 ngày / tháng",
+      "summary": {
+        "mode": "Toàn thời gian"
+      },
+      "createdAt": "2025-12-18T03:10:00.000Z",
+      "updatedAt": "2025-12-18T03:10:00.000Z",
+      "description": "Phụ trách trực đêm tại khu sảnh, bãi xe và các tầng kỹ thuật của tòa nhà hỗn hợp gồm văn phòng và căn hộ dịch vụ. Công việc yêu cầu tuần tra định kỳ, giám sát camera, kiểm tra cửa khóa ngoài giờ và phối hợp với kỹ thuật khi có cảnh báo bất thường về điện, nước hoặc báo cháy.",
+      "requirements": [
+        "Có thể làm ca đêm cố định và giữ sự tập trung tốt trong suốt ca trực.",
+        "Biết sử dụng bộ đàm, điện thoại ghi nhận sự cố và checklist tuần tra.",
+        "Ưu tiên ứng viên từng làm bảo vệ tòa nhà, khách sạn hoặc chung cư.",
+        "Tác phong nghiêm túc, đúng giờ, không tự ý rời chốt khi chưa bàn giao.",
+        "Có khả năng xử lý các tình huống nhỏ như khách quên thẻ, cửa mở sai quy định hoặc xe đỗ không đúng khu vực."
+      ]
+    },
+    {
+      "id": "bao-ve-su-kien",
+      "title": "Nhân viên bảo vệ sự kiện hội nghị và tiệc cưới",
+      "company": "LONG HAI SECURITY",
+      "location": "Thanh Hóa",
+      "address": "Trung tâm hội nghị Quang Trung Palace, Thanh Hóa",
+      "salary": "8.500.000 - 10.000.000 VND / tháng",
+      "quantity": "05 vị trí",
+      "status": "Đang tuyển dụng",
+      "experience": "1 - 2 năm",
+      "scheduleType": "Theo lịch sự kiện",
+      "workHours": "8h hoặc 12h",
+      "dayOff": "Linh hoạt theo lịch",
+      "summary": {
+        "mode": "Theo ca"
+      },
+      "createdAt": "2025-12-14T02:20:00.000Z",
+      "updatedAt": "2025-12-14T02:20:00.000Z",
+      "description": "Đảm bảo an ninh tại cổng check-in, khu vực sân khấu, hậu trường và bãi xe trong các sự kiện đông người như hội nghị doanh nghiệp, tiệc cưới và triển lãm. Công việc cần sự linh hoạt theo lịch chương trình, phối hợp tốt với ban tổ chức và xử lý nhanh các tình huống chen lấn, đi nhầm khu vực hoặc mất đồ.",
+      "requirements": [
+        "Có thể làm việc vào buổi tối, cuối tuần và ngày lễ theo lịch sự kiện.",
+        "Giao tiếp rõ ràng, biết hướng dẫn khách và giữ trật tự khu vực đông người.",
+        "Ưu tiên ứng viên từng làm bảo vệ sự kiện, nhà hàng tiệc cưới hoặc trung tâm hội nghị.",
+        "Có thể đứng và di chuyển liên tục trong ca làm việc dài.",
+        "Biết phối hợp theo sơ đồ phân khu, chốt vị trí và báo cáo nhanh khi có phát sinh."
+      ]
+    },
+    {
+      "id": "bao-ve-that-thoat-ban-le",
+      "title": "Nhân viên chống thất thoát bán lẻ",
+      "company": "LONG HAI SECURITY",
+      "location": "Hà Nội",
+      "address": "Chuỗi cửa hàng bán lẻ Midtown Retail, Hà Nội",
+      "salary": "8.800.000 - 10.200.000 VND / tháng",
+      "quantity": "05 vị trí",
+      "status": "Đang tuyển dụng",
+      "experience": "1 - 2 năm",
+      "scheduleType": "Làm theo ca",
+      "workHours": "8h hoặc 10h",
+      "dayOff": "4 ngày / tháng",
+      "summary": {
+        "mode": "Toàn thời gian"
+      },
+      "createdAt": "2025-12-10T04:30:00.000Z",
+      "updatedAt": "2025-12-10T04:30:00.000Z",
+      "description": "Theo dõi hoạt động tại sàn bán hàng, khu vực quầy thu ngân và lối ra vào để phát hiện hành vi gian lận, đổi tem, trộm cắp hoặc thất thoát nội bộ. Vị trí cần sự kín đáo, quan sát tốt và có khả năng phối hợp với quản lý cửa hàng, camera và kho khi phát sinh sai lệch hàng hóa.",
+      "requirements": [
+        "Cẩn thận, trung thực và có khả năng quan sát chi tiết trong môi trường bán lẻ.",
+        "Ưu tiên ứng viên có kinh nghiệm chống thất thoát, trực camera hoặc giám sát cửa hàng.",
+        "Biết lập biên bản, ghi nhận thời gian, vị trí và diễn biến sự việc cơ bản.",
+        "Không nóng nảy, xử lý tình huống theo quy trình và phối hợp với quản lý ca.",
+        "Có thể làm việc theo ca xoay và hỗ trợ kiểm tra hàng trong giờ cao điểm."
+      ]
+    },
+    {
+      "id": "bao-ve-toa-nha-van-phong",
+      "title": "Bảo vệ tòa nhà văn phòng hạng B",
+      "company": "LONG HAI SECURITY",
+      "location": "Nam Định",
+      "address": "Khu trung tâm hành chính, Nam Định, Việt Nam",
+      "salary": "9.200.000 - 10.500.000 VND / tháng",
+      "quantity": "05 vị trí",
+      "status": "Đang tuyển dụng",
+      "experience": "1 năm",
+      "scheduleType": "Làm theo ca",
+      "workHours": "8h hoặc 12h",
+      "dayOff": "4 ngày / tháng",
+      "summary": {
+        "mode": "Toàn thời gian"
+      },
+      "createdAt": "2025-12-06T01:00:00.000Z",
+      "updatedAt": "2025-12-06T01:00:00.000Z",
+      "description": "Kiểm soát khách ra vào, hỗ trợ lễ tân an ninh, hướng dẫn bãi xe và tuần tra các tầng làm việc trong giờ hành chính lẫn ngoài giờ. Môi trường văn phòng yêu cầu tác phong chuyên nghiệp, giao tiếp lịch sự và khả năng giữ hình ảnh tốt khi tiếp xúc với khách hàng, đối tác thuê văn phòng.",
+      "requirements": [
+        "Tốt nghiệp THPT trở lên, giao tiếp lịch sự và biết hướng dẫn khách rõ ràng.",
+        "Ưu tiên ứng viên từng làm việc tại tòa nhà văn phòng, khách sạn hoặc trung tâm dịch vụ.",
+        "Biết sử dụng sổ đăng ký khách, bộ đàm và checklist tuần tra cơ bản.",
+        "Có thể làm việc theo ca linh hoạt và hỗ trợ cuối tuần khi có sự kiện nội bộ.",
+        "Tác phong gọn gàng, đúng giờ, không sử dụng điện thoại cá nhân trong lúc trực sảnh."
+      ]
+    },
+    {
+      "id": "bao-ve-ngan-hang",
+      "title": "Bảo vệ ngân hàng chi nhánh đô thị",
+      "company": "LONG HAI SECURITY",
+      "location": "Quận Bình Tân, TP. Hồ Chí Minh",
+      "address": "Chi nhánh Bình Tân, TP. Hồ Chí Minh, Việt Nam",
+      "salary": "11.000.000 - 12.800.000 VND / tháng",
+      "quantity": "05 vị trí",
+      "status": "Đang tuyển dụng",
+      "experience": "2 năm",
+      "scheduleType": "Cố định",
+      "workHours": "07:00 - 19:00",
+      "dayOff": "4 ngày / tháng",
+      "summary": {
+        "mode": "Toàn thời gian"
+      },
+      "createdAt": "2025-12-01T05:45:00.000Z",
+      "updatedAt": "2025-12-01T05:45:00.000Z",
+      "description": "Đảm bảo an ninh tại khu vực giao dịch, sảnh tiếp khách và ATM của chi nhánh ngân hàng. Công việc yêu cầu khả năng quan sát cao, tác phong nghiêm túc và phối hợp chặt chẽ với giao dịch viên, kiểm soát nội bộ trong những khung giờ giao nhận tiền, cuối ngày và thời điểm khách đông.",
+      "requirements": [
+        "Tác phong nghiêm túc, kỷ luật cao và không có tiền án tiền sự.",
+        "Ưu tiên ứng viên có kinh nghiệm bảo vệ ngân hàng, tiệm vàng hoặc mục tiêu giá trị cao.",
+        "Biết kiểm soát cự ly an toàn, nhận diện hành vi bất thường và xử lý theo quy trình.",
+        "Có khả năng lập biên bản và phối hợp với cơ quan chức năng khi cần.",
+        "Có thể làm ca ngày cố định và chịu áp lực cao trong môi trường giao dịch tài chính."
+      ]
+    }
+  ]
+}
