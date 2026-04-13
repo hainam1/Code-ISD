@@ -20,7 +20,7 @@ export default function SearchBar({ value, onChange }) {
         value={value}
         onChange={(event) => onChange(event.target.value)}
         className={styles.searchInput}
-        placeholder="Tìm kiếm ứng viên..."
+        placeholder="Tìm kiếm ứng viên theo tên, email, số điện thoại..."
         aria-label="Tìm kiếm ứng viên"
       />
     </div>

@@ -38,6 +38,29 @@ function formatAppliedDate(dateString) {
   }).format(new Date(dateString));
 }
 
+function normalizeSearchValue(value) {
+  return String(value || '')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/đ/g, 'd')
+    .replace(/Đ/g, 'D')
+    .toLowerCase()
+    .trim();
+}
+
+function buildCandidateSearchIndex(candidate) {
+  return normalizeSearchValue([
+    candidate.fullName,
+    candidate.email,
+    candidate.phone,
+    candidate.position,
+    candidate.id,
+    candidate.idCard,
+    candidate.address,
+    STATUS_LABELS[candidate.status] || candidate.status,
+  ].join(' '));
+}
+
 export default function CandidateManagementPage() {
   const router = useRouter();
   const [isAuthorized, setIsAuthorized] = useState(false);
@@ -82,13 +105,10 @@ export default function CandidateManagementPage() {
   }, [router]);
 
   const filteredCandidates = useMemo(() => {
-    const normalizedQuery = searchTerm.trim().toLowerCase();
+    const normalizedQuery = normalizeSearchValue(searchTerm);
 
     return candidates.filter((candidate) => {
-      const matchesSearch =
-        !normalizedQuery ||
-        candidate.fullName.toLowerCase().includes(normalizedQuery) ||
-        candidate.email.toLowerCase().includes(normalizedQuery);
+      const matchesSearch = !normalizedQuery || buildCandidateSearchIndex(candidate).includes(normalizedQuery);
       const matchesStatus = statusFilter === CANDIDATE_STATUS.all || candidate.status === statusFilter;
 
       return matchesSearch && matchesStatus;

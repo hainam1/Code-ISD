@@ -3,6 +3,8 @@ import { unstable_noStore as noStore } from 'next/cache';
 import { createClient } from '@/lib/supabase/server';
 import { JOB_SCHEDULE_LABELS } from '@/lib/constants/jobFormOptions';
 
+const NEW_JOB_WINDOW_DAYS = 7;
+
 function formatCurrencyValue(value) {
   if (value == null || !Number.isFinite(Number(value))) {
     return '';
@@ -51,7 +53,33 @@ function buildPostedAtLabel(value) {
   return new Intl.DateTimeFormat('vi-VN').format(date);
 }
 
-function buildJobViewModel(jobRow, applicationCount) {
+function isNewJob(createdAt) {
+  if (!createdAt) {
+    return false;
+  }
+
+  const createdDate = new Date(createdAt);
+  if (Number.isNaN(createdDate.getTime())) {
+    return false;
+  }
+
+  const ageInMs = Date.now() - createdDate.getTime();
+  return ageInMs >= 0 && ageInMs <= NEW_JOB_WINDOW_DAYS * 24 * 60 * 60 * 1000;
+}
+
+function resolveBadge(jobRow, applicationCount, hottestApplicationCount) {
+  if (applicationCount > 0 && applicationCount === hottestApplicationCount) {
+    return 'HOT';
+  }
+
+  if (isNewJob(jobRow.created_at)) {
+    return 'NEW';
+  }
+
+  return '';
+}
+
+function buildJobViewModel(jobRow, applicationCount, hottestApplicationCount = 0) {
   const requirements = Array.isArray(jobRow.requirements)
     ? jobRow.requirements.map((item) => String(item || '').trim()).filter(Boolean)
     : [];
@@ -69,7 +97,7 @@ function buildJobViewModel(jobRow, applicationCount) {
     title: String(jobRow.title || '').trim(),
     location,
     salary: formatSalaryRange(jobRow.salary_min, jobRow.salary_max, jobRow.salary_currency),
-    badge: String(jobRow.status || '').toUpperCase() === 'OPEN' ? 'NEW' : '',
+    badge: resolveBadge(jobRow, applicationCount, hottestApplicationCount),
     company: String(jobRow.company_name || '').trim() || 'Smart Guard',
     address,
     description: String(jobRow.description || '').trim(),
@@ -111,13 +139,15 @@ export async function getJobs() {
     );
   }
 
-  return jobs.map((job) => buildJobViewModel(job, applicationCountByJobId.get(job.id) || 0));
+  const hottestApplicationCount = Math.max(0, ...applicationCountByJobId.values());
+
+  return jobs.map((job) => buildJobViewModel(job, applicationCountByJobId.get(job.id) || 0, hottestApplicationCount));
 }
 
 export async function getJobById(jobId) {
   noStore();
   const supabase = createClient();
-  const [{ data: job, error }, { count, error: countError }] = await Promise.all([
+  const [{ data: job, error }, { count, error: countError }, { data: allApplications, error: allApplicationsError }] = await Promise.all([
     supabase
       .from('jobs')
       .select('*')
@@ -127,10 +157,23 @@ export async function getJobById(jobId) {
       .from('applications')
       .select('*', { count: 'exact', head: true })
       .eq('job_id', jobId),
+    supabase
+      .from('applications')
+      .select('job_id'),
   ]);
 
   if (error || !job) return null;
-  if (countError) return buildJobViewModel(job, 0);
+  if (countError || allApplicationsError) return buildJobViewModel(job, 0, 0);
 
-  return buildJobViewModel(job, count || 0);
+  const applicationCountByJobId = new Map();
+  for (const application of allApplications || []) {
+    applicationCountByJobId.set(
+      application.job_id,
+      (applicationCountByJobId.get(application.job_id) || 0) + 1,
+    );
+  }
+
+  const hottestApplicationCount = Math.max(0, ...applicationCountByJobId.values());
+
+  return buildJobViewModel(job, count || 0, hottestApplicationCount);
 }

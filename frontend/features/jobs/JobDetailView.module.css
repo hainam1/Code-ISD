@@ -93,12 +93,22 @@
 .badge {
   width: fit-content;
   margin: 0;
-  color: #111111;
-  background: #e9e9e9;
+  color: #111827;
+  background: #e5e7eb;
   font-size: 11px;
   font-weight: 700;
   border-radius: 999px;
   padding: 5px 10px;
+}
+
+.badgeNew {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.badgeHot {
+  background: #fee2e2;
+  color: #b91c1c;
 }
 
 .title {

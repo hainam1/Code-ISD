@@ -319,6 +319,8 @@ async function main() {
   const rawJobs = Array.isArray(jobsPayload.jobs) ? jobsPayload.jobs : [];
   const normalizedJobs = rawJobs.map((job) => {
     const salary = parseSalaryRange(job.salary);
+    const createdAt = normalizeTimestamp(job.createdAt, new Date().toISOString());
+    const updatedAt = normalizeTimestamp(job.updatedAt, createdAt);
     return {
       id: truncate(job.id, 128),
       title: truncate(job.title, 255) || 'Untitled Job',
@@ -340,8 +342,8 @@ async function main() {
       salary_currency: 'VND',
       slots_filled: 0,
       slots_total: parseFirstInteger(job.quantity),
-      created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString()
+      created_at: createdAt,
+      updated_at: updatedAt
     };
   });
 

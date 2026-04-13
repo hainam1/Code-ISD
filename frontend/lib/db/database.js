@@ -1,7 +1,6 @@
 import 'server-only';
 import bcrypt from 'bcryptjs';
 import { randomUUID } from 'node:crypto';
-import { jobsSeed } from '@/features/jobs/data/jobsSeed.js';
 import { getSupabaseClient } from '@/lib/supabaseClient';
 
 const ADMIN_ID = 'admin-internal';
@@ -112,6 +111,19 @@ function mapStatusToLegacy(status) {
   }
 }
 
+function buildPostedAtLabel(value) {
+  if (!value) {
+    return 'Vừa đăng';
+  }
+
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) {
+    return 'Vừa đăng';
+  }
+
+  return new Intl.DateTimeFormat('vi-VN').format(date);
+}
+
 function buildPlaceholderEmail(userId) {
   return `${userId}@smartguard.local`.slice(0, 255);
 }
@@ -120,52 +132,38 @@ function buildPlaceholderPhone(userId) {
   return `placeholder-${String(userId).replace(/[^a-zA-Z0-9]/g, '').slice(0, 20)}`.slice(0, 32);
 }
 
-function buildJobFallback(jobRow, applicationCount) {
-  const seedJob = jobsSeed.find((item) => item.id === jobRow.id);
-  if (seedJob) {
-    return {
-      ...seedJob,
-      title: jobRow.title,
-      description: jobRow.description,
-      company: jobRow.company_name || seedJob.company,
-      location: jobRow.location,
-      address: jobRow.address || seedJob.address || jobRow.location,
-      salary: formatSalaryRange(jobRow.salary_min, jobRow.salary_max, jobRow.salary_currency) || seedJob.salary,
-      quantity: String(jobRow.slots_total || seedJob.quantity || ''),
-      candidates: `${applicationCount} Ứng viên`,
-      status: mapStatusToLegacy(jobRow.status),
-      summary: {
-        ...(seedJob.summary || {}),
-        place: jobRow.location,
-        mode: jobRow.employment_type || seedJob.summary?.mode || 'Toàn thời gian'
-      }
-    };
-  }
+function buildJobFromRow(jobRow, applicationCount) {
+  const requirements = Array.isArray(jobRow.requirements)
+    ? jobRow.requirements.map((item) => String(item || '').trim()).filter(Boolean)
+    : [];
+  const location = String(jobRow.location || '').trim();
+  const address = String(jobRow.address || '').trim() || location;
+  const employmentType = String(jobRow.employment_type || '').trim() || 'Toàn thời gian';
 
   return {
     id: jobRow.id,
-    title: jobRow.title,
-    location: jobRow.location,
+    title: String(jobRow.title || '').trim(),
+    location,
     salary: formatSalaryRange(jobRow.salary_min, jobRow.salary_max, jobRow.salary_currency),
     badge: String(jobRow.status || '').toUpperCase() === 'OPEN' ? 'NEW' : '',
-    company: jobRow.company_name || 'Smart Guard',
-    address: jobRow.address || jobRow.location,
+    company: String(jobRow.company_name || '').trim() || 'Smart Guard',
+    address,
     description: jobRow.description || '',
-    requirements: [],
-    experience: '',
-    candidates: `${applicationCount} Ứng viên`,
+    requirements,
+    experience: String(jobRow.experience || '').trim(),
+    candidates: `${applicationCount} ứng viên`,
     quantity: jobRow.slots_total ? String(jobRow.slots_total) : '',
     status: mapStatusToLegacy(jobRow.status),
     summary: {
-      place: jobRow.location,
-      mode: jobRow.employment_type || 'Toàn thời gian',
-      postedAt: 'Vừa đăng'
+      place: address,
+      mode: employmentType,
+      postedAt: buildPostedAtLabel(jobRow.created_at)
     },
     schedule: [
-      { label: 'LUÂN PHIÊN', value: 'Làm theo ca' },
-      { label: 'THỜI GIAN', value: '8h' },
-      { label: 'NGÀY NGHỈ', value: '4 ngày / tháng' },
-      { label: 'HÌNH THỨC', value: jobRow.employment_type || 'Toàn thời gian' }
+      { label: 'LUÂN PHIÊN', value: String(jobRow.schedule_type || '').trim() || 'Làm theo ca' },
+      { label: 'THỜI GIAN', value: String(jobRow.work_hours || '').trim() || '8h' },
+      { label: 'NGÀY NGHỈ', value: String(jobRow.day_off || '').trim() || 'Theo quy định' },
+      { label: 'HÌNH THỨC', value: employmentType }
     ]
   };
 }
@@ -204,7 +202,7 @@ function ensureAdminUser(data) {
 async function fetchAllTables(supabase) {
   const queries = await Promise.all([
     supabase.from('users').select('id, full_name, email, phone, role, password_hash, date_of_birth, id_card, address, avatar_url, created_at, updated_at').order('created_at', { ascending: true }),
-    supabase.from('jobs').select('id, title, description, company_name, location, address, employment_type, status, salary_min, salary_max, salary_currency, slots_filled, slots_total, created_at, updated_at').order('created_at', { ascending: false }),
+    supabase.from('jobs').select('id, title, description, company_name, location, address, requirements, experience, schedule_type, work_hours, day_off, employment_type, status, salary_min, salary_max, salary_currency, slots_filled, slots_total, created_at, updated_at').order('created_at', { ascending: false }),
     supabase.from('applications').select('id, candidate_id, job_id, candidate_full_name, candidate_email, candidate_phone, note, cv_original_name, cv_mime_type, cv_size, cv_path, health_original_name, health_mime_type, health_size, health_path, status, created_at, updated_at').order('created_at', { ascending: false }),
     supabase.from('notifications').select('id, user_id, type, title, message, payload, is_read, created_at, read_at').order('created_at', { ascending: false }),
     supabase.from('chat_threads').select('id, candidate_id, created_at, updated_at').order('created_at', { ascending: true }),
@@ -253,7 +251,7 @@ function buildCompositeData(raw) {
     avatarUrl: user.avatar_url || ''
   }));
 
-  data.jobs = raw.jobs.map((job) => buildJobFallback(job, applicationCountByJobId.get(job.id) || 0));
+  data.jobs = raw.jobs.map((job) => buildJobFromRow(job, applicationCountByJobId.get(job.id) || 0));
 
   data.applications = raw.applications.map((application) => ({
     id: application.id,
@@ -376,6 +374,15 @@ function normalizeUsersForDb(users) {
 function normalizeJobsForDb(jobs) {
   return jobs.map((job) => {
     const salary = parseSalaryRange(job.salary);
+    const requirements = Array.isArray(job.requirements)
+      ? job.requirements.map((item) => String(item || '').trim()).filter(Boolean)
+      : [];
+    const scheduleByLabel = new Map(
+      Array.isArray(job.schedule)
+        ? job.schedule.map((item) => [String(item?.label || '').trim().toUpperCase(), String(item?.value || '').trim()])
+        : []
+    );
+
     return {
       id: job.id,
       title: String(job.title || '').trim() || 'Untitled Job',
@@ -383,7 +390,12 @@ function normalizeJobsForDb(jobs) {
       company_name: job.company || 'Smart Guard',
       location: job.location || 'Unknown',
       address: job.address || job.location || null,
-      employment_type: job.summary?.mode || 'Full-time',
+      requirements,
+      experience: String(job.experience || '').trim() || null,
+      schedule_type: String(job.scheduleType || '').trim() || scheduleByLabel.get('LUÂN PHIÊN') || null,
+      work_hours: String(job.workHours || '').trim() || scheduleByLabel.get('THỜI GIAN') || null,
+      day_off: String(job.dayOff || '').trim() || scheduleByLabel.get('NGÀY NGHỈ') || null,
+      employment_type: job.workMode || job.summary?.mode || scheduleByLabel.get('HÌNH THỨC') || 'Full-time',
       status: normalizeJobStatus(job.status),
       salary_min: salary.salaryMin,
       salary_max: salary.salaryMax,

@@ -74,14 +74,24 @@ function repairText(value) {
   }
 }
 
+function truncateWords(value, maxWords = 15) {
+  const words = String(value || '').trim().split(/\s+/).filter(Boolean);
+
+  if (words.length <= maxWords) {
+    return String(value || '').trim();
+  }
+
+  return `${words.slice(0, maxWords).join(' ')} ...`;
+}
+
 function toCardDescription(job) {
   const description = repairText(job.description);
   if (description) {
-    return description;
+    return truncateWords(description);
   }
 
   const requirements = Array.isArray(job.requirements) ? job.requirements.map(repairText).filter(Boolean) : [];
-  return requirements.slice(0, 1).join(' ');
+  return truncateWords(requirements.slice(0, 1).join(' '));
 }
 
 function Badge({ value }) {
