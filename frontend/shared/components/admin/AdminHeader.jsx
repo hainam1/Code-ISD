@@ -55,6 +55,16 @@ function JobIcon() {
   );
 }
 
+function HistoryIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M12 7v5l3 2" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M21 12a9 9 0 1 1-2.64-6.36" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+      <path d="M21 4v4h-4" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
 const NAV_ITEMS = [
   {
     href: ADMIN_ROUTES.candidates,
@@ -67,6 +77,12 @@ const NAV_ITEMS = [
     label: 'Công việc',
     match: ADMIN_ROUTES.jobs,
     icon: JobIcon,
+  },
+  {
+    href: ADMIN_ROUTES.history,
+    label: 'Lịch sử',
+    match: ADMIN_ROUTES.history,
+    icon: HistoryIcon,
   },
 ];
 

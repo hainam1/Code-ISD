@@ -1,5 +1,10 @@
 import bcrypt from 'bcryptjs';
 import { NextResponse } from 'next/server';
+import {
+  encodeSessionCookie,
+  getSessionCookieOptions,
+  SESSION_COOKIE_NAME,
+} from '@/lib/auth/session';
 import { createClient } from '@/lib/supabase/server';
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -26,6 +31,16 @@ function toPublicPhone(value) {
   return isPlaceholderPhone(phone) ? '' : phone;
 }
 
+function withSessionCookie(payload) {
+  const response = NextResponse.json(payload);
+  response.cookies.set(
+    SESSION_COOKIE_NAME,
+    encodeSessionCookie(payload),
+    getSessionCookieOptions(),
+  );
+  return response;
+}
+
 export async function POST(request) {
   try {
     const body = await request.json();
@@ -46,7 +61,7 @@ export async function POST(request) {
         return NextResponse.json({ message: INVALID_LOGIN_MESSAGE }, { status: 401 });
       }
 
-      return NextResponse.json({
+      return withSessionCookie({
         message: 'Đăng nhập thành công',
         token: 'admin-internal-token',
         user: {
@@ -88,7 +103,7 @@ export async function POST(request) {
       return NextResponse.json({ message: INVALID_LOGIN_MESSAGE }, { status: 401 });
     }
 
-    return NextResponse.json({
+    return withSessionCookie({
       message: 'Đăng nhập thành công',
       token: `user-${user.id}`,
       user: {

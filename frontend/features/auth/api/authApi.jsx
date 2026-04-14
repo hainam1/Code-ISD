@@ -1,3 +1,11 @@
+import {
+  decodeSessionCookie,
+  encodeSessionCookie,
+  normalizeSession,
+  SESSION_COOKIE_NAME,
+  getSessionCookieOptions,
+} from '@/lib/auth/session';
+
 async function requestJson(url, options) {
   const response = await fetch(url, options);
   const payload = await response.json().catch(() => ({}));
@@ -11,43 +19,73 @@ async function requestJson(url, options) {
   return payload;
 }
 
-function isPlaceholderEmail(value) {
-  return /@smartguard\.local$/i.test(String(value || '').trim());
-}
+function buildCookieString(value, options = {}) {
+  const parts = [`${SESSION_COOKIE_NAME}=${value}`];
 
-function isPlaceholderPhone(value) {
-  return /^placeholder-/i.test(String(value || '').trim());
-}
-
-function normalizeSession(session) {
-  if (!session?.user) {
-    return session;
+  if (options.maxAge != null) {
+    parts.push(`Max-Age=${options.maxAge}`);
   }
 
-  return {
-    ...session,
-    user: {
-      ...session.user,
-      email: isPlaceholderEmail(session.user.email) ? '' : String(session.user.email || '').trim().toLowerCase(),
-      phone: isPlaceholderPhone(session.user.phone) ? '' : String(session.user.phone || '').trim(),
-    },
-  };
+  if (options.path) {
+    parts.push(`Path=${options.path}`);
+  }
+
+  if (options.sameSite) {
+    parts.push(`SameSite=${options.sameSite}`);
+  }
+
+  if (options.secure) {
+    parts.push('Secure');
+  }
+
+  return parts.join('; ');
 }
 
-async function requestAuthWithFallback(path, options = {}) {
-  // Try Next.js API route first
+function readCookie(name) {
+  if (typeof document === 'undefined') {
+    return '';
+  }
+
+  const cookies = document.cookie ? document.cookie.split('; ') : [];
+  const match = cookies.find((entry) => entry.startsWith(`${name}=`));
+  return match ? match.slice(name.length + 1) : '';
+}
+
+function writeSessionCookie(session) {
+  if (typeof document === 'undefined') {
+    return;
+  }
+
+  document.cookie = buildCookieString(
+    encodeSessionCookie(session),
+    getSessionCookieOptions(),
+  );
+}
+
+function clearSessionCookie() {
+  if (typeof document === 'undefined') {
+    return;
+  }
+
+  document.cookie = buildCookieString('', {
+    ...getSessionCookieOptions(),
+    maxAge: 0,
+  });
+}
+
+async function requestAuth(path, options = {}) {
   return requestJson(path, options);
 }
 
 export async function login({ identifier, password, loginType = 'user' }) {
-  const payload = normalizeSession(await requestAuthWithFallback('/api/auth/login', {
+  const payload = normalizeSession(await requestAuth('/api/auth/login', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ identifier, password, loginType }),
   }));
 
   if (typeof window !== 'undefined') {
-    localStorage.setItem('smart_guard_session', JSON.stringify(payload));
+    writeSessionCookie(payload);
     window.dispatchEvent(new Event('smart-guard-session-changed'));
   }
 
@@ -55,7 +93,7 @@ export async function login({ identifier, password, loginType = 'user' }) {
 }
 
 export async function register({ fullName, identifier, registerType, password }) {
-  return requestAuthWithFallback('/api/auth/register', {
+  return requestAuth('/api/auth/register', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ fullName, identifier, registerType, password }),
@@ -63,8 +101,13 @@ export async function register({ fullName, identifier, registerType, password })
 }
 
 export function logout() {
+  clearSessionCookie();
+
   if (typeof window !== 'undefined') {
-    localStorage.removeItem('smart_guard_session');
+    fetch('/api/auth/logout', {
+      method: 'POST',
+      keepalive: true,
+    }).catch(() => {});
     window.dispatchEvent(new Event('smart-guard-session-changed'));
   }
 }
@@ -74,24 +117,14 @@ export function setSession(nextSession) {
     return;
   }
 
-  localStorage.setItem('smart_guard_session', JSON.stringify(normalizeSession(nextSession)));
+  writeSessionCookie(nextSession);
   window.dispatchEvent(new Event('smart-guard-session-changed'));
 }
 
 export function getSession() {
-  if (typeof window === 'undefined') {
+  if (typeof document === 'undefined') {
     return null;
   }
 
-  const raw = localStorage.getItem('smart_guard_session');
-
-  if (!raw) {
-    return null;
-  }
-
-  try {
-    return normalizeSession(JSON.parse(raw));
-  } catch {
-    return null;
-  }
+  return decodeSessionCookie(readCookie(SESSION_COOKIE_NAME));
 }

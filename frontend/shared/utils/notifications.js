@@ -1,8 +1,37 @@
 import { randomUUID } from 'node:crypto';
 import { createClient } from '@/lib/supabase/server';
+import { CANDIDATE_STATUS } from '@/features/candidates/constants/statusOptions';
 
 function normalizeText(value) {
   return String(value || '').trim();
+}
+
+async function updateCandidateStatusToInterview(supabase, candidateId) {
+  const normalizedCandidateId = normalizeText(candidateId);
+
+  if (!normalizedCandidateId) {
+    return;
+  }
+
+  const { data: latestApplication, error: applicationError } = await supabase
+    .from('applications')
+    .select('id')
+    .eq('candidate_id', normalizedCandidateId)
+    .order('created_at', { ascending: false })
+    .limit(1)
+    .maybeSingle();
+
+  if (applicationError || !latestApplication?.id) {
+    return;
+  }
+
+  await supabase
+    .from('applications')
+    .update({
+      status: CANDIDATE_STATUS.interview,
+      updated_at: new Date().toISOString(),
+    })
+    .eq('id', latestApplication.id);
 }
 
 export async function listUserNotifications(userId) {
@@ -17,8 +46,7 @@ export async function listUserNotifications(userId) {
 
   if (error || !data) return [];
 
-  // Map to frontend expected shape
-  return data.map(item => ({
+  return data.map((item) => ({
     id: item.id,
     userId: item.user_id,
     type: item.type,
@@ -27,7 +55,7 @@ export async function listUserNotifications(userId) {
     interview: item.payload,
     isRead: item.is_read,
     createdAt: item.created_at,
-    readAt: item.read_at
+    readAt: item.read_at,
   }));
 }
 
@@ -49,7 +77,6 @@ export async function createInterviewNotification({
     throw new Error('Thiếu mã ứng viên để gửi thông báo.');
   }
 
-  // Check if notification already exists by searching inside JSON payload
   const { data: existing, error: errExisting } = await supabase
     .from('notifications')
     .select('*')
@@ -60,6 +87,7 @@ export async function createInterviewNotification({
 
   if (!errExisting && existing && existing.length > 0) {
     const item = existing[0];
+    await updateCandidateStatusToInterview(supabase, normalizedUserId);
     return {
       notification: {
         id: item.id,
@@ -71,7 +99,7 @@ export async function createInterviewNotification({
         isRead: item.is_read,
         createdAt: item.created_at,
       },
-      created: false
+      created: false,
     };
   }
 
@@ -91,7 +119,7 @@ export async function createInterviewNotification({
     type: 'INTERVIEW_SCHEDULED',
     title: 'Thông báo lịch phỏng vấn',
     message: `Bạn có lịch phỏng vấn cho vị trí ${normalizeText(position)}.`,
-    payload: payload,
+    payload,
     is_read: false,
     created_at: new Date().toISOString(),
   };
@@ -103,8 +131,10 @@ export async function createInterviewNotification({
     .single();
 
   if (insertError) {
-    throw new Error('Không thể tạo thông báo: ' + insertError.message);
+    throw new Error(`Không thể tạo thông báo: ${insertError.message}`);
   }
+
+  await updateCandidateStatusToInterview(supabase, normalizedUserId);
 
   return {
     notification: {
@@ -117,7 +147,7 @@ export async function createInterviewNotification({
       isRead: inserted.is_read,
       createdAt: inserted.created_at,
     },
-    created: true
+    created: true,
   };
 }
 
@@ -148,6 +178,6 @@ export async function markNotificationAsRead(notificationId, userId) {
     interview: updated.payload,
     isRead: updated.is_read,
     createdAt: updated.created_at,
-    readAt: updated.read_at
+    readAt: updated.read_at,
   };
 }

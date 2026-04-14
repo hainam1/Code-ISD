@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import JobSummaryCard from '@/features/jobs/components/JobSummaryCard';
+import { repairText } from '@/shared/utils/text';
 import styles from './JobDetailView.module.css';
 
 function Icon({ children }) {
@@ -20,11 +21,30 @@ export default function JobDetailView({ job }) {
   }
 
   const normalizedBadge = (job.badge || '').trim().toUpperCase();
+  const title = repairText(job.title || '');
+  const company = repairText(job.company || '');
+  const address = repairText(job.address || '');
+  const salary = repairText(job.salary || '');
+  const experience = repairText(job.experience || '');
+  const quantity = repairText(job.quantity || '');
+  const description = repairText(job.description || '');
+  const requirements = Array.isArray(job.requirements)
+    ? job.requirements.map((item) => repairText(String(item || '').trim())).filter(Boolean)
+    : [];
+  const schedule = Array.isArray(job.schedule)
+    ? job.schedule.map((item) => ({
+        ...item,
+        label: repairText(item?.label || ''),
+        value: repairText(item?.value || ''),
+      }))
+    : [];
   const badgeClassName = [
     styles.badge,
     normalizedBadge === 'NEW' ? styles.badgeNew : '',
     normalizedBadge === 'HOT' ? styles.badgeHot : '',
-  ].filter(Boolean).join(' ');
+  ]
+    .filter(Boolean)
+    .join(' ');
 
   return (
     <main className={styles.page}>
@@ -59,7 +79,7 @@ export default function JobDetailView({ job }) {
       <section className={styles.heading}>
         <div className={styles.titleRow}>
           <p className={badgeClassName}>{job.badge || 'ĐANG TUYỂN'}</p>
-          <h1 className={styles.title}>{job.title}</h1>
+          <h1 className={styles.title}>{title}</h1>
         </div>
 
         <div className={styles.metaRow}>
@@ -67,7 +87,7 @@ export default function JobDetailView({ job }) {
             <Icon>
               <path d="M4 6h16v12H4zM8 6V4m8 2V4M4 10h16" fill="none" stroke="currentColor" strokeWidth="1.6" />
             </Icon>
-            {job.company}
+            {company}
           </p>
 
           <p className={styles.metaItem}>
@@ -80,7 +100,7 @@ export default function JobDetailView({ job }) {
               />
               <circle cx="12" cy="10" r="2.3" fill="none" stroke="currentColor" strokeWidth="1.6" />
             </Icon>
-            {job.address}
+            {address}
           </p>
         </div>
       </section>
@@ -93,7 +113,7 @@ export default function JobDetailView({ job }) {
             </Icon>
             Mức lương
           </div>
-          <p className={styles.statValue}>{job.salary || 'Thỏa thuận'}</p>
+          <p className={styles.statValue}>{salary || 'Thỏa thuận'}</p>
         </article>
 
         <article className={styles.statCard}>
@@ -104,7 +124,7 @@ export default function JobDetailView({ job }) {
             </Icon>
             Kinh nghiệm
           </div>
-          <p className={styles.statValue}>{job.experience || 'Không yêu cầu'}</p>
+          <p className={styles.statValue}>{experience || 'Không yêu cầu'}</p>
         </article>
 
         <article className={styles.statCard}>
@@ -117,9 +137,9 @@ export default function JobDetailView({ job }) {
                 strokeWidth="1.6"
               />
             </Icon>
-            Ứng viên
+            Số lượng tuyển
           </div>
-          <p className={styles.statValue}>{job.candidates}</p>
+          <p className={styles.statValue}>{quantity ? `${quantity} vị trí` : 'Chưa cập nhật'}</p>
         </article>
       </section>
 
@@ -127,14 +147,14 @@ export default function JobDetailView({ job }) {
         <div className={styles.contentCol}>
           <section className={styles.block}>
             <h2 className={styles.sectionTitle}>Mô tả công việc</h2>
-            <p className={styles.bodyText}>{job.description || 'Chưa có mô tả công việc.'}</p>
+            <p className={styles.bodyText}>{description || 'Chưa có mô tả công việc.'}</p>
           </section>
 
           <section className={styles.block}>
             <h2 className={styles.sectionTitle}>Yêu cầu công việc</h2>
 
             <ul className={styles.requirements}>
-              {(job.requirements || []).map((item) => (
+              {requirements.map((item) => (
                 <li key={item}>
                   <svg viewBox="0 0 24 24" aria-hidden="true">
                     <path d="M5 4h14v16H5zM8 12l2.2 2.2L16 8.7" fill="none" stroke="currentColor" strokeWidth="1.7" />
@@ -149,7 +169,7 @@ export default function JobDetailView({ job }) {
             <h2 className={styles.sectionTitle}>Lịch làm việc</h2>
 
             <div className={styles.schedule}>
-              {(job.schedule || []).map((item) => (
+              {schedule.map((item) => (
                 <article key={item.label} className={styles.scheduleCard}>
                   <p>{item.label}</p>
                   <h4>{item.value}</h4>

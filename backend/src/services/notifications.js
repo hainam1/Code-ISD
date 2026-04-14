@@ -5,6 +5,31 @@ function normalizeText(value) {
   return String(value || '').trim();
 }
 
+async function updateCandidateStatusToInterview(supabase, candidateId) {
+  const normalizedCandidateId = normalizeText(candidateId);
+
+  if (!normalizedCandidateId) {
+    return;
+  }
+
+  const { data: latestApplication, error: applicationError } = await supabase
+    .from('applications')
+    .select('id')
+    .eq('candidate_id', normalizedCandidateId)
+    .order('created_at', { ascending: false })
+    .limit(1)
+    .maybeSingle();
+
+  if (applicationError || !latestApplication?.id) {
+    return;
+  }
+
+  await supabase
+    .from('applications')
+    .update({ status: 'Interview Scheduled', updated_at: new Date().toISOString() })
+    .eq('id', latestApplication.id);
+}
+
 function mapNotification(item) {
   return {
     id: item.id,
@@ -50,6 +75,7 @@ export async function createInterviewNotification(input) {
     throw new Error(existingError.message);
   }
   if (existing?.length) {
+    await updateCandidateStatusToInterview(supabase, userId);
     return { notification: mapNotification(existing[0]), created: false };
   }
 
@@ -76,6 +102,9 @@ export async function createInterviewNotification(input) {
   if (error) {
     throw new Error(error.message);
   }
+
+  await updateCandidateStatusToInterview(supabase, userId);
+
   return { notification: mapNotification(data), created: true };
 }
 

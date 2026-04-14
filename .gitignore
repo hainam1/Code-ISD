@@ -10,3 +10,5 @@ yarn-error.log*
 pnpm-debug.log*
 .env*
 dev.log
+backend/uploads/
+frontend/uploads/

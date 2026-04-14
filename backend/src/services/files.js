@@ -1,15 +1,19 @@
-import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
 import { getEnv } from '../config/env.js';
 import { getSupabase } from '../config/supabase.js';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const uploadsRoot = path.join(__dirname, '../../uploads/applications');
 const AVATAR_BUCKET = 'avatars';
+const APPLICATION_BUCKET = 'application-files';
 const AVATAR_ALLOWED_MIME_TYPES = ['image/png', 'image/jpeg', 'image/webp'];
+const APPLICATION_ALLOWED_MIME_TYPES = [
+  'application/pdf',
+  'application/msword',
+  'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+  'image/png',
+];
+
 let avatarBucketReadyPromise;
+let applicationBucketReadyPromise;
 
 function sanitizeBaseName(fileName = 'file') {
   const extension = path.extname(fileName).toLowerCase();
@@ -18,28 +22,6 @@ function sanitizeBaseName(fileName = 'file') {
     extension,
     baseName: baseName.replace(/[^a-zA-Z0-9-_]+/g, '-').replace(/^-+|-+$/g, '') || 'file',
   };
-}
-
-export async function saveApplicationBuffer({ applicationId, fieldName, file }) {
-  const { extension, baseName } = sanitizeBaseName(file.originalname || 'file');
-  const targetDir = path.join(uploadsRoot, applicationId);
-  const storedFileName = `${fieldName}-${baseName}${extension}`;
-  const absolutePath = path.join(targetDir, storedFileName);
-
-  await mkdir(targetDir, { recursive: true });
-  await writeFile(absolutePath, file.buffer);
-
-  return {
-    fileName: file.originalname || storedFileName,
-    mimeType: file.mimetype || 'application/octet-stream',
-    size: file.size || file.buffer.byteLength,
-    storedFileName,
-    relativePath: path.posix.join(applicationId, storedFileName),
-  };
-}
-
-export async function readApplicationFile(relativePath) {
-  return readFile(path.join(uploadsRoot, relativePath));
 }
 
 function parseAvatarDataUrl(dataUrl) {
@@ -60,68 +42,142 @@ function assertSupabaseStorageAdminAccess() {
   const { supabaseServiceRoleKey } = getEnv();
 
   if (!supabaseServiceRoleKey) {
-    throw new Error('Thieu SUPABASE_SERVICE_ROLE_KEY de luu avatar len Supabase Storage.');
+    throw new Error('Thieu SUPABASE_SERVICE_ROLE_KEY de luu file len Supabase Storage.');
   }
 
   if (supabaseServiceRoleKey.startsWith('sb_publishable_')) {
     throw new Error(
-      'SUPABASE_SERVICE_ROLE_KEY hien dang la publishable key. Hay thay bang secret/service-role key de tao bucket va upload avatar len Supabase Storage.',
+      'SUPABASE_SERVICE_ROLE_KEY hien dang la publishable key. Hay thay bang secret/service-role key de quan ly Supabase Storage.',
     );
   }
 }
 
-async function ensureAvatarBucket() {
+async function ensureBucket({ bucketName, allowedMimeTypes, fileSizeLimit, publicBucket, cacheKey }) {
   assertSupabaseStorageAdminAccess();
 
-  if (avatarBucketReadyPromise) {
-    return avatarBucketReadyPromise;
+  if (cacheKey.current) {
+    return cacheKey.current;
   }
 
-  avatarBucketReadyPromise = (async () => {
+  cacheKey.current = (async () => {
     const supabase = getSupabase();
     const { data: buckets, error: listError } = await supabase.storage.listBuckets();
 
     if (listError) {
-      throw new Error(`Khong the doc bucket avatar tren Supabase: ${listError.message}`);
+      throw new Error(`Khong the doc bucket ${bucketName} tren Supabase: ${listError.message}`);
     }
 
     const existingBucket = (buckets || []).find(
-      (bucket) => bucket.name === AVATAR_BUCKET || bucket.id === AVATAR_BUCKET,
+      (bucket) => bucket.name === bucketName || bucket.id === bucketName,
     );
 
     if (!existingBucket) {
-      const { error: createError } = await supabase.storage.createBucket(AVATAR_BUCKET, {
-        public: true,
-        fileSizeLimit: '2MB',
-        allowedMimeTypes: AVATAR_ALLOWED_MIME_TYPES,
+      const { error: createError } = await supabase.storage.createBucket(bucketName, {
+        public: publicBucket,
+        fileSizeLimit,
+        allowedMimeTypes,
       });
 
       if (createError) {
-        throw new Error(`Khong the tao bucket avatar tren Supabase: ${createError.message}`);
+        throw new Error(`Khong the tao bucket ${bucketName} tren Supabase: ${createError.message}`);
       }
 
       return;
     }
 
-    if (!existingBucket.public) {
-      const { error: updateError } = await supabase.storage.updateBucket(AVATAR_BUCKET, {
-        public: true,
-        fileSizeLimit: '2MB',
-        allowedMimeTypes: AVATAR_ALLOWED_MIME_TYPES,
-      });
+    const { error: updateError } = await supabase.storage.updateBucket(bucketName, {
+      public: publicBucket,
+      fileSizeLimit,
+      allowedMimeTypes,
+    });
 
-      if (updateError) {
-        throw new Error(`Khong the cap nhat bucket avatar tren Supabase: ${updateError.message}`);
-      }
+    if (updateError) {
+      throw new Error(`Khong the cap nhat bucket ${bucketName} tren Supabase: ${updateError.message}`);
     }
   })();
 
   try {
-    await avatarBucketReadyPromise;
+    await cacheKey.current;
   } catch (error) {
-    avatarBucketReadyPromise = undefined;
+    cacheKey.current = undefined;
     throw error;
   }
+}
+
+async function ensureAvatarBucket() {
+  await ensureBucket({
+    bucketName: AVATAR_BUCKET,
+    allowedMimeTypes: AVATAR_ALLOWED_MIME_TYPES,
+    fileSizeLimit: '2MB',
+    publicBucket: true,
+    cacheKey: {
+      get current() {
+        return avatarBucketReadyPromise;
+      },
+      set current(value) {
+        avatarBucketReadyPromise = value;
+      },
+    },
+  });
+}
+
+async function ensureApplicationBucket() {
+  await ensureBucket({
+    bucketName: APPLICATION_BUCKET,
+    allowedMimeTypes: APPLICATION_ALLOWED_MIME_TYPES,
+    fileSizeLimit: '5MB',
+    publicBucket: false,
+    cacheKey: {
+      get current() {
+        return applicationBucketReadyPromise;
+      },
+      set current(value) {
+        applicationBucketReadyPromise = value;
+      },
+    },
+  });
+}
+
+export async function saveApplicationBuffer({ applicationId, fieldName, file }) {
+  const { extension, baseName } = sanitizeBaseName(file.originalname || 'file');
+  const storedFileName = `${fieldName}-${baseName}${extension}`;
+  const relativePath = path.posix.join(applicationId, storedFileName);
+
+  await ensureApplicationBucket();
+
+  const supabase = getSupabase();
+  const { error: uploadError } = await supabase.storage
+    .from(APPLICATION_BUCKET)
+    .upload(relativePath, file.buffer, {
+      contentType: file.mimetype || 'application/octet-stream',
+      upsert: true,
+    });
+
+  if (uploadError) {
+    throw new Error(`Khong the tai file ung tuyen len Supabase: ${uploadError.message}`);
+  }
+
+  return {
+    fileName: file.originalname || storedFileName,
+    mimeType: file.mimetype || 'application/octet-stream',
+    size: file.size || file.buffer.byteLength,
+    storedFileName,
+    relativePath,
+  };
+}
+
+export async function readApplicationFile(relativePath) {
+  await ensureApplicationBucket();
+
+  const supabase = getSupabase();
+  const { data, error } = await supabase.storage.from(APPLICATION_BUCKET).download(relativePath);
+
+  if (error) {
+    throw new Error(`Khong the doc file ung tuyen tren Supabase: ${error.message}`);
+  }
+
+  const arrayBuffer = await data.arrayBuffer();
+  return Buffer.from(arrayBuffer);
 }
 
 export async function saveAvatarDataUrl({ userId, dataUrl }) {

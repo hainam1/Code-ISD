@@ -13,6 +13,12 @@ function getInitials(fullName) {
 }
 
 export default function CandidateItem({ candidate, appliedDate }) {
+  const isInterviewStatus = candidate.status === 'Interview Scheduled' || candidate.status === 'Interviewed';
+  const actionHref = isInterviewStatus
+    ? ADMIN_ROUTES.candidateEvaluation(candidate.id)
+    : ADMIN_ROUTES.candidateDetail(candidate.id);
+  const actionLabel = isInterviewStatus ? 'Đánh giá' : 'Xem thêm';
+
   return (
     <article className={styles.row}>
       <div className={styles.candidateMeta}>
@@ -35,8 +41,8 @@ export default function CandidateItem({ candidate, appliedDate }) {
       </p>
       <p className={styles.muted}>{appliedDate}</p>
       <StatusBadge status={candidate.status} />
-      <Link href={ADMIN_ROUTES.candidateDetail(candidate.id)} className={styles.detailButton}>
-        Xem thêm
+      <Link href={actionHref} className={styles.detailButton}>
+        {actionLabel}
       </Link>
     </article>
   );

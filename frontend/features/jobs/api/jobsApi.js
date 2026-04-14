@@ -2,6 +2,7 @@ import 'server-only';
 import { unstable_noStore as noStore } from 'next/cache';
 import { createClient } from '@/lib/supabase/server';
 import { JOB_SCHEDULE_LABELS } from '@/lib/constants/jobFormOptions';
+import { repairDeep, repairText } from '@/shared/utils/text';
 
 const NEW_JOB_WINDOW_DAYS = 7;
 
@@ -92,11 +93,11 @@ function buildJobViewModel(jobRow, applicationCount, hottestApplicationCount = 0
   const location = String(jobRow.location || '').trim();
   const address = String(jobRow.address || '').trim() || location;
 
-  return {
+  return repairDeep({
     id: jobRow.id,
     title: String(jobRow.title || '').trim(),
     location,
-    salary: formatSalaryRange(jobRow.salary_min, jobRow.salary_max, jobRow.salary_currency),
+    salary: repairText(formatSalaryRange(jobRow.salary_min, jobRow.salary_max, jobRow.salary_currency)),
     badge: resolveBadge(jobRow, applicationCount, hottestApplicationCount),
     company: String(jobRow.company_name || '').trim() || 'Smart Guard',
     address,
@@ -112,7 +113,7 @@ function buildJobViewModel(jobRow, applicationCount, hottestApplicationCount = 0
       postedAt: buildPostedAtLabel(jobRow.created_at),
     },
     schedule,
-  };
+  });
 }
 
 export async function getJobs() {

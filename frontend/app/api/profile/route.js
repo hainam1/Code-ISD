@@ -1,5 +1,10 @@
 import { NextResponse } from 'next/server';
 import { randomUUID } from 'node:crypto';
+import {
+  encodeSessionCookie,
+  getSessionCookieOptions,
+  SESSION_COOKIE_NAME,
+} from '@/lib/auth/session';
 import { getSupabaseClient } from '@/lib/supabaseClient';
 import { saveAvatarDataUrl } from '@/lib/files/avatarStorage';
 
@@ -107,13 +112,17 @@ export async function PATCH(request) {
     if (phone && !PHONE_REGEX.test(phone)) {
       return NextResponse.json(
         { message: 'Số điện thoại phải gồm 10 chữ số và bắt đầu từ 03 đến 09.' },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
     const orConditions = [];
-    if (email && email !== currentEmail) orConditions.push(`email.eq.${email}`);
-    if (phone && phone !== currentPhone) orConditions.push(`phone.eq.${phone}`);
+    if (email && email !== currentEmail) {
+      orConditions.push(`email.eq.${email}`);
+    }
+    if (phone && phone !== currentPhone) {
+      orConditions.push(`phone.eq.${phone}`);
+    }
 
     if (orConditions.length > 0) {
       const { data: conflicts } = await supabase
@@ -178,14 +187,26 @@ export async function PATCH(request) {
       throw updateError;
     }
 
-    return NextResponse.json({
+    const mappedUser = mapUser(updatedUser);
+    const response = NextResponse.json({
       message: 'Cập nhật thông tin thành công.',
-      user: mapUser(updatedUser),
+      user: mappedUser,
     });
+
+    response.cookies.set(
+      SESSION_COOKIE_NAME,
+      encodeSessionCookie({
+        token,
+        user: mappedUser,
+      }),
+      getSessionCookieOptions(),
+    );
+
+    return response;
   } catch (error) {
     return NextResponse.json(
       { message: 'Không thể cập nhật thông tin.', error: String(error) },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

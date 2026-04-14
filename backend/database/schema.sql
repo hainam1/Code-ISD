@@ -116,6 +116,76 @@ CREATE TABLE IF NOT EXISTS public.interviews (
   updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
+CREATE TABLE IF NOT EXISTS public.interview_history (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  application_id UUID NOT NULL UNIQUE REFERENCES public.applications(id) ON DELETE CASCADE,
+  candidate_id UUID NOT NULL REFERENCES public.users(id) ON DELETE CASCADE,
+  job_id UUID NOT NULL REFERENCES public.jobs(id) ON DELETE CASCADE,
+  final_status VARCHAR(64) NOT NULL CHECK (final_status IN ('Approved', 'Final Rejected')),
+  interview_result VARCHAR(32) NOT NULL CHECK (interview_result IN ('Pass', 'Fail')),
+  fit_level VARCHAR(64) NULL,
+  note TEXT NULL,
+  evaluated_by UUID NULL REFERENCES public.users(id),
+  evaluated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE OR REPLACE FUNCTION public.set_updated_at()
+RETURNS TRIGGER
+LANGUAGE plpgsql
+AS $$
+BEGIN
+  NEW.updated_at = NOW();
+  RETURN NEW;
+END;
+$$;
+
+ALTER TABLE public.interview_history
+  ALTER COLUMN id SET DEFAULT gen_random_uuid();
+
+CREATE INDEX IF NOT EXISTS idx_interview_history_candidate_id
+  ON public.interview_history(candidate_id);
+
+CREATE INDEX IF NOT EXISTS idx_interview_history_application_id
+  ON public.interview_history(application_id);
+
+CREATE INDEX IF NOT EXISTS idx_interview_history_job_id
+  ON public.interview_history(job_id);
+
+CREATE INDEX IF NOT EXISTS idx_interview_history_final_status
+  ON public.interview_history(final_status);
+
+CREATE INDEX IF NOT EXISTS idx_interview_history_evaluated_at
+  ON public.interview_history(evaluated_at DESC);
+
+ALTER TABLE public.interview_history ENABLE ROW LEVEL SECURITY;
+
+DO $$
+BEGIN
+  IF NOT EXISTS (
+    SELECT 1
+    FROM pg_policies
+    WHERE schemaname = 'public'
+      AND tablename = 'interview_history'
+      AND policyname = 'service_role_manage_interview_history'
+  ) THEN
+    CREATE POLICY service_role_manage_interview_history
+      ON public.interview_history
+      FOR ALL
+      USING (auth.role() = 'service_role')
+      WITH CHECK (auth.role() = 'service_role');
+  END IF;
+END;
+$$;
+
+DROP TRIGGER IF EXISTS set_interview_history_updated_at ON public.interview_history;
+
+CREATE TRIGGER set_interview_history_updated_at
+BEFORE UPDATE ON public.interview_history
+FOR EACH ROW
+EXECUTE FUNCTION public.set_updated_at();
+
 CREATE TABLE IF NOT EXISTS public.notifications (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id UUID NOT NULL REFERENCES public.users(id) ON DELETE CASCADE,
