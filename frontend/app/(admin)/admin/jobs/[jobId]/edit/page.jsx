@@ -81,6 +81,7 @@ function RequirementItem({ title, onDelete }) {
       <button
         type="button"
         className={styles.jobRequirementDelete}
+        title="Delete requirement"
         aria-label={`Xóa yêu cầu ${title}`}
         onClick={onDelete}
       >
@@ -110,6 +111,38 @@ function parseSalaryRange(value) {
 
 function getScheduleValue(schedule, label, fallback = '') {
   return repairText(schedule?.find((item) => item.label === label)?.value || fallback);
+}
+
+const SALARY_MIN_LIMIT = 5000000;
+const SALARY_MAX_LIMIT = 20000000;
+const SALARY_STEP = 100000;
+
+function parseSalaryValue(value, fallback) {
+  const digits = String(value ?? '').replace(/\D/g, '');
+  if (!digits) {
+    return fallback;
+  }
+
+  const parsed = Number(digits);
+  if (Number.isNaN(parsed)) {
+    return fallback;
+  }
+
+  return Math.min(SALARY_MAX_LIMIT, Math.max(SALARY_MIN_LIMIT, parsed));
+}
+
+function formatSalaryLabel(value) {
+  return Number(value || 0).toLocaleString('vi-VN');
+}
+
+function normalizeSalaryRange(minValue, maxValue) {
+  const minSalary = parseSalaryValue(minValue, SALARY_MIN_LIMIT);
+  const maxSalary = parseSalaryValue(maxValue, SALARY_MAX_LIMIT);
+
+  return {
+    minSalary: String(Math.min(minSalary, maxSalary)),
+    maxSalary: String(Math.max(minSalary, maxSalary)),
+  };
 }
 
 export default function AdminJobEditPage() {
@@ -161,14 +194,15 @@ export default function AdminJobEditPage() {
 
         const job = payload.job;
         const salaryRange = parseSalaryRange(job.salary);
+        const normalizedSalaryRange = normalizeSalaryRange(salaryRange.minSalary, salaryRange.maxSalary);
         setForm({
           title: repairText(job.title),
           company: repairText(job.company || 'Smart Guard'),
           location: repairText(job.location),
           address: repairText(job.address || job.location || ''),
           status: repairText(job.status || STATUS_OPTIONS[0]),
-          minSalary: salaryRange.minSalary,
-          maxSalary: salaryRange.maxSalary,
+          minSalary: normalizedSalaryRange.minSalary,
+          maxSalary: normalizedSalaryRange.maxSalary,
           quantity: repairText(job.quantity || ''),
           experience: repairText(job.experience || EXPERIENCE_OPTIONS[0]),
           description: repairText(job.description || ''),
@@ -194,6 +228,30 @@ export default function AdminJobEditPage() {
 
   function updateField(field, value) {
     setForm((current) => ({ ...current, [field]: value }));
+  }
+
+  function handleMinSalaryChange(value) {
+    const nextMinSalary = parseSalaryValue(value, SALARY_MIN_LIMIT);
+
+    setForm((current) => {
+      const currentMaxSalary = parseSalaryValue(current.maxSalary, SALARY_MAX_LIMIT);
+      return {
+        ...current,
+        minSalary: String(Math.min(nextMinSalary, currentMaxSalary)),
+      };
+    });
+  }
+
+  function handleMaxSalaryChange(value) {
+    const nextMaxSalary = parseSalaryValue(value, SALARY_MAX_LIMIT);
+
+    setForm((current) => {
+      const currentMinSalary = parseSalaryValue(current.minSalary, SALARY_MIN_LIMIT);
+      return {
+        ...current,
+        maxSalary: String(Math.max(nextMaxSalary, currentMinSalary)),
+      };
+    });
   }
 
   function handleRequirementDelete(indexToDelete) {
@@ -315,16 +373,40 @@ export default function AdminJobEditPage() {
             <div className={styles.jobFormGrid}>
               <label className={styles.jobField}>
                 <span className={styles.jobFieldLabel}>Mức lương tối thiểu <strong>*</strong></span>
-                <div className={styles.jobFieldInputWrap}>
-                  <input className={styles.jobFieldInput} value={form.minSalary} onChange={(event) => updateField('minSalary', event.target.value)} />
-                  <span className={styles.jobFieldSuffix}>VND</span>
+                <div className={styles.salarySliderCard}>
+                  <div className={styles.salarySliderValue}>{formatSalaryLabel(form.minSalary)} VND</div>
+                  <input
+                    type="range"
+                    min={SALARY_MIN_LIMIT}
+                    max={SALARY_MAX_LIMIT}
+                    step={SALARY_STEP}
+                    className={styles.salarySlider}
+                    value={parseSalaryValue(form.minSalary, SALARY_MIN_LIMIT)}
+                    onChange={(event) => handleMinSalaryChange(event.target.value)}
+                  />
+                  <div className={styles.salarySliderScale}>
+                    <span>{formatSalaryLabel(SALARY_MIN_LIMIT)}</span>
+                    <span>{formatSalaryLabel(SALARY_MAX_LIMIT)}</span>
+                  </div>
                 </div>
               </label>
               <label className={styles.jobField}>
                 <span className={styles.jobFieldLabel}>Mức lương tối đa <strong>*</strong></span>
-                <div className={styles.jobFieldInputWrap}>
-                  <input className={styles.jobFieldInput} value={form.maxSalary} onChange={(event) => updateField('maxSalary', event.target.value)} />
-                  <span className={styles.jobFieldSuffix}>VND</span>
+                <div className={styles.salarySliderCard}>
+                  <div className={styles.salarySliderValue}>{formatSalaryLabel(form.maxSalary)} VND</div>
+                  <input
+                    type="range"
+                    min={SALARY_MIN_LIMIT}
+                    max={SALARY_MAX_LIMIT}
+                    step={SALARY_STEP}
+                    className={styles.salarySlider}
+                    value={parseSalaryValue(form.maxSalary, SALARY_MAX_LIMIT)}
+                    onChange={(event) => handleMaxSalaryChange(event.target.value)}
+                  />
+                  <div className={styles.salarySliderScale}>
+                    <span>{formatSalaryLabel(SALARY_MIN_LIMIT)}</span>
+                    <span>{formatSalaryLabel(SALARY_MAX_LIMIT)}</span>
+                  </div>
                 </div>
               </label>
               <label className={styles.jobField}>
@@ -364,6 +446,12 @@ export default function AdminJobEditPage() {
                 className={styles.jobFieldInput}
                 value={newRequirement}
                 onChange={(event) => setNewRequirement(event.target.value)}
+                onKeyDown={(event) => {
+                  if (event.key === 'Enter') {
+                    event.preventDefault();
+                    handleAddRequirement();
+                  }
+                }}
                 placeholder="Nhập yêu cầu mới"
               />
             </div>

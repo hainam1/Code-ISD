@@ -40,6 +40,28 @@ Xử lý tình huống khẩn cấp và báo cáo ca trực.`,
   workMode: WORK_MODE_OPTIONS[0],
 };
 
+const SALARY_MIN_LIMIT = 5000000;
+const SALARY_MAX_LIMIT = 20000000;
+const SALARY_STEP = 100000;
+
+function parseSalaryValue(value, fallback) {
+  const digits = String(value ?? '').replace(/\D/g, '');
+  if (!digits) {
+    return fallback;
+  }
+
+  const parsed = Number(digits);
+  if (Number.isNaN(parsed)) {
+    return fallback;
+  }
+
+  return Math.min(SALARY_MAX_LIMIT, Math.max(SALARY_MIN_LIMIT, parsed));
+}
+
+function formatSalaryLabel(value) {
+  return Number(value || 0).toLocaleString('vi-VN');
+}
+
 function TrashIcon() {
   return (
     <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -98,6 +120,7 @@ function RequirementItem({ title, onDelete }) {
       <button
         type="button"
         className={styles.jobRequirementDelete}
+        title="Delete requirement"
         aria-label={`Xóa yêu cầu ${title}`}
         onClick={onDelete}
       >
@@ -130,6 +153,30 @@ export default function AdminJobCreatePage() {
 
   function updateField(field, value) {
     setForm((current) => ({ ...current, [field]: value }));
+  }
+
+  function handleMinSalaryChange(value) {
+    const nextMinSalary = parseSalaryValue(value, SALARY_MIN_LIMIT);
+
+    setForm((current) => {
+      const currentMaxSalary = parseSalaryValue(current.maxSalary, SALARY_MAX_LIMIT);
+      return {
+        ...current,
+        minSalary: String(Math.min(nextMinSalary, currentMaxSalary)),
+      };
+    });
+  }
+
+  function handleMaxSalaryChange(value) {
+    const nextMaxSalary = parseSalaryValue(value, SALARY_MAX_LIMIT);
+
+    setForm((current) => {
+      const currentMinSalary = parseSalaryValue(current.minSalary, SALARY_MIN_LIMIT);
+      return {
+        ...current,
+        maxSalary: String(Math.max(nextMaxSalary, currentMinSalary)),
+      };
+    });
   }
 
   function handleRequirementDelete(indexToDelete) {
@@ -250,16 +297,40 @@ export default function AdminJobCreatePage() {
             <div className={styles.jobFormGrid}>
               <label className={styles.jobField}>
                 <span className={styles.jobFieldLabel}>Mức lương tối thiểu <strong>*</strong></span>
-                <div className={styles.jobFieldInputWrap}>
-                  <input className={styles.jobFieldInput} value={form.minSalary} onChange={(event) => updateField('minSalary', event.target.value)} />
-                  <span className={styles.jobFieldSuffix}>VND</span>
+                <div className={styles.salarySliderCard}>
+                  <div className={styles.salarySliderValue}>{formatSalaryLabel(form.minSalary)} VND</div>
+                  <input
+                    type="range"
+                    min={SALARY_MIN_LIMIT}
+                    max={SALARY_MAX_LIMIT}
+                    step={SALARY_STEP}
+                    className={styles.salarySlider}
+                    value={parseSalaryValue(form.minSalary, SALARY_MIN_LIMIT)}
+                    onChange={(event) => handleMinSalaryChange(event.target.value)}
+                  />
+                  <div className={styles.salarySliderScale}>
+                    <span>{formatSalaryLabel(SALARY_MIN_LIMIT)}</span>
+                    <span>{formatSalaryLabel(SALARY_MAX_LIMIT)}</span>
+                  </div>
                 </div>
               </label>
               <label className={styles.jobField}>
                 <span className={styles.jobFieldLabel}>Mức lương tối đa <strong>*</strong></span>
-                <div className={styles.jobFieldInputWrap}>
-                  <input className={styles.jobFieldInput} value={form.maxSalary} onChange={(event) => updateField('maxSalary', event.target.value)} />
-                  <span className={styles.jobFieldSuffix}>VND</span>
+                <div className={styles.salarySliderCard}>
+                  <div className={styles.salarySliderValue}>{formatSalaryLabel(form.maxSalary)} VND</div>
+                  <input
+                    type="range"
+                    min={SALARY_MIN_LIMIT}
+                    max={SALARY_MAX_LIMIT}
+                    step={SALARY_STEP}
+                    className={styles.salarySlider}
+                    value={parseSalaryValue(form.maxSalary, SALARY_MAX_LIMIT)}
+                    onChange={(event) => handleMaxSalaryChange(event.target.value)}
+                  />
+                  <div className={styles.salarySliderScale}>
+                    <span>{formatSalaryLabel(SALARY_MIN_LIMIT)}</span>
+                    <span>{formatSalaryLabel(SALARY_MAX_LIMIT)}</span>
+                  </div>
                 </div>
               </label>
               <label className={styles.jobField}>
@@ -302,6 +373,12 @@ export default function AdminJobCreatePage() {
                 className={styles.jobFieldInput}
                 value={newRequirement}
                 onChange={(event) => setNewRequirement(event.target.value)}
+                onKeyDown={(event) => {
+                  if (event.key === 'Enter') {
+                    event.preventDefault();
+                    handleAddRequirement();
+                  }
+                }}
                 placeholder="Nhập yêu cầu mới"
               />
             </div>

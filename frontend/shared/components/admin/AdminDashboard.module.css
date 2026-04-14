@@ -1668,6 +1668,37 @@
   font-weight: 800;
 }
 
+.salarySliderCard {
+  padding: 16px 18px;
+  border: 1px solid var(--line-soft);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.92);
+}
+
+.salarySliderValue {
+  color: var(--ink-strong);
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+.salarySlider {
+  width: 100%;
+  margin-top: 14px;
+  accent-color: #111111;
+  cursor: pointer;
+}
+
+.salarySliderScale {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  color: var(--ink-soft);
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
 .jobEditor {
   margin-top: 18px;
   border: 1px solid var(--line-soft);
@@ -1749,7 +1780,33 @@
 }
 
 .jobRequirementDelete {
-  color: #111111;
+  width: 40px;
+  min-width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  border: 1px solid rgba(220, 38, 38, 0.18);
+  background: rgba(255, 255, 255, 0.92);
+  color: #b42318;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 160ms ease, background 160ms ease, border-color 160ms ease, color 160ms ease;
+}
+
+.jobRequirementDelete:hover {
+  transform: translateY(-1px);
+  background: #fff1f2;
+  border-color: rgba(220, 38, 38, 0.32);
+}
+
+.jobRequirementDelete:focus-visible {
+  outline: 2px solid rgba(180, 35, 24, 0.24);
+  outline-offset: 2px;
+}
+
+.jobRequirementDelete svg {
+  width: 18px;
+  height: 18px;
 }
 
 .jobRequirementAddButton {
