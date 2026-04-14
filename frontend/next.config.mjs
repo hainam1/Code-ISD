@@ -5,7 +5,7 @@ const nextConfig = {
     const backendBaseUrl = process.env.NEXT_PUBLIC_BACKEND_API_URL || 'http://localhost:5000';
 
     return {
-      beforeFiles: [
+      fallback: [
         {
           source: '/api/:path*',
           destination: `${backendBaseUrl}/api/:path*`,

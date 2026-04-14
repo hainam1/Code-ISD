@@ -1,4 +1,4 @@
-const GARBLED_TEXT_PATTERN = /[ÃÄÂá»]/;
+const GARBLED_TEXT_PATTERN = /(Ã.|Ä.|Â.|á.|Æ.|Ð.|Ñ.)/;
 
 export function repairText(value) {
   if (typeof value !== 'string' || !GARBLED_TEXT_PATTERN.test(value)) {

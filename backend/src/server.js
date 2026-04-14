@@ -6,7 +6,7 @@ import { getEnv } from './config/env.js';
 import { getSupabase } from './config/supabase.js';
 import { submitApplication, listApplications, login, register, updateProfile } from './services/applications.js';
 import { listJobsView, getJobViewById, createJob, updateJob, deleteJob } from './services/jobs.js';
-import { listCandidates, getCandidateById, updateCandidate } from './services/candidates.js';
+import { listCandidates, listHistory, getCandidateById, updateCandidate } from './services/candidates.js';
 import { getCandidateInterview, upsertCandidateInterview } from './services/interviews.js';
 import { listNotifications, createInterviewNotification, markNotificationAsRead } from './services/notifications.js';
 import { getChatThread, listChatThreads, sendChatMessage } from './services/chat.js';
@@ -134,6 +134,10 @@ app.post('/api/chat', asyncHandler(async (req, res) => {
 
 app.get('/api/admin/candidates', asyncHandler(async (_req, res) => {
   res.json({ candidates: await listCandidates() });
+}));
+
+app.get('/api/admin/history', asyncHandler(async (_req, res) => {
+  res.json({ candidates: await listHistory() });
 }));
 
 app.get('/api/admin/candidates/:candidateId', asyncHandler(async (req, res) => {

@@ -12,6 +12,8 @@ export const JOB_ROUTES = {
 export const ADMIN_ROUTES = {
   candidates: '/admin/candidates',
   candidateDetail: (candidateId) => `/admin/candidates/${candidateId}`,
+  candidateEvaluation: (candidateId) => `/admin/candidates/${candidateId}/evaluation`,
+  history: '/admin/history',
   interviews: '/admin/interviews',
   interviewEdit: '/admin/interviews/edit',
   jobs: '/admin/jobs',

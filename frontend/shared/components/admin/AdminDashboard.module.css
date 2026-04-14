@@ -198,6 +198,237 @@
   gap: 22px;
 }
 
+.evaluationHero {
+  display: block;
+}
+
+.evaluationLayout {
+  display: grid;
+  grid-template-columns: minmax(300px, 0.9fr) minmax(0, 1.25fr);
+  gap: 20px;
+  align-items: start;
+}
+
+.evaluationSidebar {
+  display: grid;
+  gap: 20px;
+}
+
+.evaluationCard,
+.evaluationFormCard {
+  border-radius: 28px;
+  border: 1px solid var(--line-soft);
+  background: rgba(255, 255, 255, 0.88);
+  box-shadow: 0 16px 40px rgba(18, 28, 45, 0.06);
+}
+
+.evaluationCard {
+  padding: 22px;
+}
+
+.evaluationFormCard {
+  padding: 22px 22px 28px;
+}
+
+.evaluationCardHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.evaluationCardIcon {
+  width: 18px;
+  height: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #5b6b84;
+}
+
+.evaluationCardIcon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.evaluationCardTitle {
+  margin: 0;
+  font-size: 1.02rem;
+  font-weight: 800;
+  color: var(--ink-strong);
+}
+
+.evaluationInfoList {
+  display: grid;
+  gap: 18px;
+}
+
+.evaluationInfoItem {
+  display: grid;
+  gap: 6px;
+}
+
+.evaluationInfoItemFull {
+  grid-column: 1 / -1;
+}
+
+.evaluationInfoLabel {
+  margin: 0;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.evaluationInfoValue {
+  margin: 0;
+  color: var(--ink-strong);
+  font-size: 1.08rem;
+  font-weight: 700;
+  line-height: 1.55;
+  overflow-wrap: anywhere;
+}
+
+.evaluationBadgeRow {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.evaluationPositionBadge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 30px;
+  padding: 0 12px;
+  border-radius: 999px;
+  background: rgba(210, 224, 245, 0.95);
+  color: #314d73;
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.evaluationInterviewGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px 16px;
+}
+
+.evaluationField {
+  display: grid;
+  gap: 10px;
+}
+
+.evaluationFieldLabel {
+  margin: 0;
+  color: var(--ink-strong);
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.evaluationTextarea,
+.evaluationSelect {
+  width: 100%;
+  border: 1px solid color-mix(in srgb, var(--line-soft) 88%, white);
+  border-radius: 14px;
+  background: #f6f8fb;
+  color: var(--ink-strong);
+}
+
+.evaluationTextarea {
+  min-height: 152px;
+  padding: 16px;
+  resize: vertical;
+  line-height: 1.65;
+}
+
+.evaluationSelect {
+  min-height: 48px;
+  padding: 0 14px;
+}
+
+.evaluationTextarea:focus,
+.evaluationSelect:focus {
+  outline: 2px solid rgba(56, 96, 154, 0.18);
+  outline-offset: 1px;
+}
+
+.evaluationSelectGrid {
+  margin-top: 24px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.evaluationHintBox {
+  margin-top: 20px;
+  padding: 14px 16px;
+  border-radius: 18px;
+  background: linear-gradient(180deg, rgba(242, 246, 250, 0.98) 0%, rgba(232, 238, 246, 0.96) 100%);
+  border: 1px solid color-mix(in srgb, var(--line-soft) 84%, white);
+}
+
+.evaluationHintTitle,
+.evaluationHintText {
+  margin: 0;
+}
+
+.evaluationHintTitle {
+  color: var(--ink-soft);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.evaluationHintText {
+  margin-top: 6px;
+  color: var(--ink-strong);
+  font-weight: 700;
+}
+
+.evaluationActions {
+  margin-top: 30px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.evaluationPrimaryButton,
+.evaluationSecondaryButton {
+  min-width: 126px;
+  min-height: 46px;
+  padding: 0 18px;
+  border-radius: 14px;
+  border: 1px solid transparent;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.evaluationPrimaryButton {
+  background: #161616;
+  color: white;
+  box-shadow: 0 16px 30px rgba(17, 17, 17, 0.16);
+}
+
+.evaluationSecondaryButton {
+  background: white;
+  border-color: var(--line-soft);
+  color: var(--ink-strong);
+}
+
+.evaluationPrimaryButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 .dashboardHero,
 .jobsHero,
 .jobFormTop {
@@ -274,6 +505,12 @@
 .summaryGrid {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.historySummaryGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 14px;
 }
 
@@ -499,6 +736,28 @@
   border-top: 1px solid color-mix(in srgb, var(--line-soft) 72%, white);
 }
 
+.historyTableHeader,
+.historyRow {
+  display: grid;
+  grid-template-columns: minmax(220px, 1.3fr) minmax(220px, 1.2fr) minmax(160px, 1fr) minmax(120px, 0.8fr) minmax(170px, 0.9fr) minmax(220px, 1.2fr);
+  gap: 12px;
+  align-items: center;
+  padding: 14px 18px;
+}
+
+.historyTableHeader {
+  color: var(--ink-soft);
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: color-mix(in srgb, var(--surface-panel) 62%, white);
+}
+
+.historyRow {
+  border-top: 1px solid color-mix(in srgb, var(--line-soft) 72%, white);
+}
+
 .tableHeader > *,
 .row > * {
   min-width: 0;
@@ -573,6 +832,11 @@
   font-size: 0.67rem;
   font-weight: 800;
   letter-spacing: 0.03em;
+}
+
+.historyStatusWrap {
+  display: inline-flex;
+  align-items: center;
 }
 
 .statusReview {
@@ -759,6 +1023,18 @@
 .successCard,
 .jobFormSection {
   padding: 24px;
+}
+
+.statusAutoCard {
+  padding-top: 0;
+}
+
+.statusAutoCard .sectionTitle {
+  padding-top: 24px;
+}
+
+.statusAutoCard .statusSectionTop {
+  margin-top: 0;
 }
 
 .sectionTitle,
@@ -1143,6 +1419,213 @@
   color: #b42318;
 }
 
+.historyTextarea {
+  min-height: 140px;
+  padding: 14px 16px;
+  resize: vertical;
+}
+
+.historyActionRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.historyNote {
+  margin: 0;
+  color: var(--ink-soft);
+  line-height: 1.6;
+}
+
+.historyToolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+.historySearchWrap {
+  position: relative;
+  width: min(100%, 420px);
+}
+
+.historySearchIcon {
+  position: absolute;
+  top: 50%;
+  left: 16px;
+  transform: translateY(-50%);
+  width: 18px;
+  height: 18px;
+  color: var(--ink-soft);
+}
+
+.historySearchIcon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.historySearchInput,
+.historyFilterSelect {
+  min-height: 48px;
+  border: 1px solid color-mix(in srgb, var(--line-soft) 92%, white);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--ink-strong);
+}
+
+.historySearchInput {
+  width: 100%;
+  padding: 0 16px 0 44px;
+}
+
+.historyFilterGroup {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.historyFilterLabel {
+  color: var(--ink-soft);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.historyFilterSelect {
+  min-width: 140px;
+  padding: 0 14px;
+}
+
+.historyPanel {
+  overflow: hidden;
+  border-radius: 28px;
+  border: 1px solid var(--line-soft);
+  background: rgba(255, 255, 255, 0.84);
+  box-shadow: 0 16px 40px rgba(18, 28, 45, 0.06);
+}
+
+.historyListHeader,
+.historyListRow {
+  display: grid;
+  grid-template-columns: minmax(240px, 1.5fr) minmax(180px, 1.3fr) minmax(160px, 1fr) minmax(130px, 0.9fr) minmax(120px, 0.9fr) minmax(130px, 0.9fr);
+  gap: 14px;
+  align-items: center;
+  padding: 16px 18px;
+}
+
+.historyListHeader {
+  color: var(--ink-soft);
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: color-mix(in srgb, var(--surface-panel) 62%, white);
+}
+
+.historyListRow {
+  border-top: 1px solid color-mix(in srgb, var(--line-soft) 72%, white);
+}
+
+.historyCandidateCell {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+}
+
+.historyAvatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(242, 242, 242, 0.96);
+  color: #7d7d7d;
+  font-size: 0.8rem;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+.historyCandidateName {
+  margin: 0;
+  color: var(--ink-strong);
+  font-size: 1rem;
+  font-weight: 800;
+  line-height: 1.45;
+}
+
+.historyCellText {
+  margin: 0;
+  color: var(--ink-strong);
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+.historyStatusCell,
+.historyActionCell {
+  display: inline-flex;
+  align-items: center;
+}
+
+.historyDetailButton {
+  min-height: 34px;
+  padding: 0 14px;
+  border-radius: 12px;
+  background: #050505;
+  color: white;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.historyPagination {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 8px;
+  padding: 18px 18px 20px;
+}
+
+.historyPageButton,
+.historyPageButtonActive {
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  border: 1px solid var(--line-soft);
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--ink-strong);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.historyPageButtonActive {
+  background: #050505;
+  border-color: #050505;
+  color: white;
+  font-weight: 800;
+}
+
+.historyPageButton:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.historyPageButton svg {
+  width: 14px;
+  height: 14px;
+}
+
 .jobFormSectionTitle {
   display: flex;
   align-items: center;
@@ -1295,13 +1778,25 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .historySummaryGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .jobsGrid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .evaluationLayout {
+    grid-template-columns: 1fr;
   }
 }
 
 @media (max-width: 1360px) {
   .tableHeader {
+    display: none;
+  }
+
+  .historyTableHeader {
     display: none;
   }
 
@@ -1319,6 +1814,31 @@
   .row > :nth-child(6),
   .row > :nth-child(7) {
     justify-self: start;
+  }
+
+  .historyRow {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px 14px;
+    padding: 14px 16px;
+    align-items: start;
+  }
+
+  .historyRow > :first-child {
+    grid-column: 1 / -1;
+  }
+
+  .historyListHeader {
+    display: none;
+  }
+
+  .historyListRow {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px 14px;
+    align-items: start;
+  }
+
+  .historyListRow > :first-child {
+    grid-column: 1 / -1;
   }
 }
 
@@ -1366,15 +1886,37 @@
     width: 100%;
     flex-basis: 100%;
   }
+
   .row {
     grid-template-columns: 1fr;
     gap: 10px;
   }
 
+  .historyRow,
+  .historySummaryGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .historyToolbar,
+  .historyFilterGroup {
+    align-items: stretch;
+  }
+
+  .historySearchWrap,
+  .historyFilterSelect {
+    width: 100%;
+  }
+
+  .historyListRow {
+    grid-template-columns: 1fr;
+  }
+
   .detailGrid,
   .jobFormGrid,
   .jobRequirementsGrid,
-  .timeAdjusters {
+  .timeAdjusters,
+  .evaluationInterviewGrid,
+  .evaluationSelectGrid {
     grid-template-columns: 1fr;
   }
 
@@ -1394,6 +1936,10 @@
   }
 
   .summaryGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .historySummaryGrid {
     grid-template-columns: 1fr;
   }
 
@@ -1433,7 +1979,23 @@
   .jobFormDraftButton,
   .jobFormPublishButton,
   .jobFormBackButton,
-  .jobRequirementAddButton {
+  .jobRequirementAddButton,
+  .evaluationPrimaryButton,
+  .evaluationSecondaryButton {
+    width: 100%;
+  }
+
+  .historyActionRow {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .evaluationActions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .historyDetailButton {
     width: 100%;
   }
 

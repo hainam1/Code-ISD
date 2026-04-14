@@ -15,9 +15,7 @@ const STATUS_OPTIONS = [
   { value: CANDIDATE_STATUS.all, label: 'Lọc theo trạng thái' },
   { value: CANDIDATE_STATUS.noApplication, label: STATUS_LABELS[CANDIDATE_STATUS.noApplication] },
   { value: CANDIDATE_STATUS.review, label: STATUS_LABELS[CANDIDATE_STATUS.review] },
-  { value: CANDIDATE_STATUS.shortlisted, label: STATUS_LABELS[CANDIDATE_STATUS.shortlisted] },
   { value: CANDIDATE_STATUS.interview, label: STATUS_LABELS[CANDIDATE_STATUS.interview] },
-  { value: CANDIDATE_STATUS.rejected, label: STATUS_LABELS[CANDIDATE_STATUS.rejected] },
 ];
 
 const ITEMS_PER_PAGE = 10;
@@ -84,7 +82,7 @@ export default function CandidateManagementPage() {
 
     async function loadCandidates() {
       try {
-        const response = await fetch('/api/admin/candidates');
+        const response = await fetch('/api/admin/candidates', { cache: 'no-store' });
         const payload = await response.json().catch(() => ({}));
 
         if (!response.ok) {
@@ -140,24 +138,14 @@ export default function CandidateManagementPage() {
         tone: 'NoApplication',
       },
       {
-        label: 'Cần đánh giá',
+        label: 'Cần kiểm tra',
         value: String(countByStatus(candidates, CANDIDATE_STATUS.review)).padStart(2, '0'),
         tone: 'Review',
-      },
-      {
-        label: 'Sẵn sàng',
-        value: String(countByStatus(candidates, CANDIDATE_STATUS.shortlisted)).padStart(2, '0'),
-        tone: 'Shortlisted',
       },
       {
         label: 'Phỏng vấn',
         value: String(countByStatus(candidates, CANDIDATE_STATUS.interview)).padStart(2, '0'),
         tone: 'Interview',
-      },
-      {
-        label: 'Bị loại',
-        value: String(countByStatus(candidates, CANDIDATE_STATUS.rejected)).padStart(2, '0'),
-        tone: 'Rejected',
       },
     ],
     [candidates],

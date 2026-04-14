@@ -167,7 +167,6 @@ export async function POST(request) {
       return NextResponse.json({ message: 'Bạn đã ứng tuyển vị trí này rồi.' }, { status: 409 });
     }
 
-    // Since we don't have Supabase storage setup right now, we keep the original save file logic
     const { randomUUID } = await import('node:crypto');
     const applicationId = randomUUID();
     const savedCvFile = await saveApplicationFile({

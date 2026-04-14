@@ -3,8 +3,9 @@ import { getStatusLabel } from '@/features/candidates/constants/statusOptions';
 
 const STATUS_CLASS_MAP = {
   'No Application': styles.statusNoApplication,
+  'Needs Review': styles.statusReview,
   'Under Review': styles.statusReview,
-  Shortlisted: styles.statusShortlisted,
+  Shortlisted: styles.statusReview,
   'Interview Scheduled': styles.statusInterview,
   Interviewed: styles.statusInterview,
   Approved: styles.statusShortlisted,

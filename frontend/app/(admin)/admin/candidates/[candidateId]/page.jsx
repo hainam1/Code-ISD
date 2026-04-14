@@ -3,24 +3,13 @@
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import ActionButton from '@/shared/components/admin/ActionButton';
 import AdminHeader from '@/shared/components/admin/AdminHeader';
 import CandidateHeader from '@/features/candidates/components/admin/CandidateHeader';
 import DocumentSection from '@/features/candidates/components/admin/DocumentSection';
 import InfoCard from '@/shared/components/admin/InfoCard';
-import StatusBadge from '@/features/candidates/components/admin/StatusBadge';
-import StatusDropdown from '@/features/candidates/components/admin/StatusDropdown';
 import styles from '@/shared/components/admin/AdminDashboard.module.css';
 import { ADMIN_ROUTES } from '@/lib/constants/routes';
 import { getSession } from '@/features/auth/api/authApi';
-import { CANDIDATE_STATUS } from '@/features/candidates/constants/statusOptions';
-
-const STATUS_OPTIONS = [
-  CANDIDATE_STATUS.review,
-  CANDIDATE_STATUS.shortlisted,
-  CANDIDATE_STATUS.interview,
-  CANDIDATE_STATUS.rejected,
-];
 
 export default function CandidateDetailPage() {
   const params = useParams();
@@ -28,8 +17,6 @@ export default function CandidateDetailPage() {
   const [candidate, setCandidate] = useState(null);
   const [isAuthorized, setIsAuthorized] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const [statusValue, setStatusValue] = useState(CANDIDATE_STATUS.review);
-  const [feedback, setFeedback] = useState('');
 
   useEffect(() => {
     const session = getSession();
@@ -45,6 +32,7 @@ export default function CandidateDetailPage() {
     async function loadCandidate() {
       try {
         const response = await fetch(`/api/admin/candidates/${params.candidateId}`);
+
         if (!response.ok) {
           router.replace(ADMIN_ROUTES.candidates);
           return;
@@ -52,11 +40,6 @@ export default function CandidateDetailPage() {
 
         const payload = await response.json();
         setCandidate(payload.candidate || null);
-        setStatusValue(
-          payload.candidate?.hasApplication
-            ? payload.candidate?.status || CANDIDATE_STATUS.review
-            : CANDIDATE_STATUS.review,
-        );
       } finally {
         setIsLoading(false);
       }
@@ -66,33 +49,6 @@ export default function CandidateDetailPage() {
       loadCandidate();
     }
   }, [params, router]);
-
-  async function patchCandidate(updates, successMessage) {
-    if (!candidate?.hasApplication) {
-      setFeedback('Ứng viên này chưa nộp hồ sơ, không có trạng thái để cập nhật.');
-      return;
-    }
-
-    const response = await fetch(`/api/admin/candidates/${candidate.id}`, {
-      method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(updates),
-    });
-
-    if (!response.ok) {
-      setFeedback('Không thể cập nhật ứng viên.');
-      return;
-    }
-
-    const payload = await response.json();
-    setCandidate(payload.candidate);
-    setStatusValue(payload.candidate?.status || statusValue);
-    setFeedback(successMessage);
-  }
-
-  async function handleStatusUpdate() {
-    await patchCandidate({ status: statusValue }, 'Cập nhật trạng thái thành công.');
-  }
 
   if (!isAuthorized || isLoading) {
     return <div className={styles.loadingState}>Đang tải màn hình chi tiết ứng viên...</div>;
@@ -173,36 +129,6 @@ export default function CandidateDetailPage() {
               </a>
             ) : null}
           </DocumentSection>
-
-          <section className={styles.detailCard}>
-            <h2 className={styles.sectionTitle}>Cập nhật trạng thái ứng viên</h2>
-            <div className={styles.statusSectionTop}>
-              <StatusBadge status={candidate.status} />
-            </div>
-            <div className={styles.statusForm}>
-              <StatusDropdown
-                value={statusValue}
-                onChange={setStatusValue}
-                options={STATUS_OPTIONS}
-              />
-              <ActionButton
-                type="button"
-                className={styles.detailButton}
-                onClick={handleStatusUpdate}
-                disabled={!candidate.hasApplication}
-              >
-                Cập nhật trạng thái
-              </ActionButton>
-            </div>
-            {!candidate.hasApplication ? (
-              <p className={styles.feedbackText}>Ứng viên này đã có tài khoản nhưng chưa nộp hồ sơ ứng tuyển.</p>
-            ) : null}
-            {feedback ? (
-              <p className={`${styles.feedbackText} ${feedback.includes('Không thể') ? styles.feedbackError : styles.feedbackSuccess}`}>
-                {feedback}
-              </p>
-            ) : null}
-          </section>
 
           {candidate.hasApplication ? (
             <Link href={interviewHref} className={`${styles.detailButton} ${styles.fullWidthButton}`}>

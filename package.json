@@ -8,7 +8,6 @@
     "dev": "npm run dev --workspace frontend",
     "build": "npm run build --workspace frontend",
     "start": "npm run start --workspace frontend",
-    "lint": "npm run lint --workspace frontend",
-    "seed:supabase": "node backend/scripts/supabase-seed.js"
+    "lint": "npm run lint --workspace frontend"
   }
 }
