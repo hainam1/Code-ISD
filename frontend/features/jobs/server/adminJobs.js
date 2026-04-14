@@ -1,4 +1,5 @@
-import { createClient } from '@/lib/supabase/server';
+import { randomUUID } from 'node:crypto';
+import { getSupabaseClient } from '@/lib/supabaseClient';
 
 function normalizeJobStatus(status) {
   const rawStatus = String(status || '').trim().toUpperCase();
@@ -56,7 +57,7 @@ function buildJobPayload(input) {
 }
 
 export async function getAdminJobById(jobId) {
-  const supabase = createClient();
+  const supabase = getSupabaseClient();
   const { data: job, error } = await supabase
     .from('jobs')
     .select('*')
@@ -68,8 +69,11 @@ export async function getAdminJobById(jobId) {
 }
 
 export async function createAdminJob(input) {
-  const supabase = createClient();
-  const payload = buildJobPayload(input);
+  const supabase = getSupabaseClient();
+  const payload = {
+    id: randomUUID(),
+    ...buildJobPayload(input),
+  };
 
   const { data: job, error } = await supabase
     .from('jobs')
@@ -83,7 +87,7 @@ export async function createAdminJob(input) {
 }
 
 export async function updateAdminJobById(jobId, updates) {
-  const supabase = createClient();
+  const supabase = getSupabaseClient();
   const payload = {
     ...buildJobPayload(updates),
     updated_at: new Date().toISOString(),
@@ -106,7 +110,7 @@ export async function updateAdminJobById(jobId, updates) {
 }
 
 export async function deleteAdminJobById(jobId) {
-  const supabase = createClient();
+  const supabase = getSupabaseClient();
   
   const { error } = await supabase
     .from('jobs')
