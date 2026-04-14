@@ -60,6 +60,9 @@ ALTER TABLE public.jobs
 ALTER TABLE public.jobs
   ADD COLUMN IF NOT EXISTS day_off VARCHAR(128) NULL;
 
+ALTER TABLE public.jobs
+  ALTER COLUMN id SET DEFAULT gen_random_uuid();
+
 ALTER TABLE public.users
   ALTER COLUMN avatar_url TYPE TEXT;
 

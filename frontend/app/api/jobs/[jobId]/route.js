@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { getJobById } from '@/features/jobs/api/jobsApi';
 import { deleteAdminJobById, updateAdminJobById } from '@/features/jobs/server/adminJobs';
+import { getServerSession } from '@/lib/auth/serverSession';
 
 export const dynamic = 'force-dynamic';
 
@@ -23,6 +24,12 @@ export async function GET(_request, { params }) {
 
 export async function PATCH(request, { params }) {
   try {
+    const session = await getServerSession();
+
+    if (session?.user?.role !== 'ADMIN') {
+      return NextResponse.json({ message: 'Bạn không có quyền cập nhật công việc.' }, { status: 403 });
+    }
+
     const body = await request.json();
     const title = String(body.title || '').trim();
     const company = String(body.company || '').trim();
@@ -90,6 +97,12 @@ export async function PATCH(request, { params }) {
 
 export async function DELETE(_request, { params }) {
   try {
+    const session = await getServerSession();
+
+    if (session?.user?.role !== 'ADMIN') {
+      return NextResponse.json({ message: 'Bạn không có quyền xóa công việc.' }, { status: 403 });
+    }
+
     const deleted = await deleteAdminJobById(params.jobId);
 
     if (!deleted) {

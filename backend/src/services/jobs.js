@@ -1,3 +1,4 @@
+import { randomUUID } from 'node:crypto';
 import { getSupabase } from '../config/supabase.js';
 
 function normalizeJobStatus(status) {
@@ -182,7 +183,10 @@ export async function getJobViewById(jobId) {
 
 export async function createJob(input) {
   const supabase = getSupabase();
-  const payload = buildJobPayload(input);
+  const payload = {
+    id: randomUUID(),
+    ...buildJobPayload(input),
+  };
 
   const { data, error } = await supabase.from('jobs').insert([payload]).select().single();
   if (error) {

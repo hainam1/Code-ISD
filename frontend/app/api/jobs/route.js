@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { getJobs } from '@/features/jobs/api/jobsApi';
 import { createAdminJob } from '@/features/jobs/server/adminJobs';
+import { getServerSession } from '@/lib/auth/serverSession';
 
 export const dynamic = 'force-dynamic';
 
@@ -17,6 +18,12 @@ export async function GET() {
 
 export async function POST(request) {
   try {
+    const session = await getServerSession();
+
+    if (session?.user?.role !== 'ADMIN') {
+      return NextResponse.json({ message: 'Bạn không có quyền đăng tuyển công việc.' }, { status: 403 });
+    }
+
     const body = await request.json();
     const title = String(body.title || '').trim();
     const company = String(body.company || '').trim();
