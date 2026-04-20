@@ -14,59 +14,7 @@
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  gap: 14px;
   margin-bottom: 22px;
-}
-
-.toolbarRight {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.searchBox {
-  width: 320px;
-  height: 38px;
-  border: 1px solid #e5e7eb;
-  border-radius: 999px;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 0 14px;
-  background: #fff;
-  color: #9ca3af;
-}
-
-.searchBox svg {
-  width: 16px;
-  height: 16px;
-}
-
-.searchBox input {
-  border: none;
-  outline: none;
-  width: 100%;
-  background: transparent;
-  font-size: 13px;
-  color: #111827;
-}
-
-.filterButton {
-  width: 34px;
-  height: 34px;
-  border: 1px solid #e5e7eb;
-  border-radius: 8px;
-  background: #ffffff;
-  color: #6b7280;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-}
-
-.filterButton svg {
-  width: 16px;
-  height: 16px;
 }
 
 .backButton {
@@ -323,18 +271,7 @@
   }
 
   .toolbar {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .toolbarRight {
-    display: grid;
-    grid-template-columns: 1fr 34px;
-    width: 100%;
-  }
-
-  .searchBox {
-    width: 100%;
+    justify-content: stretch;
   }
 
   .schedule {

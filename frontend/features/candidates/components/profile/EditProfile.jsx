@@ -298,7 +298,7 @@ export default function EditProfile() {
         <div className={styles.pageHeader}>
           <p className={styles.eyebrow}>Cập nhật hồ sơ</p>
           <div className={styles.headerRow}>
-            <div>
+            <div className={styles.headerCopy}>
               <h1 className={styles.pageTitle}>Điều chỉnh hồ sơ cá nhân để nhà tuyển dụng đọc nhanh hơn</h1>
               <p className={styles.pageSubtitle}>
                 Giao diện ưu tiên sự rõ ràng, dễ nhập trên điện thoại và giữ thông tin xác thực nhất cho quá trình liên hệ.

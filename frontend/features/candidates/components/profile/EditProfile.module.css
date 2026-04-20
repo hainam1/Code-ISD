@@ -35,9 +35,14 @@
   gap: 24px;
 }
 
+.headerCopy {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
 .pageTitle {
   margin: 0;
-  max-width: 12ch;
+  max-width: none;
   font-family: var(--font-display), 'Segoe UI', sans-serif;
   font-size: clamp(2rem, 4.9vw, 3.7rem);
   line-height: 0.95;
@@ -61,6 +66,8 @@
   border-radius: 999px;
   text-decoration: none;
   font-weight: 700;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .secondaryAction {

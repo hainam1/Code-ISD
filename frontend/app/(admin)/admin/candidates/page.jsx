@@ -162,9 +162,9 @@ export default function CandidateManagementPage() {
   return (
     <div className={styles.screen}>
       <AdminHeader />
-      <main className={styles.content}>
-        <section className={styles.dashboardHero}>
-          <div className={styles.titleBlock}>
+      <main className={`${styles.content} ${styles.candidateContent}`}>
+        <section className={`${styles.dashboardHero} ${styles.candidateDashboardHero}`}>
+          <div className={`${styles.titleBlock} ${styles.candidateTitleBlock}`}>
             <p className={styles.pageEyebrow}>Tuyển dụng bảo vệ</p>
             <h1 className={styles.title}>Bảng điều phối xét duyệt</h1>
           </div>
@@ -177,9 +177,12 @@ export default function CandidateManagementPage() {
           </div>
         </section>
 
-        <section className={styles.summaryGrid}>
+        <section className={`${styles.summaryGrid} ${styles.candidateSummaryGrid}`}>
           {summaryItems.map((item) => (
-            <article key={item.label} className={`${styles.summaryCard} ${styles[`summaryCard${item.tone}`]}`}>
+            <article
+              key={item.label}
+              className={`${styles.summaryCard} ${styles.candidateSummaryCard} ${styles[`summaryCard${item.tone}`]}`}
+            >
               <p className={styles.summaryLabel}>{item.label}</p>
               <p className={styles.summaryValue}>{item.value}</p>
             </article>

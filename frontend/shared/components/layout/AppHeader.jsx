@@ -59,6 +59,25 @@ function getSessionSnapshot() {
   return getSession();
 }
 
+function formatNotificationTitle(notification) {
+  if (notification?.type === 'INTERVIEW_SCHEDULED') {
+    return 'Thông báo lịch phỏng vấn';
+  }
+
+  return notification?.title || 'Thông báo';
+}
+
+function formatNotificationMessage(notification) {
+  if (notification?.type === 'INTERVIEW_SCHEDULED') {
+    const position = String(notification?.interview?.position || '').trim();
+    return position
+      ? `Bạn có lịch phỏng vấn cho vị trí ${position}.`
+      : 'Bạn có lịch phỏng vấn mới.';
+  }
+
+  return notification?.message || '';
+}
+
 export default function AppHeader() {
   const [session, setSession] = useState(null);
   const [notifications, setNotifications] = useState([]);
@@ -204,8 +223,8 @@ export default function AppHeader() {
                           className={notification.isRead ? styles.notificationItem : styles.notificationItemUnread}
                           onClick={() => handleNotificationClick(notification)}
                         >
-                          <span className={styles.notificationTitle}>{notification.title}</span>
-                          <span className={styles.notificationMessage}>{notification.message}</span>
+                          <span className={styles.notificationTitle}>{formatNotificationTitle(notification)}</span>
+                          <span className={styles.notificationMessage}>{formatNotificationMessage(notification)}</span>
                           <span className={styles.notificationMeta}>{formatCreatedAt(notification.createdAt)}</span>
                         </button>
                       ))}

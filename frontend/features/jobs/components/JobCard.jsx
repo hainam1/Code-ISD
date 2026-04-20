@@ -31,16 +31,16 @@ export default function JobCard({ job }) {
         ) : null}
       </div>
 
-      <p className={styles.meta}>Dia diem: {job.location}</p>
+      <p className={styles.meta}>Địa điểm: {job.location}</p>
 
       <p className={styles.description}>
-        {truncateWords(job.description || 'Xem chi tiet cong viec de biet them thong tin.')}
+        {truncateWords(job.description || 'Xem chi tiết công việc để biết thêm thông tin.')}
       </p>
 
-      <p className={styles.salary}>Luong: {job.salary || 'Thoa thuan'}</p>
+      <p className={styles.salary}>Lương: {job.salary || 'Thỏa thuận'}</p>
 
       <Link href={`/jobs/${job.id}`} className={styles.button}>
-        Chi tiet cong viec
+        Chi tiết công việc
       </Link>
     </article>
   );

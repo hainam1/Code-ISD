@@ -51,29 +51,9 @@ export default function JobDetailView({ job }) {
       <div className={styles.breadcrumb}>Tổng quan &gt; Vị trí tuyển dụng &gt; Chi tiết</div>
 
       <div className={styles.toolbar}>
-        <div className={styles.toolbarRight}>
-          <div className={styles.searchBox}>
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path
-                d="m17.5 17.5 3 3M10.7 18a7.3 7.3 0 1 0 0-14.6 7.3 7.3 0 0 0 0 14.6Z"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.8"
-              />
-            </svg>
-            <input type="text" placeholder="Tìm kiếm công việc..." />
-          </div>
-
-          <button type="button" className={styles.filterButton} aria-label="Bộ lọc">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M4 7h16M7 12h10M10 17h4" fill="none" stroke="currentColor" strokeWidth="1.8" />
-            </svg>
-          </button>
-
-          <Link className={styles.backButton} href="/jobs">
-            Quay lại danh sách
-          </Link>
-        </div>
+        <Link className={styles.backButton} href="/jobs">
+          Quay lại danh sách
+        </Link>
       </div>
 
       <section className={styles.heading}>

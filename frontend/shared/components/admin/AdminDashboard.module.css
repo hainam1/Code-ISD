@@ -198,6 +198,21 @@
   gap: 22px;
 }
 
+.candidateContent {
+  padding-top: 16px;
+  gap: 12px;
+}
+
+.candidateDashboardHero {
+  gap: 18px;
+  margin-bottom: 2px;
+}
+
+.candidateTitleBlock {
+  display: grid;
+  gap: 4px;
+}
+
 .evaluationHero {
   display: block;
 }
@@ -438,6 +453,10 @@
   gap: 24px;
 }
 
+.dashboardHero {
+  align-items: flex-start;
+}
+
 .titleBlock {
   max-width: 780px;
 }
@@ -494,7 +513,7 @@
 
 .candidateHeroPanel {
   width: min(100%, 360px);
-  padding: 24px 24px 22px;
+  padding: 16px 18px 18px;
   align-self: flex-start;
 }
 
@@ -506,6 +525,15 @@
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 14px;
+}
+
+.candidateSummaryGrid {
+  margin-top: 0;
+  gap: 12px;
+}
+
+.candidateSummaryCard {
+  padding: 14px 18px 16px;
 }
 
 .historySummaryGrid {
