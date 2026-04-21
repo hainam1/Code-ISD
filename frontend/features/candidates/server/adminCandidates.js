@@ -2,6 +2,7 @@ import { getSupabaseClient } from '@/lib/supabaseClient';
 import { CANDIDATE_STATUS } from '@/features/candidates/constants/statusOptions';
 
 const FINAL_HISTORY_STATUSES = new Set([CANDIDATE_STATUS.approved, CANDIDATE_STATUS.failed]);
+const MAX_ADMIN_EVALUATION_NOTE_LENGTH = 500;
 
 function isInterviewHistoryMissingError(error) {
   const code = String(error?.code || '').trim();
@@ -599,6 +600,13 @@ export async function updateAdminCandidateById(candidateId, updates) {
   const note = String(updates.note || '').trim();
   const fitLevel = String(updates.fitLevel || '').trim();
   const payload = {};
+
+  if (note.length > MAX_ADMIN_EVALUATION_NOTE_LENGTH) {
+    throw Object.assign(
+      new Error(`Đánh giá chi tiết của admin không được vượt quá ${MAX_ADMIN_EVALUATION_NOTE_LENGTH} ký tự.`),
+      { status: 400 },
+    );
+  }
 
   if (nextStatus) {
     payload.status = nextStatus;
