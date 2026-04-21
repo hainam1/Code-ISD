@@ -9,6 +9,8 @@ import styles from '@/shared/components/admin/AdminDashboard.module.css';
 import { ADMIN_ROUTES } from '@/lib/constants/routes';
 import { getSession } from '@/features/auth/api/authApi';
 
+const MAX_ADMIN_EVALUATION_NOTE_LENGTH = 500;
+
 function EvaluationIcon() {
   return (
     <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -112,6 +114,15 @@ export default function CandidateEvaluationPage() {
     setIsSubmitting(true);
     setFeedback('');
 
+    const trimmedNote = note.trim();
+
+    if (trimmedNote.length > MAX_ADMIN_EVALUATION_NOTE_LENGTH) {
+      setFeedback(`Đánh giá chi tiết của admin không được vượt quá ${MAX_ADMIN_EVALUATION_NOTE_LENGTH} ký tự.`);
+      setFeedbackTone('error');
+      setIsSubmitting(false);
+      return;
+    }
+
     try {
       const response = await fetch(`/api/admin/candidates/${params.candidateId}`, {
         method: 'PATCH',
@@ -120,7 +131,7 @@ export default function CandidateEvaluationPage() {
         },
         body: JSON.stringify({
           status: decision,
-          note,
+          note: trimmedNote,
           fitLevel,
           updatedBy: session?.user?.id || 'admin-internal',
         }),

@@ -14,12 +14,12 @@ export async function GET(_request, { params }) {
 
     return NextResponse.json(
       { candidate },
-      { headers: { 'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate' } }
+      { headers: { 'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate' } },
     );
   } catch (error) {
     return NextResponse.json(
       { message: 'Không thể tải thông tin ứng viên.', error: String(error) },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
@@ -36,8 +36,8 @@ export async function PATCH(request, { params }) {
     return NextResponse.json({ message: 'Cập nhật ứng viên thành công.', candidate });
   } catch (error) {
     return NextResponse.json(
-      { message: 'Không thể cập nhật ứng viên.', error: String(error) },
-      { status: 500 }
+      { message: error?.message || 'Không thể cập nhật ứng viên.' },
+      { status: Number(error?.status || 500) },
     );
   }
 }
